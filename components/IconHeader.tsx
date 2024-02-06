@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 
 function IconHeader() {
   return (
-    <Box sx={{ marginLeft: 'auto', display: 'flex', gap: 2 }}>
+    <Box sx={{ marginLeft: 'auto', display: 'flex', gap: 2  ,   alignItems : 'center' }}>
       <Link href="/search" color="inherit" underline="none">
         {' '}
         <SearchOutlinedIcon />

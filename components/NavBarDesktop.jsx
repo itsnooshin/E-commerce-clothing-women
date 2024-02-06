@@ -23,10 +23,6 @@ const StyledAppBar = styled(AppBar)({
   display: 'flex',
 });
 
-const ListItems = styled(List)({
-  color: '#000000',
-});
-
 const NavBarDesktop = () => {
   return (
     <>
@@ -36,6 +32,7 @@ const NavBarDesktop = () => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            p: (theme) => theme.spacing(2, 2),
           }}
         >
           <Box>
@@ -46,7 +43,7 @@ const NavBarDesktop = () => {
             <List
               sx={{
                 display: 'flex',
-                gap: 6,
+                gap: { xs: 2, sm: 3, md: 4, lg: 6 },
               }}
             >
               <ListItemText primary="Collection" />

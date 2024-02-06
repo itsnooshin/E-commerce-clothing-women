@@ -5,7 +5,7 @@ import NavBarMobile from './NavBarMobile';
 
 export default function NavBar() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const matches = useMediaQuery('(max-width:991px)');
 
   return <>{matches ? <NavBarMobile /> : <NavBarDesktop />}</>;
 }
