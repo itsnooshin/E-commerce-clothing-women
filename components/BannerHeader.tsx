@@ -1,10 +1,21 @@
+import { Typography } from '@mui/material';
+
+
 function BannerHeader() {
   return (
-    <div>
-      <p className=" bg-green-color text-white text-center font-[600] text-[0.9rem] py-1">
-        Enjoy Free Shipping On All Orders
-      </p>
-    </div>
+    <Typography
+      textAlign="center"
+      sx={{
+        fontWeight: '600',
+        letterSpacing: '2px',
+        fontSize: '14px',
+        p: (theme) => theme.spacing(0.6, 0.6),
+      }}
+      bgcolor="background.paper"
+      color="text.secondary"
+    >
+      Enjoy Free Shipping On All Orders
+    </Typography>
   );
 }
 

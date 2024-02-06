@@ -1,15 +1,18 @@
 // import Image from 'next/image';
-import NavPage from '@/components/NavPage';
+'use client';
 
-import IconHeader from '@/components/IconHeader';
+import NavBar from '@/components/NavBar';
+import BannerHeader from '@/components/BannerHeader';
+import { AppBar, Container, Toolbar } from '@mui/material';
 
 export default function Home() {
   return (
-    <main>
-      <div>
-        <NavPage />
-      </div>
-    </main>
+    <>
+      <BannerHeader />
+      <Container maxWidth="xl">
+        <NavBar />
+      </Container>
+    </>
   );
 }
 

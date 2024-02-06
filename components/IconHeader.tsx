@@ -2,24 +2,29 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import Link from 'next/link';
+import Link from '@mui/material/Link';
+import { Box } from '@mui/material';
 
 function IconHeader() {
   return (
-    <div className="flex gap-5">
-      <Link href="/search">
+    <Box sx={{ marginLeft: 'auto', display: 'flex', gap: 2 }}>
+      <Link href="/search" color="inherit" underline="none">
+        {' '}
         <SearchOutlinedIcon />
       </Link>
-      <Link href="/login">
+      <Link href="/search" color="inherit" underline="none">
+        {' '}
         <PersonOutlineOutlinedIcon />
       </Link>
-      <Link href="/wishlist">
+      <Link href="/search" color="inherit" underline="none">
+        {' '}
         <FavoriteBorderOutlinedIcon />
       </Link>
-      <Link href="">
+      <Link href="/search" color="inherit" underline="none">
+        {' '}
         <ShoppingBagOutlinedIcon />
       </Link>
-    </div>
+    </Box>
   );
 }
 
