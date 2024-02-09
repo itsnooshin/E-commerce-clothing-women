@@ -1,5 +1,4 @@
 import './globals.css';
-
 import ThemeRegistry from '@/theme/ThemRegistery';
 
 export const metadata = {

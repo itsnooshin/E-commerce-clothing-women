@@ -10,6 +10,14 @@ import Logo from '../public/Logo.png';
 import IconHeader from './IconHeader';
 import BannerHeader from './BannerHeader';
 
+const options = [
+  'Collection',
+  'New In',
+  'Modiweek',
+  'Plus Size',
+  'Sustainability',
+];
+
 const NavBarDesktop = () => {
   return (
     <>
@@ -19,7 +27,6 @@ const NavBarDesktop = () => {
           backgroundColor: '#ffff',
           boxShadow: 'none',
           color: '#404040',
-          padding: '0px',
         }}
       >
         <BannerHeader />
@@ -28,10 +35,10 @@ const NavBarDesktop = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginLeft: '60px',
-            marginRight: '60px',
-            paddingTop : '10px',
-            paddingBottom :'10px'
+            ml: '60px',
+            mr: '60px',
+            pt: '10px',
+            pb: '10px',
           }}
         >
           <Box>
@@ -45,11 +52,9 @@ const NavBarDesktop = () => {
                 gap: { xs: 2, sm: 3, md: 4, lg: 6 },
               }}
             >
-              <ListItemText primary="Collection" />
-              <ListItemText primary="New In" />
-              <ListItemText primary="Modiweek" />
-              <ListItemText primary="Plus Size" />
-              <ListItemText primary="Sustainability" />
+              {options.map((option) => (
+                <ListItemText primary={option} key={option} />
+              ))}
             </List>
           </Box>
           <Box>
@@ -57,8 +62,6 @@ const NavBarDesktop = () => {
           </Box>
         </Toolbar>
       </AppBar>
-
-      {/* add background */}
     </>
   );
 };
