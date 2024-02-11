@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import HeroImage from '../public/hero-desktop.jpeg';
 import { Box } from '@mui/material';
-import HeroMobile from '../public/Hero-mobile.png';
+
 
 function HeroSection() {
   const theme = useTheme();
