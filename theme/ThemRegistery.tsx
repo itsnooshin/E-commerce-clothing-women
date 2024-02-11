@@ -1,15 +1,27 @@
 'use client';
-import React from 'react';
-
+import localFont from 'next/font/local';
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
-
 import { CssBaseline } from '@mui/material';
-
 import { Montserrat } from 'next/font/google';
+import { Caveat } from 'next/font/google';
+
+const localFnt = localFont({
+  src: [
+    {
+      path: '../src/app/fonts/Gill-Sans-MT-Italic.ttf',
+    },
+  ],
+});
 
 const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
+  display: 'swap',
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['500'],
   display: 'swap',
 });
 
@@ -19,10 +31,6 @@ const themeOptions: ThemeOptions = {
       paper: '#5A6D57',
       default: '#ffff',
     },
-
-    // primary: {
-    //   main: '#0C0C0C',
-    // },
     text: {
       primary: '#0C0C0C',
       secondary: '#fff',
@@ -38,6 +46,16 @@ const themeOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: montserrat.style.fontFamily,
+    h4: {
+      fontFamily: caveat.style.fontFamily,
+      lineHeight: 1.75,
+      fontSize: '2.4rem',
+    },
+    h5: {
+      fontFamily: caveat.style.fontFamily,
+      lineHeight: 1.75,
+      fontSize: '1.6rem',
+    },
   },
 
   components: {
@@ -47,7 +65,6 @@ const themeOptions: ThemeOptions = {
         disableElevation: false,
         disableFocusRipple: true,
       },
-      
     },
   },
 };

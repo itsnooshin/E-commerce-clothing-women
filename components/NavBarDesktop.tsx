@@ -34,9 +34,7 @@ const NavBarDesktop = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            ml: '60px',
-            mr: '60px',
+            justifyContent: 'space-around',
             pt: '10px',
             pb: '10px',
           }}
@@ -49,7 +47,9 @@ const NavBarDesktop = () => {
             <List
               sx={{
                 display: 'flex',
-                gap: { xs: 2, sm: 3, md: 4, lg: 6 },
+                gap: { md: '24px' },
+                pt: 0,
+                pb: 0,
               }}
             >
               {options.map((option) => (
