@@ -1,11 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    images :{
-        formats :[]
-    }
-
-
-    
+const nextConfig = {    
 };
 
 export default nextConfig;
