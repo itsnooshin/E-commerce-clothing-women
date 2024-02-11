@@ -1,11 +1,11 @@
-'use client';
-
 import NavBar from '@/components/NavBar';
 
-export default function Login() {
+const page = () => {
   return (
     <>
       <NavBar />
     </>
   );
-}
+};
+
+export default page;

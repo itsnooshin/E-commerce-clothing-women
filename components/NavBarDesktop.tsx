@@ -1,14 +1,11 @@
-import { AppBar } from '@mui/material';
+'use client';
 import { List } from '@mui/material';
 import { ListItemText } from '@mui/material';
-import { Toolbar } from '@mui/material';
 import { Box } from '@mui/material';
 import Link from 'next/link';
-import React from 'react';
-import Image from 'next/image';
-import Logo from '../public/Logo.png';
-import IconHeader from './IconHeader';
-import BannerHeader from './BannerHeader';
+// import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { ListItem } from '@mui/material';
 
 const options = [
   'Collection',
@@ -18,52 +15,38 @@ const options = [
   'Sustainability',
 ];
 
-const NavBarDesktop = () => {
+function NavBarDesktop() {
+  const pathName = usePathname();
+
   return (
     <>
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: '#ffff',
-          boxShadow: 'none',
-          color: '#404040',
-        }}
-      >
-        <BannerHeader />
-        <Toolbar
+      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+        <List
           sx={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            pt: '10px',
-            pb: '10px',
+            gap: { md: '24px' },
+            pt: 0,
+            pb: 0,
           }}
         >
-          <Box>
-            <Image src={Logo} alt="Logo for page" width={184} height={46} />
-          </Box>
-
-          <Box>
-            <List
-              sx={{
-                display: 'flex',
-                gap: { md: '24px' },
-                pt: 0,
-                pb: 0,
-              }}
-            >
-              {options.map((option) => (
-                <ListItemText primary={option} key={option} />
-              ))}
-            </List>
-          </Box>
-          <Box>
-            <IconHeader />
-          </Box>
-        </Toolbar>
-      </AppBar>
+          {options.map((option) => {
+            const hrefLink = option.toLowerCase().replace(/\s+/g, '-');
+            const isActive = pathName.startsWith(`/${hrefLink}`);
+            return (
+              <Link href={hrefLink}>
+                <ListItem>
+                  <ListItemText
+                    primary={option}
+                    sx={{ color: isActive ? '#5A6D57' : 'inherit' }}
+                  />
+                </ListItem>
+              </Link>
+            );
+          })}
+        </List>
+      </Box>
     </>
   );
-};
+}
 
 export default NavBarDesktop;

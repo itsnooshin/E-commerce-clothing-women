@@ -59,6 +59,18 @@ const themeOptions: ThemeOptions = {
   },
 
   components: {
+    MuiLink: {
+      defaultProps: {
+        underline: 'none',
+      },
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+          
+        },
+        
+      },
+    },
     MuiButton: {
       defaultProps: {
         disableRipple: true,

@@ -7,20 +7,20 @@ import { Box } from '@mui/material';
 
 function IconHeader() {
   return (
-    <Box sx={{ marginLeft: 'auto', display: 'flex', gap: {xs : 1 ,md :2 , } ,    }}>
+    <Box sx={{ marginLeft: 'auto', display: 'flex', gap: { xs: 1, md: 2 } }}>
       <Link href="/search" color="inherit" underline="none">
         {' '}
         <SearchOutlinedIcon />
       </Link>
-      <Link href="/search" color="inherit" underline="none">
+      <Link href="/login" color="inherit" underline="none">
         {' '}
         <PersonOutlineOutlinedIcon />
       </Link>
-      <Link href="/search" color="inherit" underline="none">
+      <Link href="/wishlist" color="inherit" underline="none">
         {' '}
         <FavoriteBorderOutlinedIcon />
       </Link>
-      <Link href="/search" color="inherit" underline="none">
+      <Link href="/cart" color="inherit" underline="none">
         {' '}
         <ShoppingBagOutlinedIcon />
       </Link>

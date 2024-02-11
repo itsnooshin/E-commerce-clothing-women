@@ -12,33 +12,10 @@ import BannerHeader from './BannerHeader';
 
 const NavBarMobile = () => {
   return (
-    <AppBar
-      position="sticky"
-      sx={{ backgroundColor: '#fff', boxShadow: 'none' }}
-    >
-      <BannerHeader />
-      <Toolbar
-        sx={{
-          color: '#000000',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          p: 1,
-        }}
-      >
-        <Box sx={{ display: 'flex', gap: '9px' }}>
-          <MenuOutlinedIcon />
-          <SearchIcon />
-        </Box>
-        <Box>
-          <Image alt="Logo for shop" src={Logo} width={139} height={40} />
-        </Box>
-        <Box sx={{ display: 'flex', gap: '9px' }}>
-          <FavoriteBorderOutlinedIcon />
-          <ShoppingBagOutlinedIcon />
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
+      <FavoriteBorderOutlinedIcon />
+      <ShoppingBagOutlinedIcon />
+    </Box>
   );
 };
 

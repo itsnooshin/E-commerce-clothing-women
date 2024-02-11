@@ -3,7 +3,9 @@ import { Typography } from '@mui/material';
 
 const BestSellers = () => {
   return <Box>
-    
+    <Typography>
+      Best Sellers
+    </Typography>
   </Box>;
 };
 
