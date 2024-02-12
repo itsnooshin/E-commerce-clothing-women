@@ -33,7 +33,7 @@ function NavBarDesktop() {
             const hrefLink = option.toLowerCase().replace(/\s+/g, '-');
             const isActive = pathName.startsWith(`/${hrefLink}`);
             return (
-              <Link href={hrefLink}>
+              <Link href={hrefLink} key={option}>
                 <ListItem>
                   <ListItemText
                     primary={option}

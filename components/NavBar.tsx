@@ -26,12 +26,12 @@ export default function NavBar() {
           color: '#404040',
         }}
       >
-        <BannerHeader />
+        
         <Toolbar
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-around',
+            justifyContent: {xs : 'space-between' , md : 'space-around'},
             pt: '10px',
             pb: '10px',
           }}
