@@ -16,3 +16,18 @@ a {
   text-decoration: none;
   color: #404040;
 }
+
+.swiper-pagination {
+  --swiper-pagination-color: #adadad;
+}
+.swiper-pagination {
+  position: absolute;
+  bottom: 30%; /* Adjust as needed */
+  left: 0;
+  right: 0;
+  text-align: left;
+}
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #5A6D57;
+  
+}

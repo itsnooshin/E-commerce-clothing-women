@@ -13,9 +13,10 @@ export default function Home() {
       <BannerHeader />
       <NavBar />
       <HeroSection />
-      <Container>
-        <BestSellers />
-      </Container>
+
+      <BestSellers />
+     
+    
     </>
   );
 }

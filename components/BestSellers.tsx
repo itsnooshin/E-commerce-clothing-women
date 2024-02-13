@@ -1,10 +1,18 @@
 'use client';
-import { Box, Grid } from '@mui/material';
-import { Typography, Container } from '@mui/material';
+import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Typography, Container, Skeleton, Avatar } from '@mui/material';
 import supabase from '@/src/app/utilits/supabase';
 import { useEffect, useState } from 'react';
 import { getImages } from '@/src/app/utilits/apImages';
 import Image from 'next/image';
+import SkeletonData from './SkeletonData';
+import GridSkeletonData from './GridSkeletonData';
+import BestSellerHeader from './BestSellerHeader';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css/pagination';
+import 'swiper/css';
 
 type ProductData = {
   id: string;
@@ -16,73 +24,136 @@ type ProductData = {
 };
 
 const BestSellers = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [dataBestSellers, setDataBestSellers] = useState<ProductData[] | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    getImages().then((data) => {
-      setDataBestSellers(data);
-    });
+    setIsLoading(true);
+    getImages()
+      .then((data) => {
+        setDataBestSellers(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
-  console.log(dataBestSellers);
+  console.log(dataBestSellers?.length);
+
+  const SkeletonCount = (isLoading && dataBestSellers?.length) || 3;
+
   return (
-    <Box>
-      <p>Best Sellers</p>
-      {/* 
-      <Grid container spacing={6} >
-        <Grid item xs={6} sm={4} sx={{ bgcolor: 'red' }}>
-          <Typography>x = 8</Typography>
-        </Grid>
-        <Grid item xs={6} sm={4} sx={{ bgcolor: 'blue' }}>
-          <Typography>x = 8</Typography>
-        </Grid>
-        <Grid item xs={6} sm={4} sx={{ bgcolor: 'yellow' }}>
-          <Typography>x = 8</Typography>
-        </Grid>
-      </Grid> */}
-      <Container>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '50px',
-            justifyContent: 'center',
-            mb: '3rem',
-          }}
-        >
-          {/* {dataBestSellers
-            ?.filter((items) => items.product_bestsellere)
-            .map((item) => {
-              console.log(item);
-
-
-              return (
-                
-              )
-            } } */}
-
-          {dataBestSellers
+    <Container>
+      <BestSellerHeader />
+      <Grid container spacing={3}>
+        {isLoading && isMobile ? (
+          Array.from({ length: SkeletonCount }, (_, index) => (
+            <Grid item md={4} xs={6} key={index}>
+              <SkeletonData />
+            </Grid>
+          ))
+        ) : isMobile ? (
+          <Container >
+            <Swiper
+              style={{ paddingBottom: '4rem' }}
+              modules={[Pagination]}
+              spaceBetween={10}
+              slidesPerView={2}
+              onSlideChange={() => console.log('slide change')}
+              onSwiper={(swiper) => console.log(swiper)}
+              pagination={{ clickable: true }}
+            >
+              {dataBestSellers
+                ?.filter((item) => item.product_bestsellere)
+                .map((item) => (
+                  <SwiperSlide>
+                    <Image
+                      src={item.product_img[0]}
+                      style={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: 'auto',
+                      }}
+                      width={500}
+                      height={500}
+                      alt="images for best sellers"
+                    />
+                    <Typography sx={{ fontWeight: '600' }}>
+                      {item.product_name.split(' ').slice(0, 2).join(' ')}
+                    </Typography>
+                    <Typography>
+                      {item.product_name.split(' ').slice(2).join(' ')}
+                    </Typography>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </Container>
+        ) : (
+          dataBestSellers
             ?.filter((item) => item.product_bestsellere)
-            .map((item) => {
-              console.log(item.procuct_price, item.product_category);
+            .slice(0, 3)
+            .map((item, index) => (
+              <Grid
+                item
+                md={4}
+                xs={6}
+                key={index}
+                sx={{ rowGap: '17rem', mb: { xs: '5rem' } }}
+              >
+                <Image
+                  src={item.product_img[0]}
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  width={500}
+                  height={500}
+                  alt="images for best sellers"
+                />
 
-              return (
-                <Box key={item.id}>
-                  <Image
-                    width={500}
-                    height={500}
-                    src={item.product_img[0]}
-                    alt="image"
-                    style={{ objectFit: 'cover', width: '100%' }}
-                  />
-                  <Typography sx={{fontWeight : item.product_name.length > 17 ? '400' : '700'}}>{item.product_name} </Typography>
-                  <span>{item.procuct_price}</span>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    p: '6px',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '3px',
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: '700' }}>
+                      {item.product_name.split(' ').slice(0, 2).join(' ')}
+                    </Typography>
+                    <Typography>
+                      {item.product_name.split(' ').slice(2).join(' ')}
+                    </Typography>
+                    <Typography>T</Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography sx={{ fontWeight: '700' }}>
+                      ${item.procuct_price}
+                    </Typography>
+                  </Box>
                 </Box>
-              );
-            })}
-        </Box>
-      </Container>
-    </Box>
+              </Grid>
+            ))
+        )}
+      </Grid>
+    </Container>
   );
 };
 
