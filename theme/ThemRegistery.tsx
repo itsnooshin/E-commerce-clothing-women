@@ -54,7 +54,7 @@ const themeOptions: ThemeOptions = {
     h5: {
       fontFamily: caveat.style.fontFamily,
       lineHeight: 1.75,
-      fontSize: '1.6rem',
+      fontSize: `1.6rem`,
     },
   },
 

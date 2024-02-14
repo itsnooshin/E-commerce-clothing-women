@@ -47,54 +47,68 @@ const BestSellers = () => {
 
   console.log(dataBestSellers?.length);
 
-  const SkeletonCount = (isLoading && dataBestSellers?.length) || 3;
+  const SkeletonCount = (isLoading ? 2 : dataBestSellers?.length) || 0;
 
   return (
     <Container>
       <BestSellerHeader />
-      <Grid container spacing={3}>
+      <Grid container spacing={{ lg: 2 }}>
         {isLoading && isMobile ? (
-          Array.from({ length: SkeletonCount }, (_, index) => (
-            <Grid item md={4} xs={6} key={index}>
-              <SkeletonData />
-            </Grid>
-          ))
+          <Grid container spacing={{ xs: 2 }} item xs={12}>
+            {Array.from({ length: SkeletonCount }, (_, index) => (
+              <Grid item md={4} xs={6} key={index}>
+                <SkeletonData />
+              </Grid>
+            ))}
+          </Grid>
         ) : isMobile ? (
-          <Container >
-            <Swiper
-              style={{ paddingBottom: '4rem' }}
-              modules={[Pagination]}
-              spaceBetween={10}
-              slidesPerView={2}
-              onSlideChange={() => console.log('slide change')}
-              onSwiper={(swiper) => console.log(swiper)}
-              pagination={{ clickable: true }}
-            >
-              {dataBestSellers
-                ?.filter((item) => item.product_bestsellere)
-                .map((item) => (
-                  <SwiperSlide>
-                    <Image
-                      src={item.product_img[0]}
-                      style={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: 'auto',
-                      }}
-                      width={500}
-                      height={500}
-                      alt="images for best sellers"
-                    />
+          <Swiper
+            style={{ paddingBottom: '4rem' }}
+            modules={[Pagination]}
+            spaceBetween={20}
+            slidesPerView={2}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+            pagination={{ clickable: true }}
+          >
+            {dataBestSellers
+              ?.filter((item) => item.product_bestsellere)
+              .map((item) => (
+                <SwiperSlide>
+                  <Image
+                    src={item.product_img[0]}
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: 'auto',
+                    }}
+                    width={500}
+                    height={500}
+                    alt="images for best sellers"
+                  />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      p: '0.7rem',
+                      gap:'4px'
+                    }}
+                  >
                     <Typography sx={{ fontWeight: '600' }}>
                       {item.product_name.split(' ').slice(0, 2).join(' ')}
                     </Typography>
                     <Typography>
                       {item.product_name.split(' ').slice(2).join(' ')}
                     </Typography>
-                  </SwiperSlide>
-                ))}
-            </Swiper>
-          </Container>
+
+                    <Typography sx={{ fontWeight: '600' }}>
+                      ${item.procuct_price}
+                    </Typography>
+                    <Typography>colors</Typography>
+                  </Box>
+                </SwiperSlide>
+              ))}
+          </Swiper>
         ) : (
           dataBestSellers
             ?.filter((item) => item.product_bestsellere)
@@ -105,7 +119,7 @@ const BestSellers = () => {
                 md={4}
                 xs={6}
                 key={index}
-                sx={{ rowGap: '17rem', mb: { xs: '5rem' } }}
+                sx={{ rowGap: '17rem', mb: { xs: '3rem' } }}
               >
                 <Image
                   src={item.product_img[0]}

@@ -16,11 +16,11 @@ function BestSellerHeader() {
         fontWeight="600"
         fontFamily="inherit"
         gutterBottom
-        xs={{ fontSize: { xs: '1rem', sm: '1.5rem', md: '2.125rem' } }}
+        xs={{ fontSize: { xs: '0.5rem', sm: '1.5rem', md: '2.125rem' } }}
       >
         Best Sellers
       </Typography>
-      <Typography color="#5A6D57">View all</Typography>
+      <Typography color="#5A6D57"   >View all</Typography>
     </Box>
   );
 }
