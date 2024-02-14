@@ -5,6 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import BestSellers from '@/components/BestSellers';
 import BannerHeader from '@/components/BannerHeader';
 import Collection from '@/components/Collection';
+import MoodiWeek from '@/components/MoodiWeek';
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <HeroSection />
       <BestSellers />
       <Collection />
-      <div style={{ paddingTop: '40rem' }}>hhh</div>
+      <MoodiWeek />
     </>
   );
 }
