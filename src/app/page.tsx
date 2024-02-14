@@ -14,6 +14,7 @@ export default function Home() {
       <HeroSection />
       <BestSellers />
       <Collection />
+      <div style={{ paddingTop: '40rem' }}>hhh</div>
     </>
   );
 }
