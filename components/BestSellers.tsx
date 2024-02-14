@@ -36,6 +36,7 @@ const BestSellers = () => {
     getImages()
       .then((data) => {
         setDataBestSellers(data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -47,13 +48,13 @@ const BestSellers = () => {
 
   console.log(dataBestSellers?.length);
 
-  const SkeletonCount = (isLoading ? 2 : dataBestSellers?.length) || 0;
+  const SkeletonCount = isLoading && isMobile ? 2 : 3;
 
   return (
     <Container>
       <BestSellerHeader />
       <Grid container spacing={{ lg: 2 }}>
-        {isLoading && isMobile ? (
+        {isLoading ? (
           <Grid container spacing={{ xs: 2 }} item xs={12}>
             {Array.from({ length: SkeletonCount }, (_, index) => (
               <Grid item md={4} xs={6} key={index}>
@@ -91,7 +92,7 @@ const BestSellers = () => {
                       display: 'flex',
                       flexDirection: 'column',
                       p: '0.7rem',
-                      gap:'4px'
+                      gap: '4px',
                     }}
                   >
                     <Typography sx={{ fontWeight: '600' }}>
