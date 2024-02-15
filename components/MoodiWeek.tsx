@@ -13,7 +13,7 @@ import sat from '../public/modiweek/6.webp';
 import sun from '../public/modiweek/massimo dutti satin skirt.jpg';
 import 'swiper/css/pagination';
 import 'swiper/css';
-
+import { useTheme, useMediaQuery } from '@mui/material';
 const ImageWeek = [
   {
     imageSrc: mon,
@@ -45,9 +45,10 @@ const ImageWeek = [
   },
 ];
 
-// ye  seri data hastan
-
 function MoodiWeek() {
+
+ 
+
   return (
     <Container>
       <Box sx={{ mt: '6rem', mb: '1.5rem' }}>
@@ -55,41 +56,43 @@ function MoodiWeek() {
           ModiWeek
         </Typography>
       </Box>
-      <Grid>
-        <Grid item md={12} xs={12}>
-          <Swiper
-           autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-            modules={[Pagination , Autoplay]}
-            style={{ paddingBottom: '4rem', right: '10px' }}
-            spaceBetween={60}
-            slidesPerView={4}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
-            pagination={{ clickable: true }}
-          >
-            {ImageWeek.map((items, index) => (
-              <SwiperSlide key={index}>
-                <>
-                  <Image
-                    key={index}
-                    width={290}
-                    height={400}
-                    src={items.imageSrc}
-                    alt=" group imsgsrd"
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <Typography sx={{ paddingTop: '1rem' }} fontWeight="600">
-                    {items.imageWeek}
-                  </Typography>
-                </>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Grid>
-      </Grid>
+
+      <Swiper
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        style={{ paddingBottom: '4rem', right: '10px' }}
+        spaceBetween={10}
+        breakpoints={{
+          0: { slidesPerView: 2 },
+          640: { slidesPerView: 4 },
+          1024: { slidesPerView: 4 },
+        }}
+        slidesPerView={2}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}
+        pagination={{ clickable: true }}
+        modules={[Pagination]}
+      >
+        {ImageWeek.map((items, index) => (
+          <SwiperSlide key={index}>
+            <>
+              <Image
+                key={index}
+                width={400}
+                height={400}
+                src={items.imageSrc}
+                alt=" group imsgsrd"
+                style={{ objectFit: 'cover', width :'100%'  }}
+              />
+              <Typography sx={{ paddingTop: '1rem' }} fontWeight="600">
+                {items.imageWeek}
+              </Typography>
+            </>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Container>
   );
 }
