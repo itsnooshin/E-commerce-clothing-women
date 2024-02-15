@@ -20,18 +20,18 @@ export default function NavBar() {
     <>
       <AppBar
         position="sticky"
+        
         sx={{
           backgroundColor: '#ffff',
-          boxShadow: 'none',
+          
           color: '#404040',
         }}
       >
-        
         <Toolbar
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: {xs : 'space-between' , md : 'space-around'},
+            justifyContent: { xs: 'space-between', md: 'space-around' },
             pt: '10px',
             pb: '10px',
           }}
