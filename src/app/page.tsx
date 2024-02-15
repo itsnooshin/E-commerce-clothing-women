@@ -7,6 +7,7 @@ import BannerHeader from '@/components/BannerHeader';
 import Collection from '@/components/Collection';
 import MoodiWeek from '@/components/MoodiWeek';
 import Sustainability from '@/components/Sustainability';
+import FollowUs from '@/components/FollowUs';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Collection />
       <MoodiWeek />
       <Sustainability />
+      <FollowUs />
     </>
   );
 }
