@@ -25,7 +25,7 @@ type ProductData = {
 
 const BestSellers = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [dataBestSellers, setDataBestSellers] = useState<ProductData[] | null>(
     null
@@ -53,7 +53,7 @@ const BestSellers = () => {
   return (
     <Container>
       <BestSellerHeader />
-      <Grid container spacing={{ lg: 2 }}>
+      <Grid container spacing={{ lg: 2 , md : 2 }}>
         {isLoading ? (
           <Grid container spacing={{ xs: 2 }} item xs={12}>
             {Array.from({ length: SkeletonCount }, (_, index) => (
