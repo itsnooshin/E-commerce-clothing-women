@@ -43,7 +43,7 @@ function FollowUs() {
   const images = isMobile ? ImageData.slice(0, 4) : ImageData;
 
   return (
-    <Container>
+    <Container sx={{pb :'5rem'}}>
       <Box sx={{ mt: '6rem', mb: '1.5rem' }}>
         <Typography variant="h5" fontWeight="600" fontFamily="inherit">
           Follow us @modimal

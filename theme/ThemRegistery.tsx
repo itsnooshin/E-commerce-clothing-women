@@ -27,6 +27,9 @@ const caveat = Caveat({
 
 const themeOptions: ThemeOptions = {
   palette: {
+    primary: {
+      main: '#ffff',
+    },
     background: {
       paper: '#5A6D57',
       default: '#ffff',
@@ -59,6 +62,38 @@ const themeOptions: ThemeOptions = {
   },
 
   components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'transparent',
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#ffff',
+            },
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: '12px',
+        },
+        root: {
+          borderRadius: 0,
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          '&::placeholder': {
+            color: '#D1D9CF',
+            opacity: 1,
+          },
+        },
+      },
+    },
     MuiLink: {
       defaultProps: {
         underline: 'none',
@@ -66,9 +101,7 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           color: 'inherit',
-          
         },
-        
       },
     },
     MuiButton: {
@@ -77,7 +110,6 @@ const themeOptions: ThemeOptions = {
         disableElevation: false,
         disableFocusRipple: true,
       },
-    
     },
   },
 };

@@ -8,6 +8,7 @@ import Collection from '@/components/Collection';
 import MoodiWeek from '@/components/MoodiWeek';
 import Sustainability from '@/components/Sustainability';
 import FollowUs from '@/components/FollowUs';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <MoodiWeek />
       <Sustainability />
       <FollowUs />
+      <Footer />
     </>
   );
 }
