@@ -6,6 +6,7 @@ import Link from 'next/link';
 // import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { ListItem } from '@mui/material';
+import { useState } from 'react';
 
 const options = [
   'Collection',
@@ -17,10 +18,11 @@ const options = [
 
 function NavBarDesktop() {
   const pathName = usePathname();
+  const [isHoverd, setIsHovered] = useState(false);
 
   return (
     <>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+      <Box sx={{ display: { xs: 'none',  md : 'flex'} }}>
         <List
           sx={{
             display: 'flex',
@@ -33,7 +35,12 @@ function NavBarDesktop() {
             const hrefLink = option.toLowerCase().replace(/\s+/g, '-');
             const isActive = pathName.startsWith(`/${hrefLink}`);
             return (
-              <Link href={hrefLink} key={option}>
+              <Link
+                href={hrefLink}
+                key={option}
+                onMouseOver={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
                 <ListItem>
                   <ListItemText
                     primary={option}
@@ -43,8 +50,11 @@ function NavBarDesktop() {
               </Link>
             );
           })}
+        
         </List>
       </Box>
+  
+     
     </>
   );
 }

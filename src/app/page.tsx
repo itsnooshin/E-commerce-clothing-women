@@ -15,13 +15,15 @@ export default function Home() {
     <>
       <BannerHeader />
       <NavBar />
-      <HeroSection />
-      <BestSellers />
-      <Collection />
-      <MoodiWeek />
-      <Sustainability />
-      <FollowUs />
-      <Footer />
+      <main  id='main-content'>
+        <HeroSection />
+        <BestSellers />
+        <Collection />
+        <MoodiWeek />
+        <Sustainability />
+        <FollowUs />
+        <Footer />
+      </main>
     </>
   );
 }
