@@ -22,37 +22,40 @@ function NavBarDesktop() {
 
   return (
     <>
-      <Box sx={{ display: { xs: 'none',  md : 'flex'} }}>
-        <List
-          sx={{
-            display: 'flex',
-            gap: { md: '24px' },
-            pt: 0,
-            pb: 0,
-          }}
-        >
-          {options.map((option) => {
-            const hrefLink = option.toLowerCase().replace(/\s+/g, '-');
-            const isActive = pathName.startsWith(`/${hrefLink}`);
-            return (
-              <Link
-                href={hrefLink}
-                key={option}
-                onMouseOver={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <ListItem>
-                  <ListItemText
-                    primary={option}
-                    sx={{ color: isActive ? '#5A6D57' : 'inherit' }}
-                  />
-                </ListItem>
-              </Link>
-            );
-          })}
-        
-        </List>
-      </Box>
+  
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <List
+              sx={{
+                display: 'flex',
+                gap: { md: '24px' },
+                pt: 0,
+                pb: 0,
+              }}
+            >
+              {options.map((option, index) => {
+                return (
+                  <Link
+                    href={`/${hrefLink[index]}`}
+                    key={option.name}
+                    onMouseOver={() => setIsHovered(option.name)}
+                  >
+                    <ListItem
+                      sx={{
+                        '&:hover': {
+                          '.MuiListItemText-primary': { color: 'red' },
+                        },
+                      }}
+                    >
+                      <ListItemText
+                        primary={option.name}
+                        sx={{ color: isActive ? 'red' : 'inherit' }}
+                      />
+                    </ListItem>
+                  </Link>
+                );
+              })}
+            </List>
+          </Box>
   
      
     </>

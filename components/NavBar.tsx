@@ -1,25 +1,17 @@
 'use client';
-
-import { Container, Grid, List, Toolbar, Typography } from '@mui/material';
+import { Toolbar } from '@mui/material';
 import { AppBar } from '@mui/material';
-
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Logo from '../public/Logo.png';
-import LogoMobile from '../public/Logo-mobile.png';
 import IconHeader from './IconHeader';
-import BannerHeader from './BannerHeader';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import NavBarMobile from './NavBarMobile';
-import NavBarDesktop from './NavBarDesktop';
-
-import { ListItemText } from '@mui/material';
 import { Box } from '@mui/material';
-import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { ListItem } from '@mui/material';
+import LogoWebsite from '@/components/LogoWebsite';
+import LogoMobileWebsite from '@/components/LogoMobileWebsite';
+import DesktopMenu from './DesktopMenu';
+import HoverMenuDesktop from './HoverMenuDesktop';
 
 // if images.lengt 2 xs = 4 but if its 3 pict xs 2
 const options = [
@@ -81,10 +73,10 @@ const options = [
     ],
     nameCat: 'Category',
     nameFeat: 'Trending ',
-    imageData : [
-      'https://static.zara.net/photos///2023/I/0/1/p/9313/726/401/2/w/563/9313726401_1_1_1.jpg?ts=1700736921216' ,
-      'https://static.zara.net/photos///2024/V/0/1/p/4387/096/390/17/w/750/4387096390_1_1_1.jpg?ts=1707923925845'
-    ]
+    imageData: [
+      'https://static.zara.net/photos///2023/I/0/1/p/9313/726/401/2/w/563/9313726401_1_1_1.jpg?ts=1700736921216',
+      'https://static.zara.net/photos///2024/V/0/1/p/4387/096/390/17/w/750/4387096390_1_1_1.jpg?ts=1707923925845',
+    ],
   },
   {
     name: 'Plus Size',
@@ -130,7 +122,6 @@ export default function NavBar() {
   const hrefLink = options.map((option) =>
     option.name.toLowerCase().replace(/\s+/g, '-')
   );
-
   const isActive = pathName.startsWith(`/${hrefLink}`);
 
   useEffect(() => {
@@ -159,214 +150,32 @@ export default function NavBar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: { xs: 'space-between', md: 'space-around' },
-            pt: '10px',
-            pb: '10px',
+            p: '10px 0',
           }}
         >
-          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-            <Link href="/">
-              <Image src={Logo} alt="Logo for page" width={184} height={46} />
-            </Link>
-          </Box>
+          <LogoWebsite />
+
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
             <MenuOutlinedIcon />
             <SearchIcon />
           </Box>
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <List
-              sx={{
-                display: 'flex',
-                gap: { md: '24px' },
-                pt: 0,
-                pb: 0,
-              }}
-            >
-              {options.map((option, index) => {
-                return (
-                  <Link
-                    href={`/${hrefLink[index]}`}
-                    key={option.name}
-                    onMouseOver={() => setIsHovered(option.name)}
-                  >
-                    <ListItem
-                      sx={{
-                        '&:hover': {
-                          '.MuiListItemText-primary': { color: 'red' },
-                        },
-                      }}
-                    >
-                      <ListItemText
-                        primary={option.name}
-                        sx={{ color: isActive ? 'red' : 'inherit' }}
-                      />
-                    </ListItem>
-                  </Link>
-                );
-              })}
-            </List>
-          </Box>
+          <DesktopMenu
+            options={options}
+            isActive={isActive}
+            hrefLink={hrefLink}
+            setIsHovered={setIsHovered}
+          />
 
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <Image
-              alt="Logo for shop"
-              src={LogoMobile}
-              width={138}
-              height={40}
-              quality={100}
-            />
-          </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <LogoMobileWebsite />
+          <Box>
             <IconHeader />
           </Box>
           <NavBarMobile />
         </Toolbar>
       </AppBar>
-      {isHoverd && (
-        <Box
-          sx={{
-            position: 'absolute',
-            // top: '100px',
-            zIndex: '1000',
-            width: '100%',
-            height: '480px',
-            backgroundColor: '#fff',
-          }}
-        >
-          <Container>
-            <Grid container spacing={2} columns={15}>
-              <Grid item md={3} sm={4} xs={2}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
-                  }}
-                >
-                  {options.map(
-                    (items) => isHoverd === items.name && <p>{items.nameCat}</p>
-                  )}
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                >
-                  {options.map((items) =>
-                    items.name === isHoverd
-                      ? items.category?.map((items) => (
-                          <Typography sx={{ color: '#404040' }}>
-                            {items}
-                          </Typography>
-                        ))
-                      : null
-                  )}
-                </Box>
-              </Grid>
-              <Grid item md={2} sm={4} xs={12}>
-                <Box
-                  sx={{
-                    color: '#0C0C0C',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
-                  }}
-                >
-                  {options.map(
-                    (items) =>
-                      isHoverd === items.name && <p>{items.nameFeat}</p>
-                  )}
-                </Box>
 
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                >
-                  {options.map((items) =>
-                    items.name === isHoverd
-                      ? items.featured?.map((items) => (
-                          <Typography sx={{ color: '#404040' }}>
-                            {items}
-                          </Typography>
-                        ))
-                      : null
-                  )}
-                </Box>
-              </Grid>
-              <Grid item md={2} sm={4} xs={12}>
-                <Box
-                  sx={{
-                    color: '#0C0C0C',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
-                  }}
-                >
-                  {options.map(
-                    (items) =>
-                      isHoverd === items.name && <p>{items.nameMore}</p>
-                  )}
-                </Box>
-
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                >
-                  {options.map((items) =>
-                    items.name === isHoverd
-                      ? items.More?.map((items) => (
-                          <Typography sx={{ color: '#404040' }}>
-                            {items}
-                          </Typography>
-                        ))
-                      : null
-                  )}
-                </Box>
-              </Grid>
-
-              {options.map((items) =>
-                isHoverd === items.name && items.imageData?.length === 2
-                  ? items.imageData.map((items) => (
-                      <Grid item xs={4}>
-                        <Box>
-                          <Image
-                            src={items}
-                            alt="jjjj"
-                            width={400}
-                            height={400}
-                            style={{ objectFit: 'cover', width: '100%' }}
-                          />
-                        </Box>
-                      </Grid>
-                    ))
-                  : isHoverd === items.name
-                  ? items.imageData?.map((items, index) => (
-                      <Grid item xs={2.5} key={index}>
-                        <Box>
-                          <Image
-                            src={items}
-                            alt="Display Image"
-                            width={400}
-                            height={400}
-                            style={{ objectFit: 'cover', width: '100%' }}
-                          />
-                        </Box>
-                      </Grid>
-                    ))
-                  : null
-              )}
-            </Grid>
-          </Container>
-        </Box>
-      )}
+      <HoverMenuDesktop isHoverd={isHoverd} options={options} />
     </>
   );
 }

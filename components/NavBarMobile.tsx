@@ -9,13 +9,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import Image from 'next/image';
 import Logo from '../public/Logo-mobile.png';
 import BannerHeader from './BannerHeader';
+import LogoWebsite from './LogoWebsite';
 
 const NavBarMobile = () => {
   return (
-    <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
-      <FavoriteBorderOutlinedIcon />
-      <ShoppingBagOutlinedIcon />
-    </Box>
+    <>
+      <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
+        <FavoriteBorderOutlinedIcon />
+        <ShoppingBagOutlinedIcon />
+      </Box>
+    </>
   );
 };
 
