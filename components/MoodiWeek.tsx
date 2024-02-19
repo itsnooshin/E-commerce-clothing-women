@@ -62,11 +62,16 @@ function MoodiWeek() {
           640: { slidesPerView: 4 },
           1024: { slidesPerView: 4 },
         }}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
         slidesPerView={2}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => swiper}
         pagination={{ clickable: true }}
-        modules={[Pagination]}
+        modules={[Pagination, Autoplay]}
       >
         {ImageWeek.map((items, index) => (
           <SwiperSlide key={index}>

@@ -1,22 +1,21 @@
 import { Box, List, ListItemText, ListItem } from '@mui/material';
 import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 
 interface Option {
-  name: string;
+  name?: string;
 }
 interface DesktopMenu {
   options: Option[];
   isActive: boolean;
   setIsHovered: (hover: string) => void;
+  setIsOpen: (hover: boolean) => void;
   hrefLink: string[];
 }
 
-const DesktopMenu: React.FC<DesktopMenu> = ({
-  options,
-  isActive,
-  setIsHovered,
-  hrefLink,
-}) => {
+function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
+  const { options, isActive, setIsHovered, hrefLink, setIsOpen } = props;
+
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
       <List
@@ -31,16 +30,12 @@ const DesktopMenu: React.FC<DesktopMenu> = ({
             <Link
               href={`/${hrefLink[index]}`}
               key={option.name}
-              onMouseOver={() => setIsHovered(option.name)}
-              
+              onMouseOver={() => {
+                setIsHovered(option.name!);
+                setIsOpen(true);
+              }}
             >
-              <ListItem
-                sx={{
-                  '&:hover': {
-                    '.MuiListItemText-primary': { color: 'red' },
-                  },
-                }}
-              >
+              <ListItem>
                 <ListItemText
                   primary={option.name}
                   sx={{ color: isActive ? 'red' : 'inherit' }}
@@ -52,6 +47,6 @@ const DesktopMenu: React.FC<DesktopMenu> = ({
       </List>
     </Box>
   );
-};
+}
 
 export default DesktopMenu;

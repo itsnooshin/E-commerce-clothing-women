@@ -62,6 +62,17 @@ const themeOptions: ThemeOptions = {
   },
 
   components: {
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            '.MuiListItemText-primary': {
+              color: '#52b788',
+            },
+          },
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

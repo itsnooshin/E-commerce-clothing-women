@@ -10,13 +10,9 @@ import GridSkeletonData from './GridSkeletonData';
 import BestSellerHeader from './BestSellerHeader';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css/pagination';
 import 'swiper/css';
-
-
-
-
 
 type ProductData = {
   id: string;
@@ -40,7 +36,7 @@ const BestSellers = () => {
     getImages()
       .then((data) => {
         setDataBestSellers(data);
-        console.log(data)
+        console.log(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -51,14 +47,12 @@ const BestSellers = () => {
       });
   }, []);
 
-
-
   const SkeletonCount = isLoading && isMobile ? 2 : 3;
 
   return (
     <Container>
       <BestSellerHeader />
-      <Grid container spacing={{ lg: 2 , md : 2 }}>
+      <Grid container spacing={{ lg: 2, md: 2 }}>
         {isLoading ? (
           <Grid container spacing={{ xs: 2 }} item xs={12}>
             {Array.from({ length: SkeletonCount }, (_, index) => (
@@ -70,8 +64,10 @@ const BestSellers = () => {
         ) : isMobile ? (
           <Swiper
             style={{ paddingBottom: '4rem' }}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
+            autoplay={{ delay: 1500, disableOnInteraction: false }}
             spaceBetween={20}
+            loop={true}
             slidesPerView={2}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
