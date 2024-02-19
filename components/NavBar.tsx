@@ -1,21 +1,14 @@
 'use client';
-import { Toolbar } from '@mui/material';
-import { AppBar } from '@mui/material';
+
 import React, { useEffect, useState, useRef } from 'react';
-import IconHeader from './IconHeader';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import SearchIcon from '@mui/icons-material/Search';
-import NavBarMobile from './NavBarMobile';
 import { Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
-import LogoWebsite from '@/components/LogoWebsite';
-import LogoMobileWebsite from '@/components/LogoMobileWebsite';
-import DesktopMenu from './DesktopMenu';
 import HoverMenuDesktop from './HoverMenuDesktop';
 import Modal from '@mui/material/Modal';
 import BannerHeader from './BannerHeader';
+import MainNavBar from './MainNavBar';
 
-// if images.lengt 2 xs = 4 but if its 3 pict xs 2
+
 const options = [
   {
     name: 'Collection',
@@ -130,98 +123,34 @@ export default function NavBar() {
   const hrefLink = options.map((option) =>
     option.name.toLowerCase().replace(/\s+/g, '-')
   );
-  console.log(hrefLink);
   const isActive = pathName.startsWith(`/${hrefLink}`);
-  const navRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (navRef.current) {
-      navRef.current.style.backdropFilter = 'blur(5px)';
-    }
-  }, []);
 
   return (
     <>
-      <AppBar
-        position="sticky"
-       
-        sx={{
-          backgroundColor: '#ffff',
-          boxShadow: 'none',
-          color: '#404040',
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: { xs: 'space-between', md: 'space-around' },
-            p: '10px 0',
-          }}
-        >
-          <LogoWebsite />
-
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
-            <MenuOutlinedIcon />
-            <SearchIcon />
-          </Box>
-
-          <DesktopMenu
-            options={options}
-            isActive={isActive}
-            hrefLink={hrefLink}
-            setIsHovered={setIsHovered}
-            setIsOpen={setIsOpen}
-          />
-
-          <LogoMobileWebsite />
-          <Box>
-            <IconHeader />
-          </Box>
-          <NavBarMobile />
-        </Toolbar>
-      </AppBar>
+      <MainNavBar
+        setIsOpen={setIsOpen}
+        setIsHovered={setIsHovered}
+        options={options}
+        isActive={isActive}
+        hrefLink={hrefLink}
+      />
 
       <Modal
         open={isOpen}
         style={{ backdropFilter: 'blur(5px)', border: 'none' }}
       >
-        
         <Box
           style={{ height: '500px', backgroundColor: 'white' }}
           onMouseLeave={() => setIsOpen(false)}
         >
           <BannerHeader />
-          <AppBar sx={{ boxShadow: '0' }} position='sticky'>
-            <Toolbar
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: { xs: 'space-between', md: 'space-around' },
-                p: '10px 0',
-              }}
-            >
-              <LogoWebsite />
-
-              <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
-                <MenuOutlinedIcon />
-                <SearchIcon />
-              </Box>
-
-              <DesktopMenu
-                options={options}
-                isActive={isActive}
-                hrefLink={hrefLink}
-                setIsHovered={setIsHovered}
-                setIsOpen={setIsOpen}
-              />
-
-              <LogoMobileWebsite />
-              <Box>
-                <IconHeader />
-              </Box>
-              <NavBarMobile />
-            </Toolbar>
-          </AppBar>
+          <MainNavBar
+            setIsOpen={setIsOpen}
+            setIsHovered={setIsHovered}
+            options={options}
+            isActive={isActive}
+            hrefLink={hrefLink}
+          />
           <HoverMenuDesktop
             setHover={setIsHovered}
             options={options}
