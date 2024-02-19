@@ -14,6 +14,10 @@ import { Pagination } from 'swiper/modules';
 import 'swiper/css/pagination';
 import 'swiper/css';
 
+
+
+
+
 type ProductData = {
   id: string;
   product_bestsellere: boolean;
@@ -36,6 +40,7 @@ const BestSellers = () => {
     getImages()
       .then((data) => {
         setDataBestSellers(data);
+        console.log(data)
         setIsLoading(false);
       })
       .catch((error) => {
@@ -46,7 +51,7 @@ const BestSellers = () => {
       });
   }, []);
 
-  console.log(dataBestSellers?.length);
+
 
   const SkeletonCount = isLoading && isMobile ? 2 : 3;
 

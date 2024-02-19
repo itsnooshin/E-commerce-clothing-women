@@ -51,6 +51,7 @@ const options = [
       'Shorts & Skirts',
     ],
     featured: ['Plus Size', 'Fall Collection', 'Modiweek'],
+
     nameCat: 'Category',
     nameFeat: 'Trending ',
     imageData: [
@@ -122,6 +123,7 @@ export default function NavBar() {
   const hrefLink = options.map((option) =>
     option.name.toLowerCase().replace(/\s+/g, '-')
   );
+  console.log(hrefLink);
   const isActive = pathName.startsWith(`/${hrefLink}`);
 
   useEffect(() => {
@@ -175,7 +177,7 @@ export default function NavBar() {
         </Toolbar>
       </AppBar>
 
-      <HoverMenuDesktop isHoverd={isHoverd} options={options} />
+      <HoverMenuDesktop options={options} isHovered={isHoverd} />
     </>
   );
 }

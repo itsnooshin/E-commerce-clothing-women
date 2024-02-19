@@ -64,7 +64,7 @@ function MoodiWeek() {
         }}
         slidesPerView={2}
         onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper) => swiper}
         pagination={{ clickable: true }}
         modules={[Pagination]}
       >
