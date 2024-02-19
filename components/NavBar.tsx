@@ -1,7 +1,7 @@
 'use client';
 import { Toolbar } from '@mui/material';
 import { AppBar } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import IconHeader from './IconHeader';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SearchIcon from '@mui/icons-material/Search';
@@ -37,6 +37,7 @@ const options = [
       'https://www.thisisaday.com/cdn/shop/products/Lifestyle_Something_Borrowed_Shirt_White_6cbbe157-e76b-4a34-99f3-35ec9f4065dc_1400x.jpg?v=1694755042',
       'https://www.thisisaday.com/cdn/shop/products/Something-Borrowed-Dress-Midnight-Half_1400x.jpg?v=1649306008',
     ],
+    imageDescription: ['Blouses', 'Plus Size'],
   },
   {
     name: 'New In',
@@ -59,6 +60,7 @@ const options = [
       'https://www.popsalewear.com/wp-content/uploads/2023/11/fa2f1c3100fdc58d08bf6b3def54ebc6_0.jpg',
       'https://www.thisisaday.com/cdn/shop/files/MINI-DRESS-BEACH-0098-Edit_1400x.jpg?v=1690476380',
     ],
+    imageDescription: ['Fall Collection', 'Blouses', 'Dresses'],
   },
   {
     name: 'Modiweek',
@@ -78,6 +80,7 @@ const options = [
       'https://static.zara.net/photos///2023/I/0/1/p/9313/726/401/2/w/563/9313726401_1_1_1.jpg?ts=1700736921216',
       'https://static.zara.net/photos///2024/V/0/1/p/4387/096/390/17/w/750/4387096390_1_1_1.jpg?ts=1707923925845',
     ],
+    imageDescription: ['Blouses', 'Dresses'],
   },
   {
     name: 'Plus Size',
@@ -97,6 +100,7 @@ const options = [
       'https://www.thisisaday.com/cdn/shop/products/Wind-Down-Dress-Coconut-Half_1400x.jpg?v=1649333228',
       'https://www.thisisaday.com/cdn/shop/products/Something-Borrowed-Shirt-Black-Half_1400x.jpg?v=1652487628',
     ],
+    imageDescription: ['Pants', 'Dresses', 'Blouses'],
   },
   {
     name: 'Sustainability',
@@ -125,17 +129,12 @@ export default function NavBar() {
   );
   console.log(hrefLink);
   const isActive = pathName.startsWith(`/${hrefLink}`);
-
-  useEffect(() => {
-    // const mainContent = document.getElementById('main-content');
-    // if (isHoverd) {
-    //   mainContent.style.filter = 'blur(5px)';
-    // }
-    // else {
-    //   mainContent.style.filter = 'blur(0px)';
-    // }
-    return;
-  }, [isHoverd]);
+  // const navRef = useRef();
+  // useEffect(() => {
+  //   if (isHoverd) {
+  //     navRef.current.style.backdropFilter = 'blur(15px)';
+  //   }
+  // }, [isHoverd]);
 
   return (
     <>
@@ -177,7 +176,11 @@ export default function NavBar() {
         </Toolbar>
       </AppBar>
 
-      <HoverMenuDesktop options={options} isHovered={isHoverd} />
+      <HoverMenuDesktop
+        setHover={setIsHovered}
+        options={options}
+        isHoverd={isHoverd}
+      />
     </>
   );
 }

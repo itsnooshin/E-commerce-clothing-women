@@ -9,6 +9,8 @@ import MoodiWeek from '@/components/MoodiWeek';
 import Sustainability from '@/components/Sustainability';
 import FollowUs from '@/components/FollowUs';
 import Footer from '@/components/Footer';
+import React, { useEffect, useState, useRef } from 'react';
+
 
 export default function Home() {
   return (
