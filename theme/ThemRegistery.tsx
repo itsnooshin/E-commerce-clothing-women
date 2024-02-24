@@ -57,18 +57,17 @@ const themeOptions: ThemeOptions = {
     h5: {
       fontFamily: caveat.style.fontFamily,
       lineHeight: 1.75,
-      fontSize: `1.6rem`,
+      fontSize: '1.6rem',
     },
   },
 
   components: {
-    MuiListItem: {
+    MuiInputLabel: {
       styleOverrides: {
         root: {
-          '&:hover': {
-            '.MuiListItemText-primary': {
-              color: '#52b788',
-            },
+          color: '#606060',
+          '&.Mui-focused': {
+            color: 'red',
           },
         },
       },
@@ -77,11 +76,6 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           backgroundColor: 'transparent',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: '#ffff',
-            },
-          },
         },
       },
     },
@@ -92,6 +86,9 @@ const themeOptions: ThemeOptions = {
         },
         root: {
           borderRadius: 0,
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'inherit',
+          },
         },
       },
     },

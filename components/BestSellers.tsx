@@ -1,14 +1,11 @@
 'use client';
 import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Typography, Container, Skeleton, Avatar } from '@mui/material';
-import supabase from '@/src/app/utilits/supabase';
 import { useEffect, useState } from 'react';
 import { getImages } from '@/src/app/utilits/apImages';
 import Image from 'next/image';
 import SkeletonData from './SkeletonData';
-import GridSkeletonData from './GridSkeletonData';
 import BestSellerHeader from './BestSellerHeader';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css/pagination';
@@ -26,17 +23,17 @@ type ProductData = {
 const BestSellers = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   const [dataBestSellers, setDataBestSellers] = useState<ProductData[] | null>(
     null
   );
+
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
     getImages()
       .then((data) => {
         setDataBestSellers(data);
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -54,7 +51,7 @@ const BestSellers = () => {
       <BestSellerHeader />
       <Grid container spacing={{ lg: 2, md: 2 }}>
         {isLoading ? (
-          <Grid container spacing={{ xs: 2 }} item xs={12}>
+          <Grid container spacing={{ xs: 2 }} item>
             {Array.from({ length: SkeletonCount }, (_, index) => (
               <Grid item md={4} xs={6} key={index}>
                 <SkeletonData />

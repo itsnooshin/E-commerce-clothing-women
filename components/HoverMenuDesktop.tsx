@@ -23,7 +23,9 @@ interface HoverMenuDesktop {
 
 function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
   const { options, isHoverd, setHover } = props;
-  const Options = options.filter((item) => isHoverd === item.name);
+  const Options = options.filter((item) => isHoverd === item.name)!;
+
+  
 
   return (
     isHoverd && (
@@ -36,14 +38,14 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
             position: 'absolute',
             zIndex: '1000',
             width: '100%',
-            height: '480px',
+            height : '500px',
             backgroundColor: '#fff',
             display: { xs: 'none', md: 'flex' },
           }}
         >
           <Container>
-            <Grid container spacing={1} columns={15}>
-              <Grid item md={3} sm={4} xs={2}>
+            <Grid container columns={15} spacing={2}>
+              <Grid item md={3} sm={4} xs={12}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -51,8 +53,8 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                     paddingBottom: '20px',
                   }}
                 >
-                  {Options.map((item) => (
-                    <Typography>{item.nameCat}</Typography>
+                  {Options.map((item, index) => (
+                    <Typography key={index}>{item.nameCat}</Typography>
                   ))}
                 </Box>
                 <Box
@@ -63,8 +65,10 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                   }}
                 >
                   {Options.map((item) =>
-                    item.category?.map((item) => (
-                      <Typography sx={{ color: '#404040' }}>{item}</Typography>
+                    item.category?.map((item, index) => (
+                      <Typography key={index} sx={{ color: '#404040' }}>
+                        {item}
+                      </Typography>
                     ))
                   )}
                 </Box>
@@ -78,8 +82,8 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                     paddingBottom: '20px',
                   }}
                 >
-                  {Options.map((items) => (
-                    <Typography>{items.nameFeat}</Typography>
+                  {Options.map((items, index) => (
+                    <Typography key={index}>{items.nameFeat}</Typography>
                   ))}
                 </Box>
 
@@ -91,8 +95,10 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                   }}
                 >
                   {Options.map((items) =>
-                    items.featured?.map((items) => (
-                      <Typography sx={{ color: '#404040' }}>{items}</Typography>
+                    items.featured?.map((items, index) => (
+                      <Typography key={index} sx={{ color: '#404040' }}>
+                        {items}
+                      </Typography>
                     ))
                   )}
                 </Box>
@@ -106,8 +112,8 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                     paddingBottom: '20px',
                   }}
                 >
-                  {Options.map((items) => (
-                    <Typography>{items.nameMore}</Typography>
+                  {Options.map((items, index) => (
+                    <Typography key={index}>{items.nameMore}</Typography>
                   ))}
                 </Box>
 
@@ -130,25 +136,38 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
 
               {Options.map((item) => {
                 if (isHoverd !== item.name) return null;
-                const gridSize = item.imageData?.length === 2 ? 4 : 2.5;
+                const gridSize = item.imageData?.length === 2 ? 4 : 2.6;
+                return item.imageData?.map((imageUrl, index) => {
+                  return (
+                    <Grid item xs={gridSize} key={index}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          flexDirection: 'column',
+                          width: '100%',
+                        }}
+                      >
+                        <Image
+                          src={imageUrl}
+                          style={{
+                            objectFit: 'cover',
+                            // width :'100%'
+                          }}
+                          alt="images for banner when user hover on links"
+                          width={400}
+                          height={400}
+                        />
 
-                return item.imageData?.map((imageUrl, index) => (
-                  <Grid item xs={gridSize} key={index}>
-                    <Box>
-                      <Image
-                        src={imageUrl}
-                        width={400}
-                        height={400}
-                        style={{ objectFit: 'cover', width: '100%' }}
-                        alt="images for banner when user hover on links"
-                      />
-
-                      {item.imageDescription && (
-                        <Typography>{item.imageDescription[index]}</Typography>
-                      )}
-                    </Box>
-                  </Grid>
-                ));
+                        {item.imageDescription && (
+                          <Typography>
+                            {item.imageDescription[index]}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Grid>
+                  );
+                });
               })}
             </Grid>
           </Container>

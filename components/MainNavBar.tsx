@@ -22,14 +22,12 @@ interface Option {
 
 interface MainNavBar {
   options: Option[];
-  isActive: boolean;
-  hrefLink: string[];
   setIsHovered: (hover: string) => void;
   setIsOpen: (hover: boolean) => void;
 }
 
 function MainNavBar(props: PropsWithChildren<MainNavBar>) {
-  const { options, isActive, hrefLink, setIsHovered, setIsOpen } = props;
+  const { options, setIsHovered, setIsOpen } = props;
   return (
     <AppBar
       position="sticky"
@@ -56,8 +54,6 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
 
         <DesktopMenu
           options={options}
-          isActive={isActive}
-          hrefLink={hrefLink}
           setIsHovered={setIsHovered}
           setIsOpen={setIsOpen}
         />

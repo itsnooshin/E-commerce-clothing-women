@@ -16,22 +16,27 @@ import Image from 'next/image';
 
 const ImageData = [
   {
+    id: 1,
     image: photo1,
     height: 640,
   },
   {
+    id: 2,
     image: photo2,
     height: 320,
   },
   {
+    id: 3,
     image: photo3,
     height: 320,
   },
   {
+    id: 4,
     image: photo4,
     height: 320,
   },
   {
+    id: 5,
     image: photo5,
     height: 320,
   },
@@ -43,7 +48,7 @@ function FollowUs() {
   const images = isMobile ? ImageData.slice(0, 4) : ImageData;
 
   return (
-    <Container sx={{pb :'5rem'}}>
+    <Container sx={{ pb: '5rem' }}>
       <Box sx={{ mt: '6rem', mb: '1.5rem' }}>
         <Typography variant="h5" fontWeight="600" fontFamily="inherit">
           Follow us @modimal
@@ -53,7 +58,7 @@ function FollowUs() {
       {isMobile ? (
         <Grid container spacing={2}>
           {images.map((item) => (
-            <Grid item xs={6} md={4} sx={{ rowGap: '0', padding: 0 }}>
+            <Grid item xs={6} md={4} >
               <Image
                 src={item.image}
                 alt="Image galerrey"
@@ -65,9 +70,10 @@ function FollowUs() {
           ))}
         </Grid>
       ) : (
-        <Masonry columns={{ xs: 2, md: 3 }} spacing={0}>
+        <Masonry columns={{ xs: 2, md: 3 }} >
           {ImageData.map((item) => (
             <Image
+             key={item.id}
               src={item.image}
               alt="Image galerrey"
               width={500}

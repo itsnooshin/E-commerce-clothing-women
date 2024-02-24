@@ -1,5 +1,6 @@
 import { Box, List, ListItemText, ListItem } from '@mui/material';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 interface Option {
@@ -7,22 +8,31 @@ interface Option {
 }
 interface DesktopMenu {
   options: Option[];
-  isActive: boolean;
+  
   setIsHovered: (hover: string) => void;
   setIsOpen: (hover: boolean) => void;
-  hrefLink: string[];
+  
 }
 
 function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
-  const { options, isActive, setIsHovered, hrefLink, setIsOpen } = props;
-
+  const { options,  setIsHovered,  setIsOpen } = props;
+  //  console.log(options)
+   const pathName = usePathname();
+  const hrefLink = options.map((option) =>
+    option.name?.toLowerCase().replace(/\s+/g, '-')
+  );
+  // console.log(options.map((option) =>
+  // option.name.toLowerCase().replace(/\s+/g, '-')));
+  const isActive = pathName.startsWith(`/${hrefLink}`);
+   
+  
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
       <List
         sx={{
           display: 'flex',
           gap: { md: '24px' },
-          p: '0px 0px',
+          p: 0,
         }}
       >
         {options.map((option, index) => {

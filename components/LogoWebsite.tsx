@@ -6,7 +6,13 @@ function LogoWebsite() {
   return (
     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
       <Link href="/">
-        <Image src={Logo} alt="Logo for page" width={184} height={46} />
+        <Image
+          priority
+          src={Logo}
+          alt="Logo for page"
+          width={184}
+          height={46}
+        />
       </Link>
     </Box>
   );

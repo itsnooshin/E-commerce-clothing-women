@@ -8,7 +8,6 @@ import Modal from '@mui/material/Modal';
 import BannerHeader from './BannerHeader';
 import MainNavBar from './MainNavBar';
 
-
 const options = [
   {
     name: 'Collection',
@@ -33,6 +32,7 @@ const options = [
       'https://www.thisisaday.com/cdn/shop/products/Something-Borrowed-Dress-Midnight-Half_1400x.jpg?v=1649306008',
     ],
     imageDescription: ['Blouses', 'Plus Size'],
+    
   },
   {
     name: 'New In',
@@ -116,14 +116,9 @@ const options = [
 ];
 
 export default function NavBar() {
-  const pathName = usePathname();
   const [isHoverd, setIsHovered] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  const hrefLink = options.map((option) =>
-    option.name.toLowerCase().replace(/\s+/g, '-')
-  );
-  const isActive = pathName.startsWith(`/${hrefLink}`);
 
   return (
     <>
@@ -131,8 +126,6 @@ export default function NavBar() {
         setIsOpen={setIsOpen}
         setIsHovered={setIsHovered}
         options={options}
-        isActive={isActive}
-        hrefLink={hrefLink}
       />
 
       <Modal
@@ -140,7 +133,6 @@ export default function NavBar() {
         style={{ backdropFilter: 'blur(5px)', border: 'none' }}
       >
         <Box
-          style={{ height: '500px', backgroundColor: 'white' }}
           onMouseLeave={() => setIsOpen(false)}
         >
           <BannerHeader />
@@ -148,8 +140,7 @@ export default function NavBar() {
             setIsOpen={setIsOpen}
             setIsHovered={setIsHovered}
             options={options}
-            isActive={isActive}
-            hrefLink={hrefLink}
+          
           />
           <HoverMenuDesktop
             setHover={setIsHovered}

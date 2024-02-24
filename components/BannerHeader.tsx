@@ -1,8 +1,8 @@
-import { Typography , Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 function BannerHeader() {
   return (
-    <Box >
+    <Box>
       <Typography
         textAlign="center"
         sx={{

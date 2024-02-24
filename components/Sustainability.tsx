@@ -4,9 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 
 function Sustainability() {
   return (
-    <Box
-      sx={{ position: 'relative', width: '100%',  mt: '40px'  }}
-    >
+    <Box sx={{ position: 'relative', width: '100%', mt: '40px' }}>
       <Image
         alt="this is a header"
         src={Header}
@@ -14,7 +12,7 @@ function Sustainability() {
         height={500}
         style={{
           objectFit: 'cover',
-          width: '100%',
+          maxWidth: '100%',
         }}
       />
 
@@ -25,7 +23,7 @@ function Sustainability() {
           justifyContent: 'flex-end ',
           flexDirection: 'column',
           position: 'absolute',
-          bottom :'4rem' ,
+          bottom: '4rem',
           right: '50px',
         }}
       >

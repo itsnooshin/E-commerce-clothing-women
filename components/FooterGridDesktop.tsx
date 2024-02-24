@@ -36,7 +36,12 @@ function FooterGridDesktop() {
             <form>
               <TextField
                 placeholder="Enter your name"
-                sx={{ width: '100%' }}
+                sx={{
+                  width: '100%',
+                  '& fieldset': {
+                    borderColor: '#ffff',
+                  },
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">

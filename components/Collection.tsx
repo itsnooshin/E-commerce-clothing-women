@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  Grid,
   Typography,
   useMediaQuery,
   useTheme,
@@ -13,26 +12,24 @@ const ImagesMansory = [
   {
     src: 'https://www.thisisaday.com/cdn/shop/products/Lifestyle_Detail_Something_Tailored_Shirt_White_1400x.jpg?v=1684967379',
     height: 400,
-    name : 'Boluses'
+    name: 'Boluses',
   },
   {
     src: 'https://www.thisisaday.com/cdn/shop/files/Moodboard2_71ade389-dc80-49eb-b7e8-1c90a0273a2a_700x.jpg?v=1675014167',
     height: 700,
-    name : 'Pants'
+    name: 'Pants',
   },
   {
     src: 'https://www.thisisaday.com/cdn/shop/files/Save_The_Date_Dress_Khaki_Lifestyle_Khaki_Main_720x.jpg?v=1700065923',
     height: 600,
-    name : 'Dresses'
+    name: 'Dresses',
   },
   {
     src: 'https://img.mytheresa.com/1094/1238/100/jpeg/catalog/product/6c/P00831921_d1.jpg',
     height: 300,
-    name : 'Outwear'
+    name: 'Outwear',
   },
 ];
-
-
 
 function Collection() {
   const theme = useTheme();
@@ -40,8 +37,8 @@ function Collection() {
 
   return (
     <Container>
-      <Box sx={{ mt: '6rem' , mb :'1.5rem' }}>
-        <Typography variant="h5"  fontWeight="600" fontFamily="inherit">
+      <Box sx={{ mt: '6rem', mb: '1.5rem' }}>
+        <Typography variant="h5" fontWeight="600" fontFamily="inherit">
           Collection
         </Typography>
       </Box>
@@ -53,18 +50,20 @@ function Collection() {
       >
         {ImagesMansory.map((item, index) => (
           <Box key={index}>
-            <img
+            <Image
               src={item.src}
-              alt="hhhhhh"
+              alt="images for colection"
               width={500}
               height={item.height}
               style={{
-                objectFit: isMobile ? 'contain' :'cover',
-                width: '100%',
+                objectFit: isMobile ? 'contain' : 'cover',
+                maxWidth: '100%',
                 height: isMobile ? 'auto' : '',
               }}
+              
+              sizes="100vw"
             />
-            <p>{isMobile && `${item.name}`}</p>
+            <Typography>{isMobile && `${item.name}`}</Typography>
           </Box>
         ))}
       </Masonry>

@@ -1,5 +1,17 @@
+'use client';
 
+import BannerHeader from '@/components/BannerHeader';
+import Footer from '@/components/Footer';
+import NavBar from '@/components/NavBar';
+import RegisterAccount from '@/components/RegisterAccount';
 
 export default function Register() {
-  return <div>sign up the page</div>;
+  return (
+    <>
+      <BannerHeader />
+      <NavBar />
+       <RegisterAccount />
+      <Footer/>
+    </>
+  );
 }
