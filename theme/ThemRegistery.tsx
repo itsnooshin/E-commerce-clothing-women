@@ -67,7 +67,7 @@ const themeOptions: ThemeOptions = {
         root: {
           color: '#606060',
           '&.Mui-focused': {
-            color: 'red',
+            color: '#748C70',
           },
         },
       },
@@ -87,7 +87,7 @@ const themeOptions: ThemeOptions = {
         root: {
           borderRadius: 0,
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'inherit',
+            borderColor: '#748C70',
           },
         },
       },

@@ -7,10 +7,48 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
-
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import * as yup from 'yup';
 import Link from 'next/link';
+import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { error } from 'console';
+
+interface FormValues {
+  email?: string;
+  password?: string;
+}
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email('Invalid email format')
+    .required('Email is required'),
+
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .matches(/[a-zA-Z0-9]{8,}/, 'Password is Invalid'),
+});
 
 function LoginAccount() {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log(data);
+  };
+
   return (
     <Container>
       <Box sx={{ mb: 10, mt: 5 }}>
@@ -38,15 +76,54 @@ function LoginAccount() {
                     flexDirection: 'column',
                   }}
                 >
-                  <TextField label="Email" />
-                  <TextField label="Password" />
-                  <Typography color={'#748C70'} fontSize="18px">
-                    Forgot your password?
-                  </Typography>
+                  <form
+                    style={{
+                      display: 'flex',
+                      gap: '20px',
+                      flexDirection: 'column',
+                    }}
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          label="Email"
+                          value={value}
+                          onChange={onChange}
+                          error={Boolean(errors.email)}
+                          helperText={errors.email?.message}
+                        />
+                      )}
+                    />
 
-                  <Button sx={{ color: '#fff', backgroundColor: '#5A6D57' }}>
-                    Log In
-                  </Button>
+                    <Controller
+                      name="password"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          label="Password"
+                          value={value}
+                          onChange={onChange}
+                          type="password"
+                          error={Boolean(errors.password)}
+                          helperText={errors.password?.message}
+                        />
+                      )}
+                    />
+
+                    <Typography color={'#748C70'} fontSize="18px">
+                      Forgot your password?
+                    </Typography>
+
+                    <Button
+                      type="submit"
+                      sx={{ color: '#fff', backgroundColor: '#5A6D57' }}
+                    >
+                      Log In
+                    </Button>
+                  </form>
                 </Box>
                 <Typography>Or</Typography>
                 {/* social medias */}

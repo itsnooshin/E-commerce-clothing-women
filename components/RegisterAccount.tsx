@@ -7,10 +7,62 @@ import { Typography } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
-
+import * as yup from 'yup';
 import Link from 'next/link';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+interface formValue {
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  password?: string;
+}
+
+const validationSchema = yup.object({
+  firstname: yup
+    .string()
+    .trim()
+    .required('First name is required')
+    .min(2, 'First name must be  at least 2 characters long'),
+
+  lastname: yup
+    .string()
+    .trim()
+    .required('First name is required')
+    .min(2, 'First name must be  at least 2 characters long'),
+
+  email: yup
+    .string()
+    .email('Invalid email format')
+    .required('Email is required'),
+
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .matches(/[a-zA-Z0-9]{8,}/, 'Password is Invalid'),
+});
 
 function RegisterAccount() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(validationSchema),
+  });
+
+  function onSubmit(data: formValue) {
+    console.log(data);
+  }
+
   return (
     <Container>
       <Box sx={{ mb: 10, mt: 5 }}>
@@ -38,20 +90,82 @@ function RegisterAccount() {
                     flexDirection: 'column',
                   }}
                 >
-                  <TextField label="First Name" />
-                  <TextField label="Last Name" />
-                  <TextField label="Email" />
-                  <TextField label="Password" />
-
-                  <Button
-                    sx={{
-                      color: '#fff',
-                      backgroundColor: '#5A6D57',
-                      textTransform: 'capitalize',
+                  <form
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '20px',
                     }}
+                    onSubmit={handleSubmit(onSubmit)}
                   >
-                    Register Now
-                  </Button>
+                    <Controller
+                      name="firstname"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          value={value}
+                          label="First Name"
+                          type="text"
+                          onChange={onChange}
+                          error={Boolean(errors.firstname)}
+                          helperText={errors.firstname?.message}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="lastname"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          value={value}
+                          label="Last Name"
+                          type="text"
+                          onChange={onChange}
+                          error={Boolean(errors.lastname)}
+                          helperText={errors.lastname?.message}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          value={value}
+                          label="eamil"
+                          type="email"
+                          onChange={onChange}
+                          error={Boolean(errors.email)}
+                          helperText={errors.email?.message}
+                        />
+                      )}
+                    />
+                    <Controller
+                      name="password"
+                      control={control}
+                      render={({ field: { onChange, value } }) => (
+                        <TextField
+                          value={value}
+                          label="Password"
+                          type="password"
+                          onChange={onChange}
+                          error={Boolean(errors.password)}
+                          helperText={errors.password?.message}
+                        />
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      sx={{
+                        color: '#fff',
+                        backgroundColor: '#5A6D57',
+                        textTransform: 'capitalize',
+                      }}
+                    >
+                      Register Now
+                    </Button>
+                  </form>
 
                   <Box
                     sx={{
