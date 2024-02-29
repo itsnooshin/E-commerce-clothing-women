@@ -8,8 +8,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import SearchIcon from '@mui/icons-material/Search';
 import Image from 'next/image';
 import Logo from '../public/Logo-mobile.png';
-import BannerHeader from './BannerHeader';
-import LogoWebsite from './LogoWebsite';
+import BannerHeader from '../headers/BannerHeader';
+import LogoWebsite from '../LogoWebsite';
 
 const NavBarMobile = () => {
   return (

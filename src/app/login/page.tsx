@@ -1,18 +1,16 @@
 'use client';
 
-import BannerHeader from '@/components/BannerHeader';
-import Footer from '@/components/Footer';
-import LoginAccount from '@/components/Login';
-import NavBar from '@/components/NavBar';
-import { Box } from '@mui/material';
+import BannerHeader from '@/src/components/headers/BannerHeader';
+import Footer from '@/src/components/layout/Footer';
+import FormLogin from '@/src/components/aut/FormLogin';
+import NavBar from '@/src/components/layout/NavBar';
 
 export default function Login() {
   return (
     <>
       <BannerHeader />
       <NavBar />
-       <LoginAccount />
-
+      <FormLogin />
       <Footer />
     </>
   );

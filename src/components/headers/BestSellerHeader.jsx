@@ -20,7 +20,7 @@ function BestSellerHeader() {
       >
         Best Sellers
       </Typography>
-      <Typography color="#5A6D57"   >View all</Typography>
+      <Typography color="#5A6D57">View all</Typography>
     </Box>
   );
 }

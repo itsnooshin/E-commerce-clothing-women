@@ -7,11 +7,11 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
-import photo1 from '../public/followus/Frame 427319383.png';
-import photo2 from '../public/followus/2.jpg';
-import photo3 from '../public/followus/3.jpg';
-import photo4 from '../public/followus/4.jpg';
-import photo5 from '../public/followus/5.webp';
+import photo1 from '@/public/followus/Frame 427319383.png';
+import photo2 from '@/public/followus/2.jpg';
+import photo3 from '@/public/followus/3.jpg';
+import photo4 from '@/public/followus/4.jpg';
+import photo5 from '@/public/followus/5.webp';
 import Image from 'next/image';
 
 const ImageData = [

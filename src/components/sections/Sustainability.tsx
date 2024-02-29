@@ -1,18 +1,18 @@
 import Image from 'next/image';
-import Header from '../public/Sustainability.png';
+import Header from '@/public/Sustainability.png';
 import { Box, Button, Typography } from '@mui/material';
 
 function Sustainability() {
   return (
-    <Box sx={{ position: 'relative', width: '100%', mt: '40px' }}>
+    <Box sx={{ position: 'relative', width: '100%' }}>
       <Image
         alt="this is a header"
         src={Header}
-        width={500}
+        width={640}
         height={500}
         style={{
           objectFit: 'cover',
-          maxWidth: '100%',
+          width: '100%',
         }}
       />
 

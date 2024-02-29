@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import imageLogin from '../public/image-login.jpg';
+import imageLogin from '@/public/image-login.jpg';
 import { Box } from '@mui/material';
 import { Container } from '@mui/material';
 import { TextField } from '@mui/material';
@@ -66,7 +66,7 @@ function LoginAccount() {
             <Box>
               <Stack alignItems={'center'} gap={5}>
                 <Typography fontWeight="600" variant="h5" fontFamily="inherit">
-                  Log In{' '}
+                  Log In
                 </Typography>
                 <Box
                   sx={{

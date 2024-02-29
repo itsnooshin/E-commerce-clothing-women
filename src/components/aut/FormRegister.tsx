@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import imageLogin from '../public/image-login.jpg';
+import imageLogin from '@/public/image-login.jpg';
 import { Box } from '@mui/material';
 import { Container } from '@mui/material';
 import { TextField } from '@mui/material';
@@ -44,7 +44,7 @@ const validationSchema = yup.object({
     .matches(/[a-zA-Z0-9]{8,}/, 'Password is Invalid'),
 });
 
-function RegisterAccount() {
+function FormRegister() {
   const {
     control,
     handleSubmit,
@@ -210,4 +210,4 @@ function RegisterAccount() {
   );
 }
 
-export default RegisterAccount;
+export default FormRegister;

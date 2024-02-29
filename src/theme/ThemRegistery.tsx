@@ -5,10 +5,11 @@ import { CssBaseline } from '@mui/material';
 import { Montserrat } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 
+
 const localFnt = localFont({
   src: [
     {
-      path: '../src/app/fonts/Gill-Sans-MT-Italic.ttf',
+      path: '../fonts/Gill-Sans-MT-Italic.ttf',
     },
   ],
 });

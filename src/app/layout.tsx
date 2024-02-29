@@ -1,5 +1,5 @@
-import './globals.css';
-import ThemeRegistry from '@/theme/ThemRegistery';
+import '@/src/styles/globals.css';
+import ThemeRegistry from '@/src/theme/ThemRegistery';
 
 export const metadata = {
   title: 'E-commrece Women Clothing',

@@ -1,8 +1,8 @@
 import { AppBar, Toolbar, Box } from '@mui/material';
-import LogoWebsite from './LogoWebsite';
+import LogoWebsite from '../LogoWebsite';
 import DesktopMenu from './DesktopMenu';
-import LogoMobileWebsite from './LogoMobileWebsite';
-import IconHeader from './IconHeader';
+import LogoMobileWebsite from '../LogoMobileWebsite';
+// import IconHeader from './IconHeader';
 import NavBarMobile from './NavBarMobile';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SearchIcon from '@mui/icons-material/Search';
@@ -60,7 +60,7 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
 
         <LogoMobileWebsite />
         <Box>
-          <IconHeader />
+          {/* <IconHeader /> */}
         </Box>
         <NavBarMobile />
       </Toolbar>

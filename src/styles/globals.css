@@ -24,3 +24,14 @@ a {
 .swiper-pagination .swiper-pagination-bullet-active {
   background-color: #5a6d57;
 }
+
+
+::-webkit-scrollbar {
+  width: 10px; 
+  height: 10px; 
+  color:red
+}
+::-webkit-scrollbar-thumb {
+  background: #748C70; 
+  border-radius: 6px; 
+}

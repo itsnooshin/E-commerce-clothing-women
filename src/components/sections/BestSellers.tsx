@@ -2,10 +2,10 @@
 import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { Typography, Container, Skeleton, Avatar } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getImages } from '@/src/app/utilits/apImages';
+import { getImages } from '@/src/lib/utilits/apImages';
 import Image from 'next/image';
-import SkeletonData from './SkeletonData';
-import BestSellerHeader from './BestSellerHeader';
+import SkeletonData from '../utility/SkeletonData';
+import BestSellerHeader from '@/src/components/headers/BestSellerHeader';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css/pagination';
@@ -19,6 +19,8 @@ type ProductData = {
   product_category: string;
   procuct_price: number;
 };
+
+// interface
 
 const BestSellers = () => {
   const theme = useTheme();

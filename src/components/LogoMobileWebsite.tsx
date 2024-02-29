@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Image from 'next/image';
-import LogoMobile from '../public/Logo-mobile.png';
+import LogoMobile from '@/public/Logo-mobile.png';
 
 function LogoMobileWebsite() {
   return (

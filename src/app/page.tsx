@@ -1,15 +1,14 @@
 'use client';
 
-import NavBar from '@/components/NavBar';
-import HeroSection from '@/components/HeroSection';
-import BestSellers from '@/components/BestSellers';
-import BannerHeader from '@/components/BannerHeader';
-import Collection from '@/components/Collection';
-import MoodiWeek from '@/components/MoodiWeek';
-import Sustainability from '@/components/Sustainability';
-import FollowUs from '@/components/FollowUs';
-import Footer from '@/components/Footer';
-import { useEffect, useState, useRef } from 'react';
+import NavBar from '@/src/components/layout/NavBar';
+import HeroSection from '@/src/components/sections/HeroSection';
+import BestSellers from '@/src/components/sections/BestSellers';
+import BannerHeader from '@/src/components/headers/BannerHeader';
+import Collection from '@/src/components/sections/Collection';
+import MoodiWeek from '@/src/components/sections/MoodiWeek';
+import Sustainability from '@/src/components/sections/Sustainability';
+import FollowUs from '@/src/components/sections/FollowUs';
+import Footer from '@/src/components/layout/Footer';
 
 export default function Home() {
   return (

@@ -8,24 +8,20 @@ interface Option {
 }
 interface DesktopMenu {
   options: Option[];
-  
   setIsHovered: (hover: string) => void;
   setIsOpen: (hover: boolean) => void;
-  
 }
 
 function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
-  const { options,  setIsHovered,  setIsOpen } = props;
-  //  console.log(options)
-   const pathName = usePathname();
+  const { options, setIsHovered, setIsOpen } = props;
+
+  const pathName = usePathname();
   const hrefLink = options.map((option) =>
     option.name?.toLowerCase().replace(/\s+/g, '-')
   );
-  // console.log(options.map((option) =>
-  // option.name.toLowerCase().replace(/\s+/g, '-')));
+
   const isActive = pathName.startsWith(`/${hrefLink}`);
-   
-  
+
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
       <List
@@ -36,10 +32,11 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
         }}
       >
         {options.map((option, index) => {
+          console.log(hrefLink[index])
           return (
             <Link
               href={`/${hrefLink[index]}`}
-              key={option.name}
+            
               onMouseOver={() => {
                 setIsHovered(option.name!);
                 setIsOpen(true);
