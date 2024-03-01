@@ -5,7 +5,6 @@ import { CssBaseline } from '@mui/material';
 import { Montserrat } from 'next/font/google';
 import { Caveat } from 'next/font/google';
 
-
 const localFnt = localFont({
   src: [
     {
@@ -114,6 +113,11 @@ const themeOptions: ThemeOptions = {
       },
     },
     MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'none',
+        },
+      },
       defaultProps: {
         disableRipple: true,
         disableElevation: false,

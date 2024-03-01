@@ -132,7 +132,7 @@ function FormRegister() {
                       render={({ field: { onChange, value } }) => (
                         <TextField
                           value={value}
-                          label="eamil"
+                          label="email"
                           type="email"
                           onChange={onChange}
                           error={Boolean(errors.email)}
@@ -161,6 +161,7 @@ function FormRegister() {
                         color: '#fff',
                         backgroundColor: '#5A6D57',
                         textTransform: 'capitalize',
+                        "&:hover": { backgroundColor: "#5A6D57" }
                       }}
                     >
                       Register Now

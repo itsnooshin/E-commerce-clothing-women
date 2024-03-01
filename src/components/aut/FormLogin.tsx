@@ -117,9 +117,13 @@ function LoginAccount() {
                       Forgot your password?
                     </Typography>
 
-                    <Button
+                    <Button 
                       type="submit"
-                      sx={{ color: '#fff', backgroundColor: '#5A6D57' }}
+                      sx={{
+                        color: '#fff',
+                        backgroundColor: '#5A6D57',
+                        "&:hover": { backgroundColor: "#5A6D57" }
+                      }}
                     >
                       Log In
                     </Button>
