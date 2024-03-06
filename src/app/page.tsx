@@ -22,6 +22,7 @@ export default function Home() {
       <Sustainability />
       <FollowUs />
       <Footer />
+      
     </>
   );
 }
