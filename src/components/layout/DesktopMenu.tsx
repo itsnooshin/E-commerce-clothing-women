@@ -1,7 +1,7 @@
-import { Box, List, ListItemText, ListItem } from '@mui/material';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { PropsWithChildren } from 'react';
+import { Box, List, ListItemText, ListItem } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { PropsWithChildren } from "react";
 
 interface Option {
   name?: string;
@@ -17,26 +17,25 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
 
   const pathName = usePathname();
   const hrefLink = options.map((option) =>
-    option.name?.toLowerCase().replace(/\s+/g, '-')
+    option.name?.toLowerCase().replace(/\s+/g, "-")
   );
 
   const isActive = pathName.startsWith(`/${hrefLink}`);
 
   return (
-    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+    <Box sx={{ display: { xs: "none", md: "flex" } }}>
       <List
         sx={{
-          display: 'flex',
-          gap: { md: '24px' },
+          display: "flex",
+          gap: { md: "24px" },
           p: 0,
         }}
       >
         {options.map((option, index) => {
-          console.log(hrefLink[index])
           return (
             <Link
               href={`/${hrefLink[index]}`}
-            
+              key={index}
               onMouseOver={() => {
                 setIsHovered(option.name!);
                 setIsOpen(true);
@@ -45,7 +44,7 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
               <ListItem>
                 <ListItemText
                   primary={option.name}
-                  sx={{ color: isActive ? 'red' : 'inherit' }}
+                  sx={{ color: isActive ? "red" : "inherit" }}
                 />
               </ListItem>
             </Link>

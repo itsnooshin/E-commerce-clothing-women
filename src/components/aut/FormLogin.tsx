@@ -1,40 +1,35 @@
-import Image from 'next/image';
-import imageLogin from '@/public/image-login.jpg';
-import { Box } from '@mui/material';
-import { Container } from '@mui/material';
-import { TextField } from '@mui/material';
-import { Typography } from '@mui/material';
-import { Stack } from '@mui/material';
-import { Grid } from '@mui/material';
-import { Button } from '@mui/material';
-import { Controller, useForm, SubmitHandler } from 'react-hook-form';
-import * as yup from 'yup';
-import Link from 'next/link';
-import { useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { error } from 'console';
-
-
-
-
-
+import Image from "next/image";
+import imageLogin from "@/public/image-login.jpg";
+import { Box } from "@mui/material";
+import { Container } from "@mui/material";
+import { TextField } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Stack } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Button } from "@mui/material";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
+import * as yup from "yup";
+import Link from "next/link";
+import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { error } from "console";
 
 interface FormValues {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 const validationSchema = yup.object({
   email: yup
     .string()
-    .email('Invalid email format')
-    .required('Email is required'),
+    .email("Invalid email format")
+    .required("Email is required"),
 
   password: yup
     .string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters long')
-    .matches(/[a-zA-Z0-9]{8,}/, 'Password is Invalid'),
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[a-zA-Z0-9]{8,}/, "Password is Invalid"),
 });
 
 function LoginAccount() {
@@ -44,20 +39,36 @@ function LoginAccount() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     resolver: yupResolver(validationSchema),
   });
 
-   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    
-  };
-  
+  //  const onSubmit: SubmitHandler<FormValues> = (data) => {
 
-
-
-
+  // };
+  async function onSubmit(dataForm: FormValues) {
+    try {
+      const { email, password } = dataForm;
+      const res = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: email, password: password }),
+      });
+      if (res.status === 200) {
+        console.log("login successful ");
+        localStorage.setItem('username' , email);
+      }
+      if (res.status === 401) {
+        console.log("Registration is faild");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  }
 
   return (
     <Container>
@@ -69,28 +80,28 @@ function LoginAccount() {
               height={600}
               alt="this is a umage for login"
               src={imageLogin}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
             />
           </Grid>
           <Grid item xs={6} md={6}>
             <Box>
-              <Stack alignItems={'center'} gap={5}>
+              <Stack alignItems={"center"} gap={5}>
                 <Typography fontWeight="600" variant="h5" fontFamily="inherit">
                   Log In
                 </Typography>
                 <Box
                   sx={{
-                    display: 'flex',
-                    gap: '20px',
-                    width: '80%',
-                    flexDirection: 'column',
+                    display: "flex",
+                    gap: "20px",
+                    width: "80%",
+                    flexDirection: "column",
                   }}
                 >
                   <form
                     style={{
-                      display: 'flex',
-                      gap: '20px',
-                      flexDirection: 'column',
+                      display: "flex",
+                      gap: "20px",
+                      flexDirection: "column",
                     }}
                     onSubmit={handleSubmit(onSubmit)}
                   >
@@ -123,16 +134,16 @@ function LoginAccount() {
                       )}
                     />
 
-                    <Typography color={'#748C70'} fontSize="18px">
+                    <Typography color={"#748C70"} fontSize="18px">
                       Forgot your password?
                     </Typography>
 
-                    <Button 
+                    <Button
                       type="submit"
                       sx={{
-                        color: '#fff',
-                        backgroundColor: '#5A6D57',
-                        "&:hover": { backgroundColor: "#5A6D57" }
+                        color: "#fff",
+                        backgroundColor: "#5A6D57",
+                        "&:hover": { backgroundColor: "#5A6D57" },
                       }}
                     >
                       Log In
@@ -144,13 +155,13 @@ function LoginAccount() {
 
                 <Box
                   sx={{
-                    display: 'flex',
-                    gap: '9px',
-                    justifyContent: 'center',
+                    display: "flex",
+                    gap: "9px",
+                    justifyContent: "center",
                   }}
                 >
                   <Typography>New to modimal? </Typography>
-                  <Link href="/register" style={{ color: '#748C70' }}>
+                  <Link href="/register" style={{ color: "#748C70" }}>
                     Create an account
                   </Link>
                 </Box>
