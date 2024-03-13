@@ -3,7 +3,6 @@ import imageLogin from "@/public/image-login.jpg";
 import { Box } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { Container } from "@mui/material";
-import { TextField } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -66,10 +65,8 @@ function FormRegister() {
     },
     resolver: yupResolver(validationSchema),
   });
-  console.log();
-  async function onSubmit(dataForm: formValue) {
-    // add try catch
 
+  async function onSubmit(dataForm: formValue) {
     try {
       const { firstname, lastname, email, password } = dataForm;
       const res = await fetch("http://localhost:4000/register", {
@@ -81,9 +78,6 @@ function FormRegister() {
       });
 
       if (res.status === 201) {
-        console.log("Registration successful", email);
-
-        setIsRegistered(true);
         setOpen(true);
         setEmail(dataForm.email);
       }
@@ -110,7 +104,7 @@ function FormRegister() {
               <Image
                 width={500}
                 height={600}
-                alt="this is a umage for login"
+                alt="this is a image for register"
                 src={imageLogin}
                 style={{ objectFit: "cover" }}
               />
@@ -133,85 +127,11 @@ function FormRegister() {
                       flexDirection: "column",
                     }}
                   >
-                    <form
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "20px",
-                      }}
-                      noValidate
+                    <FormFieldRegister
                       onSubmit={handleSubmit(onSubmit)}
-                    >
-                      <Controller
-                        name="firstname"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <TextField
-                            value={value}
-                            label="First Name"
-                            type="text"
-                            onChange={onChange}
-                            error={Boolean(errors.firstname)}
-                            helperText={errors.firstname?.message}
-                          />
-                        )}
-                      />
-                      <Controller
-                        name="lastname"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <TextField
-                            value={value}
-                            label="Last Name"
-                            type="text"
-                            onChange={onChange}
-                            error={Boolean(errors.lastname)}
-                            helperText={errors.lastname?.message}
-                          />
-                        )}
-                      />
-                      <Controller
-                        name="email"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <TextField
-                            value={value}
-                            label="email"
-                            type="email"
-                            onChange={onChange}
-                            error={Boolean(errors.email)}
-                            helperText={errors.email?.message}
-                          />
-                        )}
-                      />
-                      <Controller
-                        name="password"
-                        control={control}
-                        render={({ field: { onChange, value } }) => (
-                          <TextField
-                            value={value}
-                            label="Password"
-                            type="password"
-                            onChange={onChange}
-                            error={Boolean(errors.password)}
-                            helperText={errors.password?.message}
-                          />
-                        )}
-                      />
-
-                      <Button
-                        type="submit"
-                        sx={{
-                          color: "#fff",
-                          backgroundColor: "#5A6D57",
-                          textTransform: "capitalize",
-                          "&:hover": { backgroundColor: "#5A6D57" },
-                        }}
-                      >
-                        Register Now
-                      </Button>
-                    </form>
-
+                      errors={errors}
+                      control={control}
+                    />
                     <Box
                       sx={{
                         display: "flex",
@@ -303,10 +223,13 @@ function FormRegister() {
           </Modal>
         </Box>
       </Container>
-      {/* <Typography sx={{ xs: "block", md: "none", lg: "none", xl: "none" }}>
-        hhhh
-      </Typography> */}
-      <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+
+      <Box
+        sx={{
+          display: { xs: "block", sm: "block", md: "none" },
+          pb: { xs: 3 },
+        }}
+      >
         <Image
           src={imageLogin}
           width={300}
@@ -332,73 +255,11 @@ function FormRegister() {
                 flexDirection: "column",
               }}
             >
-              <form
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                }}
-                noValidate
+              <FormFieldRegister
                 onSubmit={handleSubmit(onSubmit)}
-              >
-                <Controller
-                  name="firstname"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      value={value}
-                      label="First Name"
-                      type="text"
-                      onChange={onChange}
-                      error={Boolean(errors.firstname)}
-                      helperText={errors.firstname?.message}
-                    />
-                  )}
-                />
-                <Controller
-                  name="lastname"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      value={value}
-                      label="Last Name"
-                      type="text"
-                      onChange={onChange}
-                      error={Boolean(errors.lastname)}
-                      helperText={errors.lastname?.message}
-                    />
-                  )}
-                />
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      value={value}
-                      label="email"
-                      type="email"
-                      onChange={onChange}
-                      error={Boolean(errors.email)}
-                      helperText={errors.email?.message}
-                    />
-                  )}
-                />
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      value={value}
-                      label="Password"
-                      type="password"
-                      onChange={onChange}
-                      error={Boolean(errors.password)}
-                      helperText={errors.password?.message}
-                    />
-                  )}
-                />
-              </form>
-              {/* <FormFieldRegister/> */}
+                errors={errors}
+                control={control}
+              />
 
               <Box
                 sx={{
@@ -413,7 +274,7 @@ function FormRegister() {
                 </Link>
               </Box>
             </Box>
-            <Typography>Or</Typography>
+            <Typography textAlign={'center'}  >Or</Typography>
             {/* social medias */}
             <Button
               type="submit"
@@ -431,7 +292,8 @@ function FormRegister() {
                 fontSize: "15px",
                 textAlign: "center",
 
-                width: { md: "450x", xs: "310px" },
+                width: { md: "450x", xs: "400px" },
+                margin: { xs: "0 auto" },
               }}
             >
               by clicking register now’’you agree to{" "}

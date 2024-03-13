@@ -1,7 +1,9 @@
-import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
+import { Controller, SubmitHandler } from "react-hook-form";
 
-const FormFieldRegister = () => {
+
+function FormFieldRegister({onSubmit, errors , control}) {
+  
   return (
     <form
       style={{
@@ -10,7 +12,7 @@ const FormFieldRegister = () => {
         gap: "20px",
       }}
       noValidate
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={onSubmit}
     >
       <Controller
         name="firstname"
@@ -70,6 +72,8 @@ const FormFieldRegister = () => {
       />
     </form>
   );
-};
+}
+
+
 
 export default FormFieldRegister;

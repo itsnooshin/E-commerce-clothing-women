@@ -1,12 +1,12 @@
-import { AppBar, Toolbar, Box } from '@mui/material';
-import LogoWebsite from './LogoWebsite';
-import DesktopMenu from './DesktopMenu';
-import LogoMobileWebsite from './LogoMobileWebsite';
-import IconHeader from '@/src/components/headers/IconHeader';
-import NavBarMobile from './NavBarMobile';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import SearchIcon from '@mui/icons-material/Search';
-import { PropsWithChildren } from 'react';
+import { AppBar, Toolbar, Box } from "@mui/material";
+import LogoWebsite from "./LogoWebsite";
+import DesktopMenu from "./DesktopMenu";
+import LogoMobileWebsite from "./LogoMobileWebsite";
+import IconHeader from "@/src/components/headers/IconHeader";
+import NavBarMobile from "./NavBarMobile";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import { PropsWithChildren } from "react";
 
 interface Option {
   name?: string;
@@ -32,22 +32,29 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: '#ffff',
-        boxShadow: 'none',
-        color: '#404040',
+        backgroundColor: "#ffff",
+        boxShadow: "none",
+        color: "#404040",
+        width: "100%",
       }}
     >
       <Toolbar
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: { xs: 'space-between', md: 'space-around' },
-          p: '10px 0',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: { xs: "space-between", md: "space-around" },
+          p: "10px 10px",
         }}
       >
         <LogoWebsite />
 
-        <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            gap: "9px",
+            alignItems: "center",
+          }}
+        >
           <MenuOutlinedIcon />
           <SearchIcon />
         </Box>
@@ -57,9 +64,8 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           setIsHovered={setIsHovered}
           setIsOpen={setIsOpen}
         />
-
-        <LogoMobileWebsite />
         <Box>
+          <LogoMobileWebsite />
           <IconHeader />
         </Box>
         <NavBarMobile />
