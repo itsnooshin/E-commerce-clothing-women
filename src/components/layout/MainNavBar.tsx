@@ -1,12 +1,13 @@
-import { AppBar, Toolbar, Box } from "@mui/material";
+import { AppBar, Toolbar, Box, Drawer, Typography } from "@mui/material";
 import LogoWebsite from "./LogoWebsite";
 import DesktopMenu from "./DesktopMenu";
 import LogoMobileWebsite from "./LogoMobileWebsite";
 import IconHeader from "@/src/components/headers/IconHeader";
-import NavBarMobile from "./NavBarMobile";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 
 interface Option {
   name?: string;
@@ -28,6 +29,15 @@ interface MainNavBar {
 
 function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   const { options, setIsHovered, setIsOpen } = props;
+
+  // mobile menu
+  const [open, setOpen] = useState(false);
+
+  function ToggleMenu() {
+    console.log("toggle menu is right");
+    // setIsOpen(true);
+  }
+
   return (
     <AppBar
       position="sticky"
@@ -55,8 +65,13 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
             alignItems: "center",
           }}
         >
-          <MenuOutlinedIcon />
-          <SearchIcon />
+          <MenuOutlinedIcon sx={{ cursor: "pointer" }} onClick={ToggleMenu} />
+          <Drawer anchor="left">
+            <Box>
+              <Typography>hello word</Typography>
+            </Box>
+          </Drawer>
+          <SearchIcon sx={{ cursor: "pointer" }} />
         </Box>
 
         <DesktopMenu
@@ -68,7 +83,10 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           <LogoMobileWebsite />
           <IconHeader />
         </Box>
-        <NavBarMobile />
+        <Box sx={{ display: { xs: "flex", md: "none" }, gap: "9px" }}>
+          <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
+          <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
+        </Box>
       </Toolbar>
     </AppBar>
   );
