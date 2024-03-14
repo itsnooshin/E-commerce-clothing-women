@@ -78,6 +78,7 @@ function FormRegister() {
       });
 
       if (res.status === 201) {
+        console.log("registen is succesful");
         setOpen(true);
         setEmail(dataForm.email);
       }
@@ -132,6 +133,7 @@ function FormRegister() {
                       errors={errors}
                       control={control}
                     />
+
                     <Box
                       sx={{
                         display: "flex",
@@ -274,7 +276,7 @@ function FormRegister() {
                 </Link>
               </Box>
             </Box>
-            <Typography textAlign={'center'}  >Or</Typography>
+            <Typography textAlign={"center"}>Or</Typography>
             {/* social medias */}
             <Button
               type="submit"
@@ -314,6 +316,53 @@ function FormRegister() {
             </Typography>
           </Stack>
         </Container>
+
+        <Modal sx={{xs : 'block' , md : 'none'}}
+          open={open}
+          style={{ backdropFilter: "blur(5px)", border: "none" }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: '400px',
+              bgcolor: "white",
+              boxShadow: 24,
+              p: 4,
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              gap: "17px",
+            }}
+          >
+            <Box>
+              <Typography variant="h6" fontWeight="600" fontFamily="inherit">
+                Verify your Email address
+              </Typography>
+            </Box>
+            <IconButton
+              sx={{ position: "absolute", top: "8px", left: "8px" }}
+              onClick={() => setOpen(false)}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Box>
+              <Typography>
+                We’ve sent an {email} to to Verify Your Email Address and
+                Activate Your Account. The Link in the Email Will Expire in 24
+                Hours.
+              </Typography>
+            </Box>
+            <Box>
+              <Typography>
+                Click here if you did not receive an email or would like to
+                change the email address you registered with
+              </Typography>
+            </Box>
+          </Box>
+        </Modal>
       </Box>
     </>
   );

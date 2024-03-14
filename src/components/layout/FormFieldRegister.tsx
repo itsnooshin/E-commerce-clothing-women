@@ -1,9 +1,23 @@
 import { TextField } from "@mui/material";
-import { Controller, SubmitHandler } from "react-hook-form";
+import { PropsWithChildren } from "react";
+import { Controller, SubmitHandler, FieldErrors } from "react-hook-form";
+import { Control } from "react-hook-form";
+import { Button } from "@mui/material";
 
+interface FormInput {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+interface FormFields {
+  onSubmit: () => Promise<void>;
+  errors: FieldErrors<FormInput>;
+  control: Control<FormInput>;
+}
 
-function FormFieldRegister({onSubmit, errors , control}) {
-  
+function FormFieldRegister(props: PropsWithChildren<FormFields>) {
+  const { onSubmit, errors, control } = props;
   return (
     <form
       style={{
@@ -70,10 +84,19 @@ function FormFieldRegister({onSubmit, errors , control}) {
           />
         )}
       />
+      <Button
+        type="submit"
+        sx={{
+          color: "#fff",
+          backgroundColor: "#5A6D57",
+          textTransform: "capitalize",
+          "&:hover": { backgroundColor: "#5A6D57" },
+        }}
+      >
+        Register Now
+      </Button>
     </form>
   );
 }
-
-
 
 export default FormFieldRegister;
