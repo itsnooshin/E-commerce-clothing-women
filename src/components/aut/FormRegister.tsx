@@ -278,17 +278,7 @@ function FormRegister() {
             </Box>
             <Typography textAlign={"center"}>Or</Typography>
             {/* social medias */}
-            <Button
-              type="submit"
-              sx={{
-                color: "#fff",
-                backgroundColor: "#5A6D57",
-                textTransform: "capitalize",
-                "&:hover": { backgroundColor: "#5A6D57" },
-              }}
-            >
-              Register Now
-            </Button>
+        
             <Typography
               sx={{
                 fontSize: "15px",
