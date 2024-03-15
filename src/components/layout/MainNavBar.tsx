@@ -1,4 +1,11 @@
-import { AppBar, Toolbar, Box, Drawer, Typography } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Drawer,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import LogoWebsite from "./LogoWebsite";
 import DesktopMenu from "./DesktopMenu";
 import LogoMobileWebsite from "./LogoMobileWebsite";
@@ -8,6 +15,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import { PropsWithChildren, useState } from "react";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import BannerHeader from "../headers/BannerHeader";
+import CloseIcon from "@mui/icons-material/Close";
+import MobileMenu from "./MobileMenu";
 
 interface Option {
   name?: string;
@@ -33,10 +43,14 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   // mobile menu
   const [open, setOpen] = useState(false);
 
-  function ToggleMenu() {
-    console.log("toggle menu is right");
-    // setIsOpen(true);
-  }
+  const handleDrawerOpen = () => {
+    console.log("draweris open");
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return (
     <AppBar
@@ -61,16 +75,14 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
-            gap: "9px",
+            // gap: "9px",
             alignItems: "center",
           }}
         >
-          <MenuOutlinedIcon sx={{ cursor: "pointer" }} onClick={ToggleMenu} />
-          <Drawer anchor="left">
-            <Box>
-              <Typography>hello word</Typography>
-            </Box>
-          </Drawer>
+          <IconButton onClick={handleDrawerOpen}>
+            <MenuOutlinedIcon sx={{ cursor: "pointer" }} />
+          </IconButton>
+
           <SearchIcon sx={{ cursor: "pointer" }} />
         </Box>
 
@@ -87,6 +99,55 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
           <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
         </Box>
+
+        {open && (
+          <Drawer
+            sx={{
+              zIndex: 9999,
+              display: { xs: "block", md: "none" },
+
+              "& .MuiDrawer-paper": {
+                width: "100%",
+                backgroundColor: "white",
+              },
+            }}
+            variant="persistent"
+            anchor="left"
+            open={open}
+          >
+            <BannerHeader />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box
+                sx={{
+                  display: { xs: "flex", md: "none" },
+                  alignItems: "center",
+                  cursor: "pointer",
+                  padding: "7px 10px",
+                }}
+              >
+                <IconButton
+                  onClick={handleDrawerClose}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <CloseIcon sx={{ color: "#000000" }} />
+                </IconButton>
+                <SearchIcon />
+              </Box>
+              <LogoMobileWebsite />
+              <Box sx={{ display: { xs: "flex", md: "none" }, gap: "9px" }}>
+                <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
+                <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
+              </Box>
+            </Box>
+            <MobileMenu />
+          </Drawer>
+        )}
       </Toolbar>
     </AppBar>
   );
