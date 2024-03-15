@@ -15,23 +15,24 @@ import { useState } from "react";
 
 const options = NAV_DATA;
 
-function MobileMenu() {
-  console.log(options);
+interface NavID {
+  id: number;
+}
 
+function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const [itemSelected, setItemSelected] = useState(null);
+  const [itemSelected, setItemSelected] = useState<NavID | null>(null);
 
   const hrefLink = options.map((option) =>
     option.name?.toLowerCase().replace(/\s+/g, "-")
   );
 
-  const ToggleMenu = (itemID) => {
-    // setOpen((isActive) => !isActive);
-    if (itemSelected === itemID) {
+  const ToggleMenu = (itemID: number) => {
+    if (itemSelected?.id === itemID) {
       setItemSelected(null);
       setOpen(false);
     } else {
-      setItemSelected(itemID);
+      setItemSelected({ id: itemID });
       setOpen(true);
     }
   };
@@ -40,7 +41,7 @@ function MobileMenu() {
     <Box>
       <List>
         {options.map((items, index) => (
-          <>
+          <Box key={items.id}>
             <Box
               sx={{
                 display: "flex",
@@ -62,11 +63,11 @@ function MobileMenu() {
               </IconButton>
             </Box>
 
-            {itemSelected === items.id && open && (
+            {itemSelected?.id === items.id && open && (
               <Box sx={{ pl: 4 }}>
                 <List>
-                  {items.category?.map((item) => (
-                    <ListItem>
+                  {items.category?.map((item, index) => (
+                    <ListItem key={index}>
                       <Typography
                         sx={{ display: "flex", flexDirection: "column" }}
                       >
@@ -77,7 +78,7 @@ function MobileMenu() {
                 </List>
               </Box>
             )}
-          </>
+          </Box>
         ))}
 
         <Box sx={{ margin: "0px 10px" }}>

@@ -39,12 +39,9 @@ interface MainNavBar {
 
 function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   const { options, setIsHovered, setIsOpen } = props;
-
-  // mobile menu
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
-    console.log("draweris open");
     setOpen(true);
   };
 
