@@ -90,6 +90,7 @@ function MobileMenu() {
               color: "inherit",
               border: "1px solid #5A6D57",
               textAlign: "center",
+              textTransform: "capitalize",
             }}
           >
             Log In
@@ -103,6 +104,7 @@ function MobileMenu() {
               color: "#ffff",
               mt: "7px",
               textAlign: "center",
+              textTransform: "capitalize",
             }}
           >
             Register

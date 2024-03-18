@@ -1,6 +1,6 @@
 import Image from "next/image";
 import imageLogin from "@/public/image-login.jpg";
-import { Box } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import { Container } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -15,6 +15,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { error } from "console";
 import FormFieldRegister from "../layout/FormFieldRegister";
 import FormFieldLogin from "../layout/FormFieldLogin";
+import { redirect } from "next/navigation";
+import ReportProblemIcon from "@mui/icons-material/ReportProblem";
+import { useRouter } from "next/navigation";
+
+
 
 interface FormValues {
   email: string;
@@ -35,6 +40,11 @@ const validationSchema = yup.object({
 });
 
 function LoginAccount() {
+  const [errorMessage, setErrorMessage] = useState("");
+
+    const router = useRouter();
+
+
   const {
     handleSubmit,
     control,
@@ -58,14 +68,15 @@ function LoginAccount() {
         body: JSON.stringify({ username: email, password: password }),
       });
       if (res.status === 200) {
-        console.log("login successful ");
-        localStorage.setItem("username", email);
+        router.push('/');
       }
       if (res.status === 401) {
         console.log("Registration is faild");
+        setErrorMessage("Password or email is incorrect. Please try again.");
       }
     } catch (error) {
       console.error("Error during registration:", error);
+      setErrorMessage("An error occurred. Please try again later.");
     }
   }
 
@@ -99,6 +110,11 @@ function LoginAccount() {
                   >
                     Log In
                   </Typography>
+                  {errorMessage && (
+                    <Alert severity="error">
+                      {errorMessage}
+                    </Alert>
+                  )}
                   <Box
                     sx={{
                       display: "flex",

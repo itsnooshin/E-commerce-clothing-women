@@ -178,6 +178,7 @@ function FormRegister() {
           </Grid>
 
           <Modal
+            sx={{ display: { xs: "none", md: "block" } }}
             open={open}
             style={{ backdropFilter: "blur(5px)", border: "none" }}
           >
@@ -278,7 +279,7 @@ function FormRegister() {
             </Box>
             <Typography textAlign={"center"}>Or</Typography>
             {/* social medias */}
-        
+
             <Typography
               sx={{
                 fontSize: "15px",
@@ -307,7 +308,8 @@ function FormRegister() {
           </Stack>
         </Container>
 
-        <Modal sx={{xs : 'block' , md : 'none'}}
+        <Modal
+          sx={{ display: { xs: "block", md: "none" } }}
           open={open}
           style={{ backdropFilter: "blur(5px)", border: "none" }}
         >
@@ -317,7 +319,7 @@ function FormRegister() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: '400px',
+              width: "400px",
               bgcolor: "white",
               boxShadow: 24,
               p: 4,
