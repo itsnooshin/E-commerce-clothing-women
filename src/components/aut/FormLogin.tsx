@@ -10,7 +10,7 @@ import { Button } from "@mui/material";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { error } from "console";
 import FormFieldRegister from "../layout/FormFieldRegister";
@@ -18,8 +18,7 @@ import FormFieldLogin from "../layout/FormFieldLogin";
 import { redirect } from "next/navigation";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import { useRouter } from "next/navigation";
-
-
+import { useAuth } from "@/src/context/authContext";
 
 interface FormValues {
   email: string;
@@ -40,10 +39,9 @@ const validationSchema = yup.object({
 });
 
 function LoginAccount() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
-    const router = useRouter();
-
+  const { login, errorMessage, setErrorMessage } = useAuth();
 
   const {
     handleSubmit,
@@ -57,28 +55,12 @@ function LoginAccount() {
     resolver: yupResolver(validationSchema),
   });
 
-  async function onSubmit(dataForm: FormValues) {
-    try {
-      const { email, password } = dataForm;
-      const res = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: email, password: password }),
-      });
-      if (res.status === 200) {
-        router.push('/');
-      }
-      if (res.status === 401) {
-        console.log("Registration is faild");
-        setErrorMessage("Password or email is incorrect. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      setErrorMessage("An error occurred. Please try again later.");
-    }
-  }
+
+
+  const onSubmit: SubmitHandler<FormValues> = async (dataForm) => {
+    setErrorMessage("");
+    await login(dataForm);
+  };
 
   return (
     <>
@@ -111,9 +93,7 @@ function LoginAccount() {
                     Log In
                   </Typography>
                   {errorMessage && (
-                    <Alert severity="error">
-                      {errorMessage}
-                    </Alert>
+                    <Alert severity="error">{errorMessage}</Alert>
                   )}
                   <Box
                     sx={{
