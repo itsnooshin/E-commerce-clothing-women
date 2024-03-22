@@ -31,7 +31,7 @@ const themeOptions: ThemeOptions = {
       main: "#ffff",
     },
     background: {
-      paper: "#5A6D57",
+      paper: "#ffff",
       default: "#ffff",
     },
     text: {

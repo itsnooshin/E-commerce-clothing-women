@@ -1,18 +1,14 @@
-// type and interface
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  PropsWithChildren,
-} from "react";
-import { useRouter } from "next/navigation";
+"use client";
 
+import React, { useState, useContext, PropsWithChildren } from "react";
+import { useRouter } from "next/navigation";
 import { createContext } from "react";
 
 interface AuthContextType {
   login: (dataForm: FormValues) => Promise<void>;
   errorMessage: string;
   setErrorMessage: (message: string) => void;
+  isLoggedIn: boolean;
 }
 
 interface FormValues {
@@ -22,6 +18,7 @@ interface FormValues {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   async function login(dataForm: FormValues) {
@@ -36,6 +33,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       if (res.status === 200) {
         router.push("/");
+        setIsLoggedIn(true);
       }
       if (res.status === 401) {
         console.log("Registration is faild");
@@ -48,7 +46,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   }
 
   return (
-    <AuthContext.Provider value={{ login, errorMessage, setErrorMessage }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, login, errorMessage, setErrorMessage }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -62,5 +62,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-

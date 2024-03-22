@@ -14,17 +14,15 @@ import AuthProvider from "../context/authContext";
 export default function Home() {
   return (
     <>
-      <AuthProvider>
-        <BannerHeader />
-        <NavBar />
-        <HeroSection />
-        <BestSellers />
-        <Collection />
-        <MoodiWeek />
-        <Sustainability />
-        <FollowUs />
-        <Footer />
-      </AuthProvider>
+      <BannerHeader />
+      <NavBar />
+      <HeroSection />
+      <BestSellers />
+      <Collection />
+      <MoodiWeek />
+      <Sustainability />
+      <FollowUs />
+      <Footer />
     </>
   );
 }

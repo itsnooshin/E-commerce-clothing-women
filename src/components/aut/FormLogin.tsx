@@ -39,9 +39,9 @@ const validationSchema = yup.object({
 });
 
 function LoginAccount() {
-  const router = useRouter();
+ 
 
-  const { login, errorMessage, setErrorMessage } = useAuth();
+ const { login, errorMessage, setErrorMessage } = useAuth();
 
   const {
     handleSubmit,
