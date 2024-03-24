@@ -40,7 +40,7 @@ app.post("/register", (req, res) => {
   }
 
   db.users.push({ username, password });
-  res.sendStatus(201);
+  res.send({})
 });
 
 function verifyToken(req, res, next) {
@@ -68,7 +68,7 @@ function verifyToken(req, res, next) {
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   const user = db.users.find(
-    (user) => user.username === username && user.password === password,
+    (user) => user.username === username && user.password === password
   );
 
   if (!user) {
@@ -76,8 +76,9 @@ app.post("/login", (req, res) => {
   }
 
   const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "1h" });
-  res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 }); // 1 hour expiration
-  res.sendStatus(200);
+  res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 });
+  // 1 hour expiration
+  res.send();
 });
 
 // Logout route (clear JWT)

@@ -15,6 +15,7 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import FormFieldRegister from "../layout/FormFieldRegister";
+import { useRouter } from "next/navigation";
 
 interface formValue {
   firstname: string;
@@ -51,7 +52,7 @@ const validationSchema = yup.object({
 function FormRegister() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -81,6 +82,8 @@ function FormRegister() {
         console.log("registen is succesful");
         setOpen(true);
         setEmail(dataForm.email);
+        localStorage.setItem("username", JSON.stringify(email));
+        router.push("/login");
       }
       if (res.status === 401) {
         console.log("Registration is faild");

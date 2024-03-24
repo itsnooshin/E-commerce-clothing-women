@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useState, useContext, PropsWithChildren } from "react";
+import React, {
+  useState,
+  useContext,
+  PropsWithChildren,
+  useEffect,
+} from "react";
 import { useRouter } from "next/navigation";
 import { createContext } from "react";
 
@@ -9,6 +14,8 @@ interface AuthContextType {
   errorMessage: string;
   setErrorMessage: (message: string) => void;
   isLoggedIn: boolean;
+
+  logout(): void;
 }
 
 interface FormValues {
@@ -20,7 +27,16 @@ const AuthContext = createContext<AuthContextType | null>(null);
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const router = useRouter();
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+
+    if (username) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   async function login(dataForm: FormValues) {
     try {
       const { email, password } = dataForm;
@@ -31,9 +47,13 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         },
         body: JSON.stringify({ username: email, password: password }),
       });
+
       if (res.status === 200) {
-        router.push("/");
+        // Store the logged-in user's email in localStorage
+        localStorage.setItem("username", email);
         setIsLoggedIn(true);
+
+        router.push("/");
       }
       if (res.status === 401) {
         console.log("Registration is faild");
@@ -45,9 +65,14 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   }
 
+  function logout() {
+    setIsLoggedIn(false);
+    localStorage.removeItem("username");
+  }
+
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, login, errorMessage, setErrorMessage }}
+      value={{ isLoggedIn, login, errorMessage, setErrorMessage, logout }}
     >
       {children}
     </AuthContext.Provider>

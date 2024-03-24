@@ -4,13 +4,12 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Link from "@mui/material/Link";
 import { Box, Menu, Button, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/src/context/authContext";
 import MenuItem from "@mui/material/MenuItem";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { Logout } from "@mui/icons-material";
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 function IconHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -22,7 +21,9 @@ function IconHeader() {
     setAnchorEl(null);
   };
   const { isLoggedIn } = useAuth();
-  // if loggin use
+
+
+
   return (
     <>
       <Box
@@ -36,7 +37,7 @@ function IconHeader() {
           {" "}
           <SearchOutlinedIcon />
         </Link>
-      
+
         {isLoggedIn ? (
           <>
             <Button
@@ -50,6 +51,7 @@ function IconHeader() {
               }}
             >
               <PersonOutlineOutlinedIcon />
+              <KeyboardArrowDownIcon />
             </Button>
 
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
