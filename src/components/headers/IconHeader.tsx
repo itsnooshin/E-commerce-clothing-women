@@ -20,7 +20,7 @@ function IconHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn , logout } = useAuth();
 
 
 
@@ -55,13 +55,15 @@ function IconHeader() {
             </Button>
 
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+              <Link href ="/profile">
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <PersonOutlineOutlinedIcon fontSize="small" />
                 </ListItemIcon>
                 My account
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              </Link>
+              <MenuItem onClick={logout}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>

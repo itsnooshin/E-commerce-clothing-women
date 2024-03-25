@@ -82,7 +82,13 @@ function FormRegister() {
         console.log("registen is succesful");
         setOpen(true);
         setEmail(dataForm.email);
-        localStorage.setItem("username", JSON.stringify(email));
+        const userDetails = {
+          email: dataForm.email,
+          firstname: dataForm.firstname,
+          lastname: dataForm.lastname,
+        };
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+
         router.push("/login");
       }
       if (res.status === 401) {

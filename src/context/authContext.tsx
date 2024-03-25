@@ -14,8 +14,9 @@ interface AuthContextType {
   errorMessage: string;
   setErrorMessage: (message: string) => void;
   isLoggedIn: boolean;
-
   logout(): void;
+  userInfoFirstName: string;
+  userInfoLastName: string;
 }
 
 interface FormValues {
@@ -27,13 +28,19 @@ const AuthContext = createContext<AuthContextType | null>(null);
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [userInfoFirstName, setUserInfoFirstName] = useState("");
+  const [userInfoLastName, setUserInfoLastName] = useState("");
 
   const router = useRouter();
+
   useEffect(() => {
     const username = localStorage.getItem("username");
-
-    if (username) {
+    const userDetail = localStorage.getItem("userDetails");
+    if (username && userDetail) {
       setIsLoggedIn(true);
+      const Detail = JSON.parse(userDetail ?? "{}");
+      setUserInfoFirstName(Detail.firstname ?? "");
+      setUserInfoLastName(Detail.lastname ?? "");
     }
   }, []);
 
@@ -49,12 +56,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       if (res.status === 200) {
-        // Store the logged-in user's email in localStorage
         localStorage.setItem("username", email);
         setIsLoggedIn(true);
-
         router.push("/");
       }
+      console.log(email);
       if (res.status === 401) {
         console.log("Registration is faild");
         setErrorMessage("Password or email is incorrect. Please try again.");
@@ -72,7 +78,15 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, login, errorMessage, setErrorMessage, logout }}
+      value={{
+        isLoggedIn,
+        login,
+        errorMessage,
+        setErrorMessage,
+        logout,
+        userInfoFirstName,
+        userInfoLastName,
+      }}
     >
       {children}
     </AuthContext.Provider>

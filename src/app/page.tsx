@@ -9,9 +9,11 @@ import MoodiWeek from "@/src/components/sections/MoodiWeek";
 import Sustainability from "@/src/components/sections/Sustainability";
 import FollowUs from "@/src/components/sections/FollowUs";
 import Footer from "@/src/components/layout/Footer";
-import AuthProvider from "../context/authContext";
+
+
 
 export default function Home() {
+ 
   return (
     <>
       <BannerHeader />
