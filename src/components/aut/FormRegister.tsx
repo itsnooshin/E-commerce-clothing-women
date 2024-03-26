@@ -77,9 +77,8 @@ function FormRegister() {
         },
         body: JSON.stringify({ username: email, password: password }),
       });
-
+      
       if (res.status === 201) {
-        console.log("registen is succesful");
         setOpen(true);
         setEmail(dataForm.email);
         const userDetails = {

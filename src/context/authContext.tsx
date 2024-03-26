@@ -8,7 +8,10 @@ import React, {
 } from "react";
 import { useRouter } from "next/navigation";
 import { createContext } from "react";
-
+interface FormValues {
+  email: string;
+  password: string;
+}
 interface AuthContextType {
   login: (dataForm: FormValues) => Promise<void>;
   errorMessage: string;
@@ -19,10 +22,7 @@ interface AuthContextType {
   userInfoLastName: string;
 }
 
-interface FormValues {
-  email: string;
-  password: string;
-}
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
@@ -30,7 +30,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [userInfoFirstName, setUserInfoFirstName] = useState("");
   const [userInfoLastName, setUserInfoLastName] = useState("");
-
   const router = useRouter();
 
   useEffect(() => {
@@ -60,7 +59,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         setIsLoggedIn(true);
         router.push("/");
       }
-      console.log(email);
       if (res.status === 401) {
         console.log("Registration is faild");
         setErrorMessage("Password or email is incorrect. Please try again.");

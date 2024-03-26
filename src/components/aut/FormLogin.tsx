@@ -10,14 +10,9 @@ import { Button } from "@mui/material";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import Link from "next/link";
-import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { error } from "console";
 import FormFieldRegister from "../layout/FormFieldRegister";
 import FormFieldLogin from "../layout/FormFieldLogin";
-import { redirect } from "next/navigation";
-import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/src/context/authContext";
 
 interface FormValues {
