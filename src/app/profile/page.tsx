@@ -12,7 +12,6 @@ export default function WelcomePage() {
   if (!isLoggedIn) {
     return;
   }
-  console.log("the firstname is", userInfoFirstName, userInfoLastName);
   return (
     <>
       <BannerHeader />
