@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
 import { Typography, Container, Skeleton, Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getImages } from "@/src/lib/utilits/apImages";
@@ -8,8 +8,10 @@ import SkeletonData from "../utility/SkeletonData";
 import BestSellerHeader from "@/src/components/headers/BestSellerHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "swiper/css/pagination";
 import "swiper/css";
+
 
 type ProductData = {
   id: string;
@@ -18,6 +20,7 @@ type ProductData = {
   product_name: string;
   product_category: string;
   procuct_price: number;
+  product_new: boolean;
 };
 
 // interface
@@ -34,8 +37,8 @@ const BestSellers = () => {
     setIsLoading(true);
     getImages()
       .then((data) => {
+        console.log(data);
         setDataBestSellers(data);
-        // console.log(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -119,6 +122,9 @@ const BestSellers = () => {
                 xs={6}
                 key={index}
                 sx={{ rowGap: "17rem", mb: { xs: "3rem" } }}
+                position="relative"
+                width={"100%"}
+                height={"auto"}
               >
                 <Image
                   src={item.product_img[0]}
@@ -131,6 +137,31 @@ const BestSellers = () => {
                   height={500}
                   alt="images for best sellers"
                 />
+                {item.product_new && (
+                  <Typography
+                    sx={{
+                      position: "absolute",
+                      top: "3rem",
+                      left: "1rem",
+                      background: "#fff",
+                      padding: "0.5rem 1rem",
+                      marginLeft: "1rem",
+                    }}
+                  >
+                    New{" "}
+                  </Typography>
+                )}
+
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "3rem",
+                    right: "2rem",
+                    padding: "0px",
+                  }}
+                >
+                  <FavoriteBorderIcon />
+                </Box>
 
                 <Box
                   sx={{
