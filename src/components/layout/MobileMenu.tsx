@@ -52,7 +52,7 @@ function MobileMenu() {
             >
               <Link href={`/${hrefLink[index]}`}>
                 <ListItem>
-                  <ListItemText primary={items.name} />
+                  <ListItemText primary={items.name}  />
                 </ListItem>
               </Link>
               <IconButton

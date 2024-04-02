@@ -20,7 +20,6 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
     option.name?.toLowerCase().replace(/\s+/g, "-")
   );
 
-  const isActive = pathName.startsWith(`/${hrefLink}`);
 
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -32,6 +31,7 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
         }}
       >
         {options.map((option, index) => {
+          const isActive = pathName.startsWith(`/${hrefLink[index]}`)
           return (
             <Link
               href={`/${hrefLink[index]}`}
@@ -44,7 +44,7 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
               <ListItem>
                 <ListItemText
                   primary={option.name}
-                  sx={{ color: isActive ? "red" : "inherit" }}
+                  sx={{ color: isActive ? "#748C70" : "inherit" }}
                 />
               </ListItem>
             </Link>

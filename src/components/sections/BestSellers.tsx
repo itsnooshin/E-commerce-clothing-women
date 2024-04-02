@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
-import { Typography, Container, Skeleton, Avatar } from "@mui/material";
+import { Typography, Container} from "@mui/material";
 import { useEffect, useState } from "react";
 import { getImages } from "@/src/lib/utilits/apImages";
 import Image from "next/image";
@@ -9,9 +9,9 @@ import BestSellerHeader from "@/src/components/headers/BestSellerHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import "swiper/css/pagination";
 import "swiper/css";
-
 
 type ProductData = {
   id: string;
@@ -137,31 +137,33 @@ const BestSellers = () => {
                   height={500}
                   alt="images for best sellers"
                 />
-                {item.product_new && (
-                  <Typography
-                    sx={{
-                      position: "absolute",
-                      top: "3rem",
-                      left: "1rem",
-                      background: "#fff",
-                      padding: "0.5rem 1rem",
-                      marginLeft: "1rem",
-                    }}
-                  >
-                    New{" "}
-                  </Typography>
-                )}
-
                 <Box
                   sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
                     position: "absolute",
-                    top: "3rem",
-                    right: "2rem",
-                    padding: "0px",
+                    top: "2rem",
+                    marginLeft: "1rem",
                   }}
                 >
-                  <FavoriteBorderIcon />
+                  {item.product_new && (
+                    <Typography
+                      sx={{
+                        bgcolor: "white",
+                        padding : '0.5rem 1.5rem',
+                        marginRight: "17rem",
+                      }}
+                    >
+                      New{" "}
+                    </Typography>
+                  )}
+                  <Box sx={{ position: "absolute", left: "19rem" }}>
+                    <FavoriteBorderIcon />
+                  </Box>
                 </Box>
+
+                {/* <FavoriteBorderIcon /> */}
+                {/* <FavoriteIcon sx={{color :'red'}} /> */}
 
                 <Box
                   sx={{
