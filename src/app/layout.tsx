@@ -1,6 +1,7 @@
 import "@/src/styles/globals.css";
 import ThemeRegistry from "@/src/theme/ThemRegistery";
 import AuthProvider from "../context/authContext";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "E-commrece Women Clothing",
@@ -13,12 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body>
-          <ThemeRegistry>{children}</ThemeRegistry>
-        </body>
-      </html>
-    </AuthProvider>
+    <Providers>
+      <AuthProvider>
+        <html lang="en">
+          <body>
+            <ThemeRegistry>{children}</ThemeRegistry>
+          </body>
+        </html>
+      </AuthProvider>
+    </Providers>
   );
 }
