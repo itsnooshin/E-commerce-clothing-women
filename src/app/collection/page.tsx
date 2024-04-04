@@ -1,5 +1,4 @@
 "use client";
-
 import NavBar from "@/src/components/layout/NavBar";
 import BannerHeader from "@/src/components/headers/BannerHeader";
 import Link from "next/link";
@@ -9,11 +8,12 @@ import collection from "@/public/ffdslfs.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 import { getProduct } from "@/src/featuers/product/productSlice";
-import Options from "@/src/featuers/product/productSlice";
-import { PropsWithChildren, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function page() {
-  const dispatch = useDispatch();
+  const [displayCount, setDisplayCount] = useState(6);
+
+  const dispatch = useDispatch<AppDispatch>();
   const { items, loading, error } = useSelector(
     (store: RootState) => store.product
   );
@@ -21,10 +21,6 @@ function page() {
   useEffect(() => {
     dispatch(getProduct());
   }, []);
-  console.log(items);
-
-  // if (loading) return <div>loading...</div>
-  // if (error) return <div>something wrong!!!</div>
 
   return (
     <>
@@ -50,13 +46,19 @@ function page() {
           sizes="100vw"
         />
       </Box>
-      {loading && <p>loading....</p>}
+      {loading && <p>loading....</p>} 
       <h2>products</h2>
-      {items?.map((item, index) => (
-        <div key={index}>
-          <p>{item.product_name}</p>
-        </div>
+      {items?.slice(0, displayCount).map((item) => (
+        <Box key={item.id}>
+          <Typography>{item.product_name}</Typography>
+        </Box>
       ))}
+      {}
+      {displayCount < items?.length && (
+        <button onClick={() => setDisplayCount((prev) => prev + 6)}>
+          Load more
+        </button>
+      )}
     </>
   );
 }

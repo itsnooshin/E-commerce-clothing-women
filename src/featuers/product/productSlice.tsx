@@ -1,46 +1,30 @@
 import { getImages } from "@/src/lib/utilits/apImages";
-import {
-  ActionReducerMapBuilder,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Product } from "@/src/types/productTypes";
 
-
-
-// async operation
-export const getProduct = createAsyncThunk("getProduct", async () => {
-  const data = await getImages();
-  console.log(data);
-  return data;
-});
-
-interface Options {
-  name?: string;
-  category?: string[];
-  featured?: string[];
-  More?: string[];
-  nameCat?: string;
-  nameFeat?: string;
-  nameMore?: string;
-  imageData?: string[];
-  imageDescription?: string[];
-}
-
-interface productState {
-  items?: Options[] | null;
+ interface ProductState {
+  items: Product[];
   loading: boolean;
-  error?: string | null;
+  error: string | null;
 }
-const initialState : productState = {
-  items: null,
+
+
+const initialState: ProductState = {
+  items: [],
   loading: false,
   error: null,
 };
+
+export const getProduct = createAsyncThunk("products/getProduct", async () => {
+  const data = await getImages();
+  return data as Product[];
+});
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {},
-  extraReducers: (builder: ActionReducerMapBuilder<productState>) => {
+  extraReducers: (builder) => {
     builder
       .addCase(getProduct.pending, (state) => {
         state.loading = true;

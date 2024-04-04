@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
-import { Typography, Container} from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getImages } from "@/src/lib/utilits/apImages";
 import Image from "next/image";
@@ -12,41 +12,30 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "swiper/css/pagination";
 import "swiper/css";
+import { Product } from "@/src/types/productTypes";
 
-type ProductData = {
-  id: string;
-  product_bestsellere: boolean;
-  product_img: string;
-  product_name: string;
-  product_category: string;
-  procuct_price: number;
-  product_new: boolean;
-};
 
-// interface
+
 
 const BestSellers = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [dataBestSellers, setDataBestSellers] = useState<ProductData[] | null>(
-    null
-  );
-
+  const [dataBestSellers, setDataBestSellers] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    setIsLoading(true);
-    getImages()
-      .then((data) => {
-        console.log(data);
-        setDataBestSellers(data);
+    const fetchData = async () => {
+      try {
+        const data = await getImages();
+        setDataBestSellers(data as Product[]);
         setIsLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      })
-      .finally(() => {
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   const SkeletonCount = isLoading && isMobile ? 2 : 3;
@@ -104,7 +93,7 @@ const BestSellers = () => {
                     </Typography>
 
                     <Typography sx={{ fontWeight: "600" }}>
-                      ${item.procuct_price}
+                      ${item.product_price}
                     </Typography>
                     <Typography>colors</Typography>
                   </Box>
@@ -150,7 +139,7 @@ const BestSellers = () => {
                     <Typography
                       sx={{
                         bgcolor: "white",
-                        padding : '0.5rem 1.5rem',
+                        padding: "0.5rem 1.5rem",
                         marginRight: "17rem",
                       }}
                     >
@@ -191,7 +180,7 @@ const BestSellers = () => {
 
                   <Box>
                     <Typography sx={{ fontWeight: "700" }}>
-                      ${item.procuct_price}
+                      ${item.product_price}
                     </Typography>
                   </Box>
                 </Box>

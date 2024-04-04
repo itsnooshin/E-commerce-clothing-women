@@ -1,18 +1,7 @@
-import { Grid, Box, Typography, Container } from '@mui/material';
-import Image from 'next/image';
-import { PropsWithChildren } from 'react';
-
-interface Options {
-  name?: string;
-  category?: string[];
-  featured?: string[];
-  More?: string[];
-  nameCat?: string;
-  nameFeat?: string;
-  nameMore?: string;
-  imageData?: string[];
-  imageDescription?: string[];
-}
+import { Grid, Box, Typography, Container } from "@mui/material";
+import Image from "next/image";
+import { PropsWithChildren } from "react";
+import { Options } from "@/src/types/MenuNavBarTypes";
 
 interface HoverMenuDesktop {
   options: Options[];
@@ -25,22 +14,20 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
   const { options, isHoverd, setHover } = props;
   const Options = options.filter((item) => isHoverd === item.name)!;
 
-  
-
   return (
     isHoverd && (
       <>
         <Box
           onMouseLeave={() => {
-            setHover('');
+            setHover("");
           }}
           sx={{
-            position: 'absolute',
-            zIndex: '1000',
-            width: '100%',
+            position: "absolute",
+            zIndex: "1000",
+            width: "100%",
             // height : '500px',
-            backgroundColor: '#fff',
-            display: { xs: 'none', md: 'flex' },
+            backgroundColor: "#fff",
+            display: { xs: "none", md: "flex" },
           }}
         >
           <Container>
@@ -48,9 +35,9 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
               <Grid item md={3} sm={4} xs={12}>
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "20px",
                   }}
                 >
                   {Options.map((item, index) => (
@@ -59,14 +46,14 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
                   }}
                 >
                   {Options.map((item) =>
                     item.category?.map((item, index) => (
-                      <Typography key={index} sx={{ color: '#404040' }}>
+                      <Typography key={index} sx={{ color: "#404040" }}>
                         {item}
                       </Typography>
                     ))
@@ -76,10 +63,10 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
               <Grid item md={2} sm={4} xs={12}>
                 <Box
                   sx={{
-                    color: '#0C0C0C',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
+                    color: "#0C0C0C",
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "20px",
                   }}
                 >
                   {Options.map((items, index) => (
@@ -89,14 +76,14 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
 
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
                   }}
                 >
                   {Options.map((items) =>
                     items.featured?.map((items, index) => (
-                      <Typography key={index} sx={{ color: '#404040' }}>
+                      <Typography key={index} sx={{ color: "#404040" }}>
                         {items}
                       </Typography>
                     ))
@@ -106,10 +93,10 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
               <Grid item md={2} sm={4} xs={12}>
                 <Box
                   sx={{
-                    color: '#0C0C0C',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    paddingBottom: '20px',
+                    color: "#0C0C0C",
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "20px",
                   }}
                 >
                   {Options.map((items, index) => (
@@ -119,14 +106,14 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
 
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
                   }}
                 >
                   {Options.map((items) =>
                     items.More?.map((items, index) => (
-                      <Typography sx={{ color: '#404040' }} key={index}>
+                      <Typography sx={{ color: "#404040" }} key={index}>
                         {items}
                       </Typography>
                     ))
@@ -142,18 +129,18 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                     <Grid item xs={gridSize} key={index}>
                       <Box
                         sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          flexDirection: 'column',
-                          width: '100%',
+                          display: "flex",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          width: "100%",
                         }}
                       >
                         <Image
                           src={imageUrl}
                           style={{
-                            objectFit: 'cover',
-                            width :'100%',
-                            height :'auto'
+                            objectFit: "cover",
+                            width: "100%",
+                            height: "auto",
                           }}
                           alt="images for banner when user hover on links"
                           width={400}

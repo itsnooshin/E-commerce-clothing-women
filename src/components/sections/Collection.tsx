@@ -1,39 +1,13 @@
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Button } from "@mui/material";
+import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 import Image from "next/image";
 import Link from "next/link";
-
-// when hover on collcection should i can see the link
-
-const ImagesMansory = [
-  {
-    src: "https://www.thisisaday.com/cdn/shop/products/Lifestyle_Detail_Something_Tailored_Shirt_White_1400x.jpg?v=1684967379",
-    height: 400,
-    name: "Boluses",
-  },
-  {
-    src: "https://www.thisisaday.com/cdn/shop/files/Moodboard2_71ade389-dc80-49eb-b7e8-1c90a0273a2a_700x.jpg?v=1675014167",
-    height: 700,
-    name: "Pants",
-  },
-  {
-    src: "https://www.thisisaday.com/cdn/shop/files/Save_The_Date_Dress_Khaki_Lifestyle_Khaki_Main_720x.jpg?v=1700065923",
-    height: 600,
-    name: "Dresses",
-  },
-  {
-    src: "https://img.mytheresa.com/1094/1238/100/jpeg/catalog/product/6c/P00831921_d1.jpg",
-    height: 300,
-    name: "Outwear",
-  },
-];
+import { ImagesMansory } from "@/src/lib/utilits/ImageData";
 
 function Collection() {
   const theme = useTheme();
@@ -53,8 +27,8 @@ function Collection() {
         style={{ columnGap: "10px", rowGap: "1rem" }}
       >
         {ImagesMansory.map((item, index) => (
-          <Link href={`/collection/${item.name.toLowerCase()}`}>
-            <Box key={index} sx={{ position: "relative" }}>
+          <Link key={item.id} href={`/collection/${item.name.toLowerCase()}`}>
+            <Box sx={{ position: "relative" }}>
               <Image
                 src={item.src}
                 alt="images for colection"
