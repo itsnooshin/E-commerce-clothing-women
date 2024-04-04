@@ -6,8 +6,43 @@ import { Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import "swiper/css/pagination";
 import "swiper/css";
-import { ImageWeek } from "@/src/lib/utilits/MoodiWeekDataImage";
-
+import mon from "@/public/modiweek/1.webp";
+import tue from "@/public/modiweek/2.webp";
+import wed from "@/public/modiweek/3.webp";
+import thu from "@/public/modiweek/4.webp";
+import fri from "@/public/modiweek/5.webp";
+import sat from "@/public/modiweek/6.webp";
+import sun from "@/public/modiweek/7.webp";
+export const ImageWeek = [
+  {
+    imageSrc: mon,
+    imageWeek: "Monday",
+  },
+  {
+    imageSrc: tue,
+    imageWeek: "Tuesday",
+  },
+  {
+    imageSrc: wed,
+    imageWeek: "Wednesday",
+  },
+  {
+    imageSrc: thu,
+    imageWeek: "Thursday",
+  },
+  {
+    imageSrc: fri,
+    imageWeek: "Friday",
+  },
+  {
+    imageSrc: sat,
+    imageWeek: "Saturday",
+  },
+  {
+    imageSrc: sun,
+    imageWeek: "Sunday",
+  },
+];
 function MoodiWeek() {
   return (
     <Container>
@@ -34,7 +69,7 @@ function MoodiWeek() {
         pagination={{ clickable: true }}
         modules={[Pagination, Autoplay]}
       >
-        {ImageWeek?.map((items, index) => (
+        {ImageWeek.map((items, index) => (
           <SwiperSlide key={index}>
             <>
               <Image
