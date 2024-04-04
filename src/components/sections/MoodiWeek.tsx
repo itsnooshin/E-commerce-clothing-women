@@ -34,7 +34,7 @@ function MoodiWeek() {
         pagination={{ clickable: true }}
         modules={[Pagination, Autoplay]}
       >
-        {ImageWeek.map((items, index) => (
+        {ImageWeek?.map((items, index) => (
           <SwiperSlide key={index}>
             <>
               <Image
