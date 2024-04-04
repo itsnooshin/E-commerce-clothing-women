@@ -2,13 +2,14 @@
 import NavBar from "@/src/components/layout/NavBar";
 import BannerHeader from "@/src/components/headers/BannerHeader";
 import Link from "next/link";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import collection from "@/public/ffdslfs.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 import { getProduct } from "@/src/featuers/product/productSlice";
 import { useEffect, useState } from "react";
+import FilterCollection from "@/src/components/layout/FilterCollection";
 
 function page() {
   const [displayCount, setDisplayCount] = useState(6);
@@ -46,19 +47,29 @@ function page() {
           sizes="100vw"
         />
       </Box>
-      {loading && <p>loading....</p>} 
-      <h2>products</h2>
-      {items?.slice(0, displayCount).map((item) => (
+      <Container maxWidth ="lg" sx={{marginTop : '2rem'}}>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <FilterCollection />
+          </Grid>
+          <Grid item xs={9}>
+            <Box sx={{ background: "red", width: "100%" }}>h1</Box>
+          </Grid>
+        </Grid>
+      </Container>
+
+      {loading && <p>loading....</p>}
+      {/* {items?.slice(0, displayCount).map((item) => (
         <Box key={item.id}>
           <Typography>{item.product_name}</Typography>
         </Box>
       ))}
-      {}
-      {displayCount < items?.length && (
+      {} */}
+      {/* {displayCount < items?.length && (
         <button onClick={() => setDisplayCount((prev) => prev + 6)}>
           Load more
         </button>
-      )}
+      )} */}
     </>
   );
 }

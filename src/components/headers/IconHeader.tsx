@@ -3,13 +3,15 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Link from "@mui/material/Link";
-import { Box, Menu, Button, IconButton } from "@mui/material";
+import { Box, Menu, Button, IconButton, Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/src/context/authContext";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { Logout } from "@mui/icons-material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Person4Icon from "@mui/icons-material/Person4";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 function IconHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -20,9 +22,7 @@ function IconHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { isLoggedIn , logout } = useAuth();
-
-
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <>
@@ -50,18 +50,23 @@ function IconHeader() {
                 minWidth: "0px",
               }}
             >
-              <PersonOutlineOutlinedIcon />
-              <KeyboardArrowDownIcon />
+              <AccountCircleOutlinedIcon sx={{ color: "#404040" }} />
             </Button>
 
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              <Link href ="/profile">
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <PersonOutlineOutlinedIcon fontSize="small" />
-                </ListItemIcon>
-                My account
-              </MenuItem>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <Link href="/profile">
+                <MenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                    <PersonOutlineOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  My account
+                </MenuItem>
               </Link>
               <MenuItem onClick={logout}>
                 <ListItemIcon>
@@ -73,7 +78,7 @@ function IconHeader() {
           </>
         ) : (
           <Link href="/login" color="inherit" underline="none">
-            <PersonOutlineOutlinedIcon />
+            <Person4Icon />
           </Link>
         )}
 
