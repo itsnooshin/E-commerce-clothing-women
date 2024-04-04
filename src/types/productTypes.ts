@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  product_price: string;
+  procuct_price: string;
   product_bestsellere: boolean;
   product_category: string;
   product_color: string[];
@@ -11,5 +11,3 @@ export interface Product {
   product_new: boolean;
   product_size: string[];
 }
-
-

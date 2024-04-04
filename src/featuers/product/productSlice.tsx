@@ -2,21 +2,21 @@ import { getImages } from "@/src/lib/utilits/apImages";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Product } from "@/src/types/productTypes";
 
- interface ProductState {
+interface ProductState {
   items: Product[];
   loading: boolean;
   error: string | null;
 }
 
-
 const initialState: ProductState = {
   items: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 
 export const getProduct = createAsyncThunk("products/getProduct", async () => {
   const data = await getImages();
+  console.log(data);
   return data as Product[];
 });
 
@@ -30,8 +30,8 @@ export const productSlice = createSlice({
         state.loading = true;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
-        state.loading = false;
         state.items = action.payload;
+        state.loading = false;
       })
       .addCase(getProduct.rejected, (state, action) => {
         state.error = action.error.message || null;

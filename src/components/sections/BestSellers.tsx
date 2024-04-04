@@ -14,9 +14,6 @@ import "swiper/css/pagination";
 import "swiper/css";
 import { Product } from "@/src/types/productTypes";
 
-
-
-
 const BestSellers = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -93,7 +90,7 @@ const BestSellers = () => {
                     </Typography>
 
                     <Typography sx={{ fontWeight: "600" }}>
-                      ${item.product_price}
+                      ${item.procuct_price}
                     </Typography>
                     <Typography>colors</Typography>
                   </Box>
@@ -180,7 +177,7 @@ const BestSellers = () => {
 
                   <Box>
                     <Typography sx={{ fontWeight: "700" }}>
-                      ${item.product_price}
+                      ${item.procuct_price}
                     </Typography>
                   </Box>
                 </Box>
