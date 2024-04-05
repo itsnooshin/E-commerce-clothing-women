@@ -112,8 +112,9 @@ const BestSellers = () => {
                 position="relative"
                 width={"100%"}
                 height={"auto"}
+                
               >
-                <Link href="/product">
+                <Link href={{pathname :`/product/${item.id}` , query : {name :item.product_name}}}>
                   <Image
                     src={item.product_img[0]}
                     style={{
@@ -159,6 +160,7 @@ const BestSellers = () => {
                       alignItems: "center",
                       justifyContent: "space-between",
                       p: "6px",
+                      color : '#000'
                     }}
                   >
                     <Box
