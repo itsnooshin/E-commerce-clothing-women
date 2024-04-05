@@ -19,7 +19,7 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
   const hrefLink = options.map((option) =>
     option.name?.toLowerCase().replace(/\s+/g, "-")
   );
-
+  console.log(hrefLink, options);
 
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -31,10 +31,14 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
         }}
       >
         {options.map((option, index) => {
-          const isActive = pathName.startsWith(`/${hrefLink[index]}`)
+          const isActive = pathName.startsWith(`/${hrefLink[index]}`);
           return (
             <Link
-              href={`/${hrefLink[index]}`}
+              href={`/${
+                hrefLink[index] === "collection"
+                  ? "collection/all"
+                  : hrefLink[index]
+              }`}
               key={index}
               onMouseOver={() => {
                 setIsHovered(option.name!);

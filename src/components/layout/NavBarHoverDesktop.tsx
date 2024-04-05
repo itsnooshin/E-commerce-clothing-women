@@ -2,6 +2,8 @@ import { Grid, Box, Typography, Container } from "@mui/material";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
 import { Options } from "@/src/types/MenuNavBarTypes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface HoverMenuDesktop {
   options: Options[];
@@ -13,6 +15,12 @@ interface HoverMenuDesktop {
 function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
   const { options, isHoverd, setHover } = props;
   const Options = options.filter((item) => isHoverd === item.name)!;
+  const pathName = usePathname();
+  const hrefLink = options.flatMap((option) =>
+    option.category?.map((item) =>
+      item.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-")
+    )
+  );
 
   return (
     isHoverd && (
@@ -53,9 +61,17 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                 >
                   {Options.map((item) =>
                     item.category?.map((item, index) => (
-                      <Typography key={index} sx={{ color: "#404040" }}>
-                        {item}
-                      </Typography>
+                      <Link
+                        href={`/${
+                          hrefLink[index] === "shop-all"
+                            ? "collection/all"
+                            : `collection/${hrefLink[index]}`
+                        }`}
+                      >
+                        <Typography key={index} sx={{ color: "#404040" }}>
+                          {item}
+                        </Typography>
+                      </Link>
                     ))
                   )}
                 </Box>

@@ -13,6 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import "swiper/css/pagination";
 import "swiper/css";
 import { Product } from "@/src/types/productTypes";
+import Link from "next/link";
 
 const BestSellers = () => {
   const theme = useTheme();
@@ -112,75 +113,77 @@ const BestSellers = () => {
                 width={"100%"}
                 height={"auto"}
               >
-                <Image
-                  src={item.product_img[0]}
-                  style={{
-                    objectFit: "cover",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  width={500}
-                  height={500}
-                  alt="images for best sellers"
-                />
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    position: "absolute",
-                    top: "2rem",
-                    marginLeft: "1rem",
-                  }}
-                >
-                  {item.product_new && (
-                    <Typography
-                      sx={{
-                        bgcolor: "white",
-                        padding: "0.5rem 1.5rem",
-                        marginRight: "17rem",
-                      }}
-                    >
-                      New{" "}
-                    </Typography>
-                  )}
-                  <Box sx={{ position: "absolute", left: "19rem" }}>
-                    <FavoriteBorderIcon />
-                  </Box>
-                </Box>
-
-                {/* <FavoriteBorderIcon /> */}
-                {/* <FavoriteIcon sx={{color :'red'}} /> */}
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    p: "6px",
-                  }}
-                >
+                <Link href="/product">
+                  <Image
+                    src={item.product_img[0]}
+                    style={{
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    width={500}
+                    height={500}
+                    alt="images for best sellers"
+                  />
                   <Box
                     sx={{
                       display: "flex",
-                      flexDirection: "column",
-                      gap: "3px",
+                      justifyContent: "space-between",
+                      position: "absolute",
+                      top: "2rem",
+                      marginLeft: "1rem",
                     }}
                   >
-                    <Typography sx={{ fontWeight: "700" }}>
-                      {item.product_name.split(" ").slice(0, 2).join(" ")}
-                    </Typography>
-                    <Typography>
-                      {item.product_name.split(" ").slice(2).join(" ")}
-                    </Typography>
-                    <Typography>T</Typography>
+                    {item.product_new && (
+                      <Typography
+                        sx={{
+                          bgcolor: "white",
+                          padding: "0.5rem 1.5rem",
+                          marginRight: "17rem",
+                        }}
+                      >
+                        New{" "}
+                      </Typography>
+                    )}
+                    <Box sx={{ position: "absolute", left: "19rem" }}>
+                      <FavoriteBorderIcon />
+                    </Box>
                   </Box>
 
-                  <Box>
-                    <Typography sx={{ fontWeight: "700" }}>
-                      ${item.procuct_price}
-                    </Typography>
+                  {/* <FavoriteBorderIcon /> */}
+                  {/* <FavoriteIcon sx={{color :'red'}} /> */}
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      p: "6px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "3px",
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: "700" }}>
+                        {item.product_name.split(" ").slice(0, 2).join(" ")}
+                      </Typography>
+                      <Typography>
+                        {item.product_name.split(" ").slice(2).join(" ")}
+                      </Typography>
+                      <Typography>T</Typography>
+                    </Box>
+
+                    <Box>
+                      <Typography sx={{ fontWeight: "700" }}>
+                        ${item.procuct_price}
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
+                </Link>
               </Grid>
             ))
         )}
