@@ -144,22 +144,16 @@ export default async function pageDetail({ params }: any) {
                 </Box>
                 <FormControl sx={{ m: 1, width: "550px", marginLeft: 0 }}>
                   <Select
+                    sx={{
+                      marginBottom: 0,
+                      width: 550,
+                      height: 50,
+                    }}
                     displayEmpty
                     value={selectedSize}
                     MenuProps={{
-                      anchorOrigin: {
-                        vertical: "bottom",
-                        horizontal: "left",
-                      },
-                      transformOrigin: {
-                        vertical: "top",
-                        horizontal: "left",
-                      },
-                      PaperProps: {
-                        style: {
-                          marginTop: "4.5rem",
-                        },
-                      },
+                      disableScrollLock: true,
+                      PaperProps: {},
                     }}
                     renderValue={(selectedSize) => {
                       if (selectedSize.length === 0) {
@@ -173,7 +167,9 @@ export default async function pageDetail({ params }: any) {
                     }}
                   >
                     {product.product_size.map((size) => (
-                      <MenuItem>{size}</MenuItem>
+                      <MenuItem key={size} value={size}>
+                        {size}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -197,6 +193,7 @@ export default async function pageDetail({ params }: any) {
                   </Button>
                 </Box>
               </Box>
+              {/* <Box sx={{ pt: 16 }}>nnn</Box> */}
             </Grid>
           </Grid>
         </Container>
