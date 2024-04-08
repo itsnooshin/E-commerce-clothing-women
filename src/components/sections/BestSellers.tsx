@@ -112,9 +112,13 @@ const BestSellers = () => {
                 position="relative"
                 width={"100%"}
                 height={"auto"}
-                
               >
-                <Link href={{pathname :`/product/${item.id}` , query : {name :item.product_name}}}>
+                <Link
+                  href={{
+                    pathname: `/product/${item.id}`,
+                    query: { name: item.product_name },
+                  }}
+                >
                   <Image
                     src={item.product_img[0]}
                     style={{
@@ -146,7 +150,7 @@ const BestSellers = () => {
                         New{" "}
                       </Typography>
                     )}
-                    <Box sx={{ position: "absolute", left: "19rem" }}>
+                    <Box sx={{ position: "absolute", left: "18rem" }}>
                       <FavoriteBorderIcon />
                     </Box>
                   </Box>
@@ -160,7 +164,7 @@ const BestSellers = () => {
                       alignItems: "center",
                       justifyContent: "space-between",
                       p: "6px",
-                      color : '#000'
+                      color: "#000",
                     }}
                   >
                     <Box
@@ -176,7 +180,24 @@ const BestSellers = () => {
                       <Typography>
                         {item.product_name.split(" ").slice(2).join(" ")}
                       </Typography>
-                      <Typography>T</Typography>
+                      <Box sx={{ display: "flex", gap: "6px", mt: 1 }}>
+                        {item.product_color.map((items) => (
+                          <Typography
+                            sx={{
+                              bgcolor: `${items?.hex}`,
+                              width: "24px",
+                              height: "24px",
+                              borderRadius: "50%",
+                              display: "inline-block",
+                              border: `${
+                                items?.hex === "#FFFFFF"
+                                  ? "1px solid #dad7cd"
+                                  : null
+                              }`,
+                            }}
+                          ></Typography>
+                        ))}
+                      </Box>
                     </Box>
 
                     <Box>

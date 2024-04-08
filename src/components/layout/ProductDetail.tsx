@@ -21,6 +21,8 @@ import Breadcrumb from "../headers/Breadcrumb";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AccordionProduct from "./AccordionProduct";
+import Footer from "./Footer";
+import RecommondProduct from "./RecommondProduct";
 
 interface ProductValue {
   product: Product;
@@ -35,6 +37,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     product_img,
     product_description,
     product_size,
+    product_category,
   } = product;
   const allColor = product_color
     .filter((item) => item.hex)
@@ -61,7 +64,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
       <Box sx={{ pt: 3 }}>
         <Container sx={{ paddingLeft: 0 }}>
           <Breadcrumb name={product_name} />
-
           <Grid container spacing={3} sx={{ mt: 4 }}>
             <Grid item xs={2}>
               <Box
@@ -300,7 +302,18 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
               </Box>
             </Grid>
           </Grid>
+          <Box
+            sx={{
+              // width: "100%",
+              // height: "400px",
+
+              marginBottom: "5rem",
+            }}
+          >
+            <RecommondProduct category={product_category} />
+          </Box>
         </Container>
+        <Footer />
       </Box>
     </>
   );

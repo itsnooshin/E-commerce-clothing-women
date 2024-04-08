@@ -65,7 +65,7 @@ export default function AccordionProduct() {
               }}
             >
               <AccordionSummary
-                expandIcon={<AddIcon />}
+                expandIcon={ selectedItem === item.id ? <MinimizeIcon /> : <AddIcon />}
                 id={`panel${item.id}-header`}
                 sx={{
                   fontWeight: "bold",

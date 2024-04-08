@@ -15,6 +15,8 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "@/src/types/productTypes";
 import Link from "next/link";
+import { FavoriteBorder } from "@mui/icons-material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 interface ProductValue {
   items: Product[];
@@ -27,7 +29,13 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
   return (
     <>
       {items?.slice(0, count).map((item) => (
-        <Grid item xs={12} sm={6} key={item.id} sx={{ marginBottom: "1rem" }}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          key={item.id}
+          sx={{ marginBottom: "1rem", position: "relative" }}
+        >
           <Link
             href={{
               pathname: `/collection/all/products/${item.id}`,
@@ -42,6 +50,32 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
               width={400}
               height={400}
             />
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                position: "absolute",
+                top: "2rem",
+                marginLeft: "1rem",
+              }}
+            >
+              {item.product_new && (
+                <Typography
+                  sx={{
+                    bgcolor: "white",
+                    padding: "0.5rem 1.5rem",
+                    marginRight: "17rem",
+                  }}
+                >
+                  New{" "}
+                </Typography>
+              )}
+              <Box sx={{ position: "absolute", left: "20rem" }}>
+                {" "}
+                <FavoriteBorderIcon />
+              </Box>
+            </Box>
             <Box
               sx={{
                 display: "flex",
