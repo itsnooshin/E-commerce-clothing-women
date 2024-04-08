@@ -198,7 +198,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                           </Typography>
                         );
                       }
-                      return selectedSize.join(", ");
+                      return selectedSize;
                     }}
                   >
                     {product_size.map((size) => (
