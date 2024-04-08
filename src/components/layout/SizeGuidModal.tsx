@@ -1,0 +1,101 @@
+import React, { PropsWithChildren } from "react";
+
+import {
+  IconButton,
+  Modal,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Table } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
+interface PropsSize {
+  open: boolean;
+  handleClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+function createData(name: string, waist: string, hips: string, chest: string) {
+  return { name, waist, hips, chest };
+}
+
+const rows = [
+  createData("XS", "159", "6.0", "24"),
+  createData("S", "237", "9.0", " 37"),
+  createData("M", "262", "16.0", "24"),
+  createData("L", "305", "3.7", "67"),
+  createData("XL", "356", "16.0", "49"),
+];
+
+export default function SizeGuidModal(props: PropsWithChildren<PropsSize>) {
+  const { open, handleClose } = props;
+  return (
+    <Box>
+      <Modal
+        open={open}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "800px",
+            bgcolor: "background.paper",
+            borderRadius: "12px",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography
+            variant="h5"
+            fontFamily={"inherit"}
+            fontWeight={"bold"}
+            textAlign={"center"}
+            mb={4}
+          >
+            Women Clothing's Chart
+          </Typography>
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 10,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>sizes (cm)</TableCell>
+                  <TableCell>Waist</TableCell>
+                  <TableCell>Hips</TableCell>
+                  <TableCell>Chest</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((items) => (
+                  <TableRow>
+                    <TableCell>{items.name}</TableCell>
+                    <TableCell>{items.waist}</TableCell>
+                    <TableCell>{items.chest}</TableCell>
+                    <TableCell>{items.hips}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Modal>
+    </Box>
+  );
+}

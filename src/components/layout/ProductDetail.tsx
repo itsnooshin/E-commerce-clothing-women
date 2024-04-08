@@ -16,6 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React, { PropsWithChildren, useEffect, useState } from "react";
+import SizeGuidModal from "./SizeGuidModal";
 
 interface ProductValue {
   product: Product;
@@ -40,6 +41,11 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
 
   const [colors, setColors] = useState(allColor);
   const [currentColor, setCurrentColor] = useState(currentColorItem[0]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
   const CurrentColor = product_color.find(
     (item) => item.hex === currentColor
   )?.name;
@@ -175,7 +181,13 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                     width: "550px",
                   }}
                 >
-                  <Typography sx={{ color: "#868686" }}>Size Guide</Typography>
+                  {/* modal guide */}
+                  <Button onClick={handleOpen} sx={{ color: "#868686" }}>
+                    Size Guide
+                  </Button>
+                  {open && (
+                    <SizeGuidModal open={open} handleClose={handleClose} />
+                  )}
                 </Box>
                 <FormControl sx={{ m: 1, width: "550px", marginLeft: 0 }}>
                   <Select
