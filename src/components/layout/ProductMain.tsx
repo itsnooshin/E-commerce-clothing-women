@@ -1,7 +1,16 @@
 import { AppDispatch, RootState } from "@/src/app/store";
 import { getProduct } from "@/src/featuers/product/productSlice";
 import Image from "next/image";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "@/src/types/productTypes";
@@ -18,11 +27,11 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
   return (
     <>
       {items?.slice(0, count).map((item) => (
-        <Grid item xs={12} sm={6} key={item.id}>
+        <Grid item xs={12} sm={6} key={item.id} sx={{ marginBottom: "1rem" }}>
           <Link
             href={{
               pathname: `/collection/all/products/${item.id}`,
-              query: { name: `${item.product_name}-${item.product_color[0]}` },
+              query: { name: `${item.product_name}` },
             }}
             style={{ color: "inherit" }}
           >
@@ -54,11 +63,32 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
                 <Typography>
                   {item.product_name.split(" ").slice(2).join(" ")}
                 </Typography>
-                <Typography>T</Typography>
+
+                <Box sx={{ display: "flex", gap: "6px", mt: 1 }}>
+                  {item.product_color.map((items) => (
+                    <Typography
+                      sx={{
+                        bgcolor: `${items?.hex}`,
+                        width: "24px",
+                        height: "24px",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        border: `${
+                          items?.hex === "#FFFFFF" ? "1px solid #dad7cd" : null
+                        }`,
+                      }}
+                    ></Typography>
+                  ))}
+                </Box>
               </Box>
 
               <Box>
-                <Typography sx={{ fontWeight: "700" }}>
+                <Typography
+                  sx={{
+                    fontWeight: "700",
+                    marginRight: "1rem",
+                  }}
+                >
                   ${item.procuct_price}
                 </Typography>
               </Box>

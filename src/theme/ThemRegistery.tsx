@@ -122,7 +122,9 @@ const themeOptions: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         root: {
-          backgroundColor: "none",
+          "&:hover": {
+            backgroundColor: "none",
+          },
         },
       },
       defaultProps: {

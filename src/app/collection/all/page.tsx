@@ -56,7 +56,7 @@ function page() {
             <FilterCollection />
           </Grid>
           <Grid item xs={9}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{ marginBottom: "3rem" }}>
               {loading ? (
                 <Grid
                   container

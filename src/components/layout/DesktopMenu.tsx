@@ -19,7 +19,6 @@ function DesktopMenu(props: PropsWithChildren<DesktopMenu>) {
   const hrefLink = options.map((option) =>
     option.name?.toLowerCase().replace(/\s+/g, "-")
   );
-  console.log(hrefLink, options);
 
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>
