@@ -17,6 +17,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import SizeGuidModal from "./SizeGuidModal";
+import Breadcrumb from "../headers/Breadcrumb";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import AccordionProduct from "./AccordionProduct";
 
 interface ProductValue {
   product: Product;
@@ -56,23 +60,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
       <NavBar />
       <Box sx={{ pt: 3 }}>
         <Container sx={{ paddingLeft: 0 }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <Link href="/">
-              <Typography sx={{ color: "#748C70" }}> Home</Typography>
-            </Link>
-            <span>/</span>
-            <Link href="/collection/all">
-              <Typography sx={{ color: "#748C70" }}>Shop All</Typography>
-            </Link>
-            <span>/</span>
-            <Typography>{product_name}</Typography>
-          </Box>
+          <Breadcrumb name={product_name} />
 
           <Grid container spacing={3} sx={{ mt: 4 }}>
             <Grid item xs={2}>
@@ -93,7 +81,19 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   />
                 ))}
               </Box>
+              <Box
+                sx={{
+                  bgcolor: "#F0F2EF",
+                  marginTop: "3rem",
+                  width: "560px",
+                  // height: "400px",
+                  marginBottom: "10rem",
+                }}
+              >
+                <AccordionProduct />
+              </Box>
             </Grid>
+
             <Grid item xs={12} sm={12} md={4}>
               <Box>
                 <Image
@@ -181,7 +181,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                     width: "550px",
                   }}
                 >
-                  {/* modal guide */}
                   <Button onClick={handleOpen} sx={{ color: "#868686" }}>
                     Size Guide
                   </Button>
@@ -240,7 +239,65 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   </Button>
                 </Box>
               </Box>
-              {/* <Box sx={{ pt: 16 }}>nnn</Box> */}
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                width={"550px"}
+                color={"#868686"}
+                marginTop={"2rem"}
+              >
+                <Box display={"flex"} alignItems={"center"} gap={"4px"}>
+                  <LocalShippingOutlinedIcon />
+                  <Typography>Easy Return</Typography>
+                </Box>
+                <Box display={"flex"} alignItems={"center"} gap={"4px"}>
+                  <FavoriteBorderOutlinedIcon sx={{ color: "#000000" }} />
+                  <Typography>Add to Wish List</Typography>
+                </Box>
+              </Box>
+              {/* background item */}
+              <Box
+                bgcolor={"#F0F2EF"}
+                width={"550px"}
+                marginTop={"2rem"}
+                // height={"500px"}
+                padding={"2rem 1rem"}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    borderBottom: "1px solid #ADADAD",
+                    paddingBottom: "1rem",
+                  }}
+                >
+                  Cuproluxe
+                </Typography>
+                <Typography sx={{ paddingTop: "1rem" }}>
+                  Our CuproLuxe is a regenerated cellulose fabric made from
+                  cotton waste. This fabric is made in a zero-waste closed loop
+                  process, and is 100% biodegradable. Cupro is breathable, quick
+                  drying and durable. This OEKO-TEX®, FSC, and GRS certified
+                  material is made in Turkey.
+                </Typography>
+                <Box sx={{ display: "flex", gap: "12px", marginTop: "1rem" }}>
+                  <Box>
+                    <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                      Quick Dry
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                      breathable
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                      machine washable
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         </Container>
