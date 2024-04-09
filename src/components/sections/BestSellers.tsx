@@ -13,19 +13,12 @@ import ProductMobile from "../layout/ProductMobile";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 import { getProduct } from "@/src/featuers/product/productSlice";
+import UseProductsReturn from "@/src/hooks/UseProductsReturn";
 
 const BestSellers = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
-    (store: RootState) => store.product
-  );
-
-  useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+  const { items, loading, error } = UseProductsReturn();
 
   const SkeletonCount = loading && isMobile ? 2 : 3;
 

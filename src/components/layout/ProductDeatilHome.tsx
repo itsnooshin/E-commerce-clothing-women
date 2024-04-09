@@ -16,11 +16,9 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import SizeGuidModal from "./SizeGuidModal";
 import Image from "next/image";
 import Footer from "@/src/components/layout/Footer";
-import RecommondProduct from "./RecommondProduct";
-import { getProduct } from "@/src/featuers/product/productSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/src/app/store";
 import Products from "@/src/components/layout/Products";
+import UseProductsReturn from "@/src/hooks/UseProductsReturn";
+import useProductColorHook from "@/src/hooks/useProductColorHook";
 
 interface Types {
   product: Product;
@@ -30,55 +28,39 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const { product } = props;
 
   const {
-    id,
     procuct_price,
-    product_bestsellere,
     product_category,
     product_color,
     product_description,
     product_img,
-    product_new,
     product_size,
     product_name,
   } = product;
 
-  const allColor = product_color
-    .filter((item) => item.hex)
-    .map((item) => item.hex);
-  const currentColorItem = product_color
-    .filter((item) => item.currentColor)
-    .map((item) => item.currentColor);
+  const {
+    colors,
+    setColors,
+    currentColor,
+    setCurrentColor,
+    open,
+    handleOpen,
+    handleClose,
+    isSelected,
+    setIsSelected,
+    isHovered,
+    setIsHovered,
+    itemS,
+    setItemS,
+    CurrentColor,
+  } = useProductColorHook(product_color);
 
-  const [colors, setColors] = useState(allColor);
-  const [currentColor, setCurrentColor] = useState(currentColorItem[0]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const CurrentColor = product_color.find(
-    (item) => item.hex === currentColor
-  )?.name;
+  const { items, loading } = UseProductsReturn();
 
-    const dispatch = useDispatch<AppDispatch>();
-    const { items, loading, error } = useSelector(
-      (store: RootState) => store.product
-    );
+  const filterProduct = items
+    .filter((items) => items.product_category === product_category)
+    .slice(0, 3);
 
-    useEffect(() => {
-      dispatch(getProduct());
-    }, [dispatch]);
-
-    console.log(
-      items
-        .filter((items) => items.product_category === product_category)
-        .slice(0, 3)
-    );
-    const filterProduct = items
-      .filter((items) => items.product_category === product_category)
-      .slice(0, 3);
-
-    if (loading) return;
+  if (loading) return;
 
   return (
     <>
@@ -107,7 +89,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 bgcolor: "#F0F2EF",
                 marginTop: "3rem",
                 width: "560px",
-                // height: "400px",
                 marginBottom: "10rem",
               }}
             >
@@ -325,7 +306,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
             marginBottom: "5rem",
           }}
         >
-         
           {items && (
             <Box>
               <Typography
@@ -339,10 +319,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
               <Grid container spacing={2}>
                 {filterProduct.map((item) => (
                   <Grid item xs={12} md={4}>
-                    <Products
-                      item={item}
-                      link={`/product/${item.id}`}
-                    />
+                    <Products item={item} link={`/product/${item.id}`} />
                   </Grid>
                 ))}
               </Grid>

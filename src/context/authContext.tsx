@@ -87,6 +87,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         userInfoFirstName,
         userInfoLastName,
         userInfoEmail,
+        
       }}
     >
       {children}

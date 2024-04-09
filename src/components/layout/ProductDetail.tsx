@@ -23,6 +23,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import AccordionProduct from "./AccordionProduct";
 import Footer from "./Footer";
 import RecommondProduct from "./RecommondProduct";
+import useProductColorHook from "@/src/hooks/useProductColorHook";
 
 interface ProductValue {
   product: Product;
@@ -40,28 +41,22 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     product_size,
     product_category,
   } = product;
-  const allColor = product_color
-    .filter((item) => item.hex)
-    .map((item) => item.hex);
-  const currentColorItem = product_color
-    .filter((item) => item.currentColor)
-    .map((item) => item.currentColor);
 
-  const [colors, setColors] = useState(allColor);
-  const [currentColor, setCurrentColor] = useState(currentColorItem[0]);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const CurrentColor = product_color.find(
-    (item) => item.hex === currentColor
-  )?.name;
-
-  const [isSelected, setIsSelected] = useState("");
-  const [ishoved, setIsHoved] = useState(false);
-  const [itemS, setItemS] = useState<string | null>(null);
-
+  const {
+    colors,
+    currentColor,
+    setCurrentColor,
+    open,
+    handleOpen,
+    handleClose,
+    isSelected,
+    setIsSelected,
+    isHovered,
+    setIsHovered,
+    itemS,
+    setItemS,
+    CurrentColor,
+  } = useProductColorHook(product_color);
   return (
     <>
       <BannerHeader />
@@ -81,7 +76,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   <Button
                     onClick={() => {
                       setIsSelected(image);
-                      setIsHoved(true);
+                      setIsHovered(true);
                       setItemS(
                         itemS === index.toString() ? null : index.toString()
                       );
@@ -107,7 +102,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   bgcolor: "#F0F2EF",
                   marginTop: "3rem",
                   width: "560px",
-                  // height: "400px",
                   marginBottom: "10rem",
                 }}
               >
@@ -118,7 +112,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
             <Grid item xs={12} sm={12} md={4}>
               <Box>
                 <Image
-                  src={ishoved ? isSelected : product_img[0]}
+                  src={isHovered ? isSelected : product_img[0]}
                   width={400}
                   height={500}
                   style={{ objectFit: "cover", width: "100%" }}
@@ -153,7 +147,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
 
                 <Box sx={{ display: "flex", gap: "6px" }}>
                   <Box sx={{ display: "flex", gap: "6px" }}>
-                    {colors.map((color) => (
+                    {colors.map((color: any) => (
                       <Button
                         onClick={() => setCurrentColor(color)}
                         key={color}

@@ -6,6 +6,7 @@ import { useAuth } from "@/src/context/authContext";
 import {
   Box,
   Breadcrumbs,
+  Button,
   Container,
   FormControl,
   Tab,
@@ -23,8 +24,13 @@ import Footer from "@/src/components/layout/Footer";
 import Link from "next/link";
 
 export default function WelcomePage() {
-  const { userInfoEmail, userInfoFirstName, userInfoLastName, isLoggedIn } =
-    useAuth();
+  const {
+    userInfoEmail,
+    userInfoFirstName,
+    userInfoLastName,
+    isLoggedIn,
+    logout,
+  } = useAuth();
 
   const [value, setValue] = useState<string | "1">("1");
 
@@ -49,7 +55,7 @@ export default function WelcomePage() {
           </Breadcrumbs>
         </Box>
       </Container>
-     
+
       <TabContext value={value}>
         <Box
           sx={{
@@ -80,7 +86,7 @@ export default function WelcomePage() {
               "Log out",
             ].map((item, index) => (
               <Tab
-                value={index}
+                value={(index + 1).toString()}
                 label={item}
                 sx={{
                   fontSize: "1rem",
@@ -190,17 +196,37 @@ export default function WelcomePage() {
                   {userInfoEmail}
                 </Typography>
               </Box>
-              {/* <FormControl sx={{ width: "600px" }}>
-                  <TextField
-                    label="First Name"
-                    defaultValue={userInfoFirstName}
-                    fullWidth
-                  />
-                </FormControl> */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  sx={{
+                    color: "#fff",
+                    borderRadius: 0,
+                    background: "#5A6D57",
+                    marginTop: "4rem",
+                    textTransform: "capitalize",
+                    "&:hover": {
+                      backgroundColor: "#5A6D57",
+                      boxShadow: "none",
+                    },
+                  }}
+                >
+                  Edit Information
+                </Button>
+              </Box>
             </TabPanel>
-            <TabPanel value="2">pannel 2</TabPanel>
-            <TabPanel value="3">pannel 3</TabPanel>
-            <TabPanel value="4">pannel 4</TabPanel>
+            <TabPanel value="2">There is no context Yet </TabPanel>
+            <TabPanel value="3">There is no context Yet</TabPanel>
+            <TabPanel value="4">There is no context Yet</TabPanel>
+
+            {/* <TabPanel value="4" onClick={logout}>
+              pannel 4
+            </TabPanel> */}
           </Box>
         </Box>
       </TabContext>

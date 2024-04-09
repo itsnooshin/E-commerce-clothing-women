@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { PropsWithChildren, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Products from "./Products";
+import UseProductsReturn from "@/src/hooks/UseProductsReturn";
 
 interface Types {
   category: string;
@@ -13,18 +14,8 @@ interface Types {
 
 export default function RecommondProduct(props: PropsWithChildren<Types>) {
   const { category } = props;
-  const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
-    (store: RootState) => store.product
-  );
+  const { items, loading } = UseProductsReturn();
 
-  useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
-
-  console.log(
-    items.filter((items) => items.product_category === category).slice(0, 3)
-  );
   const filterProduct = items
     .filter((items) => items.product_category === category)
     .slice(0, 3);
