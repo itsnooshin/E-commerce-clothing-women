@@ -16,7 +16,6 @@ const initialState: ProductState = {
 
 export const getProduct = createAsyncThunk("products/getProduct", async () => {
   const data = await getImages();
-  console.log(data);
   return data as Product[];
 });
 

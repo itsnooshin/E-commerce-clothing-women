@@ -31,6 +31,7 @@ interface ProductValue {
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const { product } = props;
   const {
+    id,
     product_color,
     procuct_price,
     product_name,
@@ -57,6 +58,10 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     (item) => item.hex === currentColor
   )?.name;
 
+  const [isSelected, setIsSelected] = useState("");
+  const [ishoved, setIsHoved] = useState(false);
+  const [itemS, setItemS] = useState<string | null>(null);
+
   return (
     <>
       <BannerHeader />
@@ -72,15 +77,29 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   height: "500px",
                 }}
               >
-                {product_img.map((image) => (
-                  <Image
-                    key={image}
-                    src={image}
-                    width={120}
-                    height={120}
-                    style={{ objectFit: "cover" }}
-                    alt="image for detail product"
-                  />
+                {product_img.map((image, index) => (
+                  <Button
+                    onClick={() => {
+                      setIsSelected(image);
+                      setIsHoved(true);
+                      setItemS(
+                        itemS === index.toString() ? null : index.toString()
+                      );
+                    }}
+                  >
+                    <Image
+                      key={image}
+                      src={image}
+                      width={120}
+                      height={120}
+                      style={{
+                        objectFit: "cover",
+                        border:
+                          itemS === index.toString() ? "2px solid #ADADAD" : "",
+                      }}
+                      alt="image for detail product"
+                    />
+                  </Button>
                 ))}
               </Box>
               <Box
@@ -99,7 +118,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
             <Grid item xs={12} sm={12} md={4}>
               <Box>
                 <Image
-                  src={product_img[0]}
+                  src={ishoved ? isSelected : product_img[0]}
                   width={400}
                   height={500}
                   style={{ objectFit: "cover", width: "100%" }}

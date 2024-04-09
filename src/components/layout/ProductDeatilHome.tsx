@@ -1,70 +1,88 @@
-"use client";
-import BannerHeader from "@/src/components/headers/BannerHeader";
-import NavBar from "@/src/components/layout/NavBar";
-import ProductDetail from "@/src/components/layout/ProductDetail";
-import { getSingleproduct } from "@/src/helper";
 import { Product } from "@/src/types/productTypes";
 import {
-  Box,
-  Button,
-  Container,
-  FormControl,
   Grid,
-  MenuItem,
-  Select,
+  Box,
   Typography,
-  colors,
+  Button,
+  FormControl,
+  Select,
+  MenuItem,
+  Container,
 } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import SpinnerLoader from "@/src/components/layout/SpinnerLoader";
-import AccordionProduct from "@/src/components/layout/AccordionProduct";
-import SizeGuidModal from "@/src/components/layout/SizeGuidModal";
+import React, { PropsWithChildren, useEffect, useState } from "react";
+import AccordionProduct from "./AccordionProduct";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ProductDeatilHome from "@/src/components/layout/ProductDeatilHome";
+import SizeGuidModal from "./SizeGuidModal";
+import Image from "next/image";
+import Footer from "@/src/components/layout/Footer";
+import RecommondProduct from "./RecommondProduct";
+import { getProduct } from "@/src/featuers/product/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/src/app/store";
+import Products from "@/src/components/layout/Products";
 
-export default function page({ params }: any) {
-  const [singleProduct, setSingleProduct] = useState<Product | null>(null);
-  const { id } = params;
+interface Types {
+  product: Product;
+}
 
-  useEffect(() => {
-    if (id) {
-      const fetchData = async () => {
-        const { singleProduct } = await getSingleproduct(id);
-        setSingleProduct(singleProduct);
-      };
+export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
+  const { product } = props;
 
-      fetchData();
-    }
-  }, [id]);
+  const {
+    id,
+    procuct_price,
+    product_bestsellere,
+    product_category,
+    product_color,
+    product_description,
+    product_img,
+    product_new,
+    product_size,
+    product_name,
+  } = product;
 
-  if (!singleProduct) return <SpinnerLoader />;
+  const allColor = product_color
+    .filter((item) => item.hex)
+    .map((item) => item.hex);
+  const currentColorItem = product_color
+    .filter((item) => item.currentColor)
+    .map((item) => item.currentColor);
+
+  const [colors, setColors] = useState(allColor);
+  const [currentColor, setCurrentColor] = useState(currentColorItem[0]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const CurrentColor = product_color.find(
+    (item) => item.hex === currentColor
+  )?.name;
+
+    const dispatch = useDispatch<AppDispatch>();
+    const { items, loading, error } = useSelector(
+      (store: RootState) => store.product
+    );
+
+    useEffect(() => {
+      dispatch(getProduct());
+    }, [dispatch]);
+
+    console.log(
+      items
+        .filter((items) => items.product_category === product_category)
+        .slice(0, 3)
+    );
+    const filterProduct = items
+      .filter((items) => items.product_category === product_category)
+      .slice(0, 3);
+
+    if (loading) return;
+
   return (
     <>
-      <BannerHeader />
-      <NavBar />
-      <Container sx={{ paddingLeft: 0 }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <Link href="/">
-            <Typography sx={{ color: "#748C70" }}> Home</Typography>
-          </Link>
-          <span>/</span>
-          <Link href="">
-            <Typography>{singleProduct.product_name}</Typography>
-          </Link>
-        </Box>
-      </Container>
-
-      <ProductDeatilHome product={singleProduct} />
-      {/* <Container sx={{ paddingLeft: 0 }}>
+      <Container>
         <Grid container spacing={3} sx={{ mt: 4 }}>
           <Grid item xs={2}>
             <Box
@@ -73,7 +91,7 @@ export default function page({ params }: any) {
                 height: "500px",
               }}
             >
-              {singleProduct.product_img.map((image) => (
+              {product_img.map((image) => (
                 <Image
                   key={image}
                   src={image}
@@ -100,7 +118,7 @@ export default function page({ params }: any) {
           <Grid item xs={12} sm={12} md={4}>
             <Box>
               <Image
-                src={singleProduct.product_img[0]}
+                src={product_img[0]}
                 width={400}
                 height={500}
                 style={{ objectFit: "cover", width: "100%" }}
@@ -115,10 +133,10 @@ export default function page({ params }: any) {
                 fontWeight={"bold"}
                 fontFamily={"inherit"}
               >
-                {singleProduct.product_name.split(" ").slice(0, 2).join(" ")}
+                {product_name.split(" ").slice(0, 2).join(" ")}
               </Typography>
               <Typography sx={{ width: "580px" }}>
-                {singleProduct.product_description}
+                {product_description}
               </Typography>
             </Box>
             <Box
@@ -133,7 +151,7 @@ export default function page({ params }: any) {
 
               <Box sx={{ display: "flex", gap: "6px" }}>
                 <Box sx={{ display: "flex", gap: "6px" }}>
-                  {colors?.map((color: any) => (
+                  {colors.map((color) => (
                     <Button
                       onClick={() => setCurrentColor(color)}
                       key={color}
@@ -213,7 +231,7 @@ export default function page({ params }: any) {
                     return selectedSize;
                   }}
                 >
-                  {singleProduct.product_size.map((size) => (
+                  {product_size.map((size) => (
                     <MenuItem key={size} value={size}>
                       {size}
                     </MenuItem>
@@ -236,7 +254,7 @@ export default function page({ params }: any) {
                     textAlign: "center",
                   }}
                 >
-                  Add to cart ${singleProduct.procuct_price}
+                  Add to cart ${procuct_price}
                 </Button>
               </Box>
             </Box>
@@ -258,7 +276,7 @@ export default function page({ params }: any) {
               </Box>
             </Box>
             {/* background item */}
-      {/* <Box
+            <Box
               bgcolor={"#F0F2EF"}
               width={"550px"}
               marginTop={"2rem"}
@@ -301,7 +319,38 @@ export default function page({ params }: any) {
             </Box>
           </Grid>
         </Grid>
-      </Container> */}
+
+        <Box
+          sx={{
+            marginBottom: "5rem",
+          }}
+        >
+         
+          {items && (
+            <Box>
+              <Typography
+                mb={7}
+                variant="h5"
+                fontFamily={"inherit"}
+                fontWeight={600}
+              >
+                You May Also Like
+              </Typography>
+              <Grid container spacing={2}>
+                {filterProduct.map((item) => (
+                  <Grid item xs={12} md={4}>
+                    <Products
+                      item={item}
+                      link={`/product/${item.id}`}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          )}
+        </Box>
+      </Container>
+      <Footer />
     </>
   );
 }

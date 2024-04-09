@@ -1,21 +1,8 @@
-import { AppDispatch, RootState } from "@/src/app/store";
-import { getProduct } from "@/src/featuers/product/productSlice";
 import Image from "next/image";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@mui/material";
-import { PropsWithChildren, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Grid, Typography } from "@mui/material";
+import { PropsWithChildren, useState } from "react";
 import { Product } from "@/src/types/productTypes";
 import Link from "next/link";
-import { FavoriteBorder } from "@mui/icons-material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 interface ProductValue {
@@ -25,6 +12,11 @@ interface ProductValue {
 
 const ProductMain = (props: PropsWithChildren<ProductValue>) => {
   const { items, count } = props;
+
+  const [isSelected, setIsSelected] = useState(null);
+  const handleChange = (id: any) => {
+    setIsSelected(isSelected === id ? null : id);
+  };
 
   return (
     <>
@@ -41,10 +33,16 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
               pathname: `/collection/all/products/${item.id}`,
               query: { name: `${item.product_name}` },
             }}
-            style={{ color: "inherit" }}
+            onMouseOver={() => handleChange(item.id)}
+            onMouseLeave={() => handleChange(item.id)}
+            style={{ color: "inherit", transition: "all 1s ease-in-out" }}
           >
             <Image
-              src={item.product_img[0]}
+              src={
+                isSelected === item.id
+                  ? item.product_img[1]
+                  : item.product_img[0]
+              }
               style={{ objectFit: "cover" }}
               alt="image for product"
               width={400}

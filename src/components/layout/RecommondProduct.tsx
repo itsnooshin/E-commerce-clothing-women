@@ -28,7 +28,7 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
   const filterProduct = items
     .filter((items) => items.product_category === category)
     .slice(0, 3);
-  
+
   if (loading) return;
   return (
     <>
@@ -45,7 +45,10 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
           <Grid container spacing={2}>
             {filterProduct.map((item) => (
               <Grid item xs={12} md={4}>
-                <Products item={item}  link = {`/collection/all/products/${item.id}`} />
+                <Products
+                  item={item}
+                  link={`/collection/all/products/${item.id}`}
+                />
               </Grid>
             ))}
           </Grid>
