@@ -62,6 +62,19 @@ const themeOptions: ThemeOptions = {
   },
 
   components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: "green",
+          "&.Mui-selected": {
+            color: "#5A6D57",
+          },
+          "&:hover": {
+            color: "#5A6D57",
+          },
+        },
+      },
+    },
     MuiFormHelperText: {
       styleOverrides: {
         root: {

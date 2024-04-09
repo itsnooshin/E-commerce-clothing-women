@@ -20,8 +20,8 @@ interface AuthContextType {
   logout(): void;
   userInfoFirstName: string;
   userInfoLastName: string;
+  userInfoEmail: string;
 }
-
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -30,6 +30,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [userInfoFirstName, setUserInfoFirstName] = useState("");
   const [userInfoLastName, setUserInfoLastName] = useState("");
+  const [userInfoEmail, setUserInfoEmail] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -40,6 +41,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       const Detail = JSON.parse(userDetail ?? "{}");
       setUserInfoFirstName(Detail.firstname ?? "");
       setUserInfoLastName(Detail.lastname ?? "");
+      setUserInfoEmail(Detail.email ?? "");
     }
   }, []);
 
@@ -84,6 +86,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         logout,
         userInfoFirstName,
         userInfoLastName,
+        userInfoEmail,
       }}
     >
       {children}
