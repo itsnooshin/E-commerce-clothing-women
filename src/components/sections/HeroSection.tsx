@@ -37,6 +37,7 @@ function HeroSection() {
             left: '4%',
           },
           left: '10%',
+         
         }}
       >
         <Typography variant={matches ? 'h5' : 'h4'}>

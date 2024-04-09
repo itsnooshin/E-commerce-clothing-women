@@ -42,19 +42,22 @@ function Collection() {
                 sizes="100vw"
               />
               <Typography>{isMobile && `${item.name}`}</Typography>
-              <Button
-                sx={{
-                  position: "absolute",
-                  bottom: "2rem",
-                  right: "3rem",
-                  textTransform: "capitalize",
-                  color: "#000",
-                  padding: "0.5rem 3rem",
-                  background: "#fff",
-                }}
-              >
-                {item.name}
-              </Button>
+
+              {!isMobile && (
+                <Button
+                  sx={{
+                    position: "absolute",
+                    bottom: "2rem",
+                    right: "3rem",
+                    textTransform: "capitalize",
+                    color: "#000",
+                    padding: "0.5rem 3rem",
+                    background: "#fff",
+                  }}
+                >
+                  {item.name}
+                </Button>
+              )}
             </Box>
           </Link>
         ))}

@@ -53,7 +53,10 @@ function MoodiWeek() {
       </Box>
 
       <Swiper
-        style={{ paddingBottom: "4rem" }}
+        style={{
+          paddingBottom: "4rem",
+          marginBottom: "4rem",
+        }}
         spaceBetween={20}
         breakpoints={{
           0: { slidesPerView: 2 },
@@ -61,7 +64,7 @@ function MoodiWeek() {
           1024: { slidesPerView: 4 },
         }}
         autoplay={{
-          delay: 1500,
+          delay: 2500,
           disableOnInteraction: false,
         }}
         loop={true}

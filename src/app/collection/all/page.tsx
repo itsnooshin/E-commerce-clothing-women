@@ -20,7 +20,7 @@ function page() {
   const { items, loading, error } = useSelector(
     (store: RootState) => store.product
   );
-  console.log(loading);
+
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
