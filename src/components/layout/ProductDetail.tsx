@@ -24,6 +24,10 @@ import AccordionProduct from "./AccordionProduct";
 import Footer from "./Footer";
 import RecommondProduct from "./RecommondProduct";
 import useProductColorHook from "@/src/hooks/useProductColorHook";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/src/app/store";
+
+import { addCart } from "@/src/featuers/cart/cartSlice";
 
 interface ProductValue {
   product: Product;
@@ -31,6 +35,9 @@ interface ProductValue {
 
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const { product } = props;
+
+  // const item = useSelector((store: RootState) => store.cart);
+
   const {
     id,
     product_color,
@@ -41,6 +48,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     product_size,
     product_category,
   } = product;
+  // console.log(product);
 
   const {
     colors,
@@ -57,6 +65,22 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     setItemS,
     CurrentColor,
   } = useProductColorHook(product_color);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const itemToAdd = {
+    id: id,
+    name: product_name,
+    image: product_img[0],
+    quantity: 1,
+    price: 9.99,
+    color: "red",
+  };
+  const shops = useSelector((store: RootState) => store.cart.items);
+  console.log(shops.length);
+  const handle = () => {
+    dispatch(addCart(itemToAdd));
+  };
+
   return (
     <>
       <BannerHeader />
@@ -74,6 +98,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
               >
                 {product_img.map((image, index) => (
                   <Button
+                    key={index}
                     onClick={() => {
                       setIsSelected(image);
                       setIsHovered(true);
@@ -244,6 +269,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   }}
                 >
                   <Button
+                    onClick={handle}
                     sx={{
                       color: "#fff",
                       padding: "0.5rem",

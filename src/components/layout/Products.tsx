@@ -76,8 +76,9 @@ export default function Products(props: PropsWithChildren<PropsType>) {
           </Typography>
 
           <Box sx={{ display: "flex", gap: "6px", mt: 1 }}>
-            {item.product_color.map((items) => (
+            {item.product_color.map((items, index) => (
               <Typography
+                key={index}
                 sx={{
                   bgcolor: `${items?.hex}`,
                   width: "24px",

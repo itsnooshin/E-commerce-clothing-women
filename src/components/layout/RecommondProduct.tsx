@@ -34,8 +34,8 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
             You May Also Like
           </Typography>
           <Grid container spacing={2}>
-            {filterProduct.map((item) => (
-              <Grid item xs={12} md={4}>
+            {filterProduct.map((item , index) => (
+              <Grid item xs={12} md={4} key={index}>
                 <Products
                   item={item}
                   link={`/collection/all/products/${item.id}`}
