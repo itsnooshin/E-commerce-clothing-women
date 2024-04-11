@@ -3,6 +3,7 @@ import BannerHeader from "@/src/components/headers/BannerHeader";
 import NavBar from "@/src/components/layout/NavBar";
 import { getSingleproduct } from "@/src/helper";
 import { Product } from "@/src/types/productTypes";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Button,
@@ -10,7 +11,9 @@ import {
   FormControl,
   Grid,
   MenuItem,
+  Modal,
   Select,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -28,6 +31,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 
 import { addCart } from "@/src/featuers/cart/cartSlice";
+import { LoadingButton } from "@mui/lab";
+import ModalCart from "./ModalCart";
 
 interface ProductValue {
   product: Product;
@@ -37,6 +42,22 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const { product } = props;
 
   // const item = useSelector((store: RootState) => store.cart);
+  const [size, setSize] = useState("Size");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSize(event.target.value as string);
+  };
 
   const {
     id,
@@ -72,14 +93,26 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     name: product_name,
     image: product_img[0],
     quantity: 1,
-    price: 9.99,
-    color: "red",
+    price: procuct_price,
+    color: CurrentColor,
+    size: size,
   };
+  console.log(itemToAdd);
   const shops = useSelector((store: RootState) => store.cart.items);
-  console.log(shops.length);
+  console.log(shops);
   const handle = () => {
+    if (size === "Size") return;
+    setOpenModal(true);
     dispatch(addCart(itemToAdd));
+    // setIsLoading(false);
   };
+  const shopsItem = useSelector((store: RootState) => store.cart.items);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //     setIsModalOpen(true);
+  //   }, 2000);
+  // }, [isLoading]);
 
   return (
     <>
@@ -235,17 +268,17 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                       width: 550,
                       height: 50,
                     }}
+                    onChange={handleChange}
+                    value={size}
                     displayEmpty
-                    value={""}
                     MenuProps={{
-                      disableScrollLock: true,
                       PaperProps: {},
                     }}
                     renderValue={(selectedSize) => {
                       if (selectedSize.length === 0) {
                         return (
-                          <Typography sx={{ fontWeight: "bold" }}>
-                            Size
+                          <Typography sx={{ fontWeight: "800 !important" }}>
+                            {size}
                           </Typography>
                         );
                       }
@@ -259,6 +292,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                     ))}
                   </Select>
                 </FormControl>
+
                 <Box
                   sx={{
                     display: "flex",
@@ -279,6 +313,176 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                     Add to cart ${procuct_price}
                   </Button>
                 </Box>
+                <Modal open={openModal}>
+                  <Box
+                    sx={{
+                      background: "white",
+                      width: "500px",
+                      // height: "100vh",
+                      minHeight: 0,
+                      height: "100vh",
+                      overflow: "auto",
+                      position: "absolute" as "absolute",
+                      top: "0px",
+                      right: "0rem",
+                      padding: " 3rem 1.5rem",
+                      display: "flex",
+                      // justifyContent: "center",
+                      flexDirection: "column",
+                      // alignItems: "center",
+
+                      gap: "2rem",
+                      paddingTop: "3rem",
+                    }}
+                  >
+                    <Button
+                      onClick={handleCloseModal}
+                      sx={{
+                        color: "black",
+                        position: "absolute" as "absolute",
+                        left: "0rem",
+                        top: "1rem",
+                      }}
+                    >
+                      <CloseIcon />
+                    </Button>
+
+                    <Typography
+                      variant="h6"
+                      textAlign={"center"}
+                      fontWeight={600}
+                    >
+                      Your Cart
+                    </Typography>
+                    {shopsItem.map((items) => (
+                      <>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            // justifyContent: "center",
+                            gap: "1rem",
+                          }}
+                        >
+                          <Box sx={{ position: "relative" }}>
+                            <Image
+                              src={items.image}
+                              width={142}
+                              height={142}
+                              alt="image selected"
+                              style={{
+                                objectFit: "cover",
+                              }}
+                            />
+                            <Box
+                              sx={{
+                                background: "white",
+                                position: "absolute",
+                                top: "0.4rem",
+                                right: "0.4rem",
+                                padding: "0.3rem 1rem",
+                              }}
+                            >
+                              1
+                            </Box>
+                          </Box>
+
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "0.7rem",
+                            }}
+                          >
+                            {" "}
+                            <Typography sx={{ fontWeight: "600" }}>
+                              {items.name.split(" ").slice(0, 2).join(" ")}
+                            </Typography>
+                            <Typography>Size : {items.size}</Typography>
+                            <Typography>Color : {items.color}</Typography>
+                            <Box
+                              sx={{
+                                display: "flex",
+                              }}
+                            >
+                              <Typography> - 1 + </Typography>
+                              <Typography
+                                sx={{
+                                  fontWeight: "600",
+                                  position: "absolute" as "absolute",
+                                  right: "3rem",
+                                }}
+                              >
+                                ${items.price}
+                              </Typography>
+                            </Box>
+                            <Button
+                              sx={{
+                                color: "black",
+                                position: "absolute" as "absolute",
+                                // right: "0rem",
+                                right: "0rem",
+                                // top: "0",
+                              }}
+                            >
+                              <CloseIcon />
+                            </Button>
+                          </Box>
+                        </Box>
+
+                        {/* item - 1 + ==> quantity */}
+                        {/* item chanta selected  */}
+                      </>
+                    ))}
+                    <Button
+                      sx={{
+                        background: "#5A6D57",
+                        color: "white",
+                        borderRadius: 0,
+                        padding: "0.5rem 3rem",
+                        textTransform: "capitalize",
+                      }}
+                    >
+                      Check Out
+                    </Button>
+                  </Box>
+                </Modal>
+                {/* <Modal open={openModal}>
+                  <Box
+                    sx={{
+                      background: "white",
+                      width: "500px",
+                      height: "700px",
+                      position: "absolute" as "absolute",
+                      top: "0px",
+                      right: "0rem",
+                      padding: "2rem",
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight={600}>
+                      Your Shopping Bag is Empty
+                    </Typography>
+                    <Box>
+                      <Typography>
+                        discover modimal and add products to your Bag
+                      </Typography>
+                    </Box>
+                    <Button
+                      onClick={handleCloseModal}
+                      sx={{
+                        color: "black",
+                        position: "absolute" as "absolute",
+                        right: "0rem",
+                        top: "1rem",
+                      }}
+                    >
+                      <CloseIcon />
+                    </Button>
+                  </Box>
+                </Modal> */}
+                {/* {isModalOpen && <ModalCart />} */}
               </Box>
               <Box
                 display={"flex"}
