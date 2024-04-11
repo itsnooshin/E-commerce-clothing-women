@@ -30,7 +30,7 @@ import useProductColorHook from "@/src/hooks/useProductColorHook";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 
-import { addCart } from "@/src/featuers/cart/cartSlice";
+import { addCart, RemoveItem } from "@/src/featuers/cart/cartSlice";
 import { LoadingButton } from "@mui/lab";
 import ModalCart from "./ModalCart";
 
@@ -97,7 +97,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     color: CurrentColor,
     size: size,
   };
-  console.log(itemToAdd);
+
   const shops = useSelector((store: RootState) => store.cart.items);
   console.log(shops);
   const handle = () => {
@@ -107,12 +107,12 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     // setIsLoading(false);
   };
   const shopsItem = useSelector((store: RootState) => store.cart.items);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //     setIsModalOpen(true);
-  //   }, 2000);
-  // }, [isLoading]);
+
+  // const [itemFilterRemove, setItemFilterRemove] = useState(shopsItem);
+
+  const handleRemove = (id: any) => {
+    dispatch(RemoveItem(id));
+  };
 
   return (
     <>
@@ -313,138 +313,225 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                     Add to cart ${procuct_price}
                   </Button>
                 </Box>
-                <Modal open={openModal}>
-                  <Box
-                    sx={{
-                      background: "white",
-                      width: "500px",
-                      // height: "100vh",
-                      minHeight: 0,
-                      height: "100vh",
-                      overflow: "auto",
-                      position: "absolute" as "absolute",
-                      top: "0px",
-                      right: "0rem",
-                      padding: " 3rem 1.5rem",
-                      display: "flex",
-                      // justifyContent: "center",
-                      flexDirection: "column",
-                      // alignItems: "center",
 
-                      gap: "2rem",
-                      paddingTop: "3rem",
-                    }}
-                  >
-                    <Button
-                      onClick={handleCloseModal}
+                <Modal open={openModal}>
+                  {shopsItem.length === 0 ? (
+                    <Box
                       sx={{
-                        color: "black",
+                        background: "white",
+                        width: "500px",
+                        height: "700px",
                         position: "absolute" as "absolute",
-                        left: "0rem",
-                        top: "1rem",
+                        top: "0px",
+                        right: "0rem",
+                        padding: "2rem",
+                        display: "flex",
+                        // justifyContent: "center",
+                        flexDirection: "column",
+                        alignItems: "center",
+
+                        gap: "2rem",
+                        paddingTop: "6rem",
                       }}
                     >
-                      <CloseIcon />
-                    </Button>
+                      <Typography variant="h6" fontWeight={600}>
+                        Your Shopping Bag is Empty
+                      </Typography>
 
-                    <Typography
-                      variant="h6"
-                      textAlign={"center"}
-                      fontWeight={600}
-                    >
-                      Your Cart
-                    </Typography>
-                    {shopsItem.map((items) => (
-                      <>
-                        <Box
+                      <Box sx={{ width: "250px", textAlign: "center" }}>
+                        <Typography>
+                          Discover Modimal And Add Products To your Bag
+                        </Typography>
+                      </Box>
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+
+                          gap: "2rem",
+                        }}
+                      >
+                        <Button
                           sx={{
-                            display: "flex",
-                            // justifyContent: "center",
-                            gap: "1rem",
+                            background: "#5A6D57",
+                            color: "white",
+                            borderRadius: 0,
+                            textTransform: "capitalize",
+                            padding: "0.5rem 3rem",
                           }}
                         >
-                          <Box sx={{ position: "relative" }}>
-                            <Image
-                              src={items.image}
-                              width={142}
-                              height={142}
-                              alt="image selected"
-                              style={{
-                                objectFit: "cover",
-                              }}
-                            />
-                            <Box
-                              sx={{
-                                background: "white",
-                                position: "absolute",
-                                top: "0.4rem",
-                                right: "0.4rem",
-                                padding: "0.3rem 1rem",
-                              }}
-                            >
-                              1
-                            </Box>
-                          </Box>
+                          Collection
+                        </Button>
+                        <Button
+                          sx={{
+                            background: "#5A6D57",
+                            color: "white",
+                            borderRadius: 0,
+                            padding: "0.5rem 3rem",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          New In
+                        </Button>
+                        <Button
+                          sx={{
+                            background: "#5A6D57",
+                            color: "white",
+                            borderRadius: 0,
+                            padding: "0.5rem 3rem",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          Best Sellers
+                        </Button>
+                      </Box>
+                      <Button
+                        onClick={handleCloseModal}
+                        sx={{
+                          color: "black",
+                          position: "absolute" as "absolute",
+                          right: "0rem",
+                          top: "1rem",
+                        }}
+                      >
+                        <CloseIcon />
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        background: "white",
+                        width: "500px",
+                        // height: "100vh",
+                        minHeight: 0,
+                        height: "100vh",
+                        overflow: "auto",
+                        position: "absolute" as "absolute",
+                        top: "0px",
+                        right: "0rem",
+                        padding: " 3rem 1.5rem",
+                        display: "flex",
+                        // justifyContent: "center",
+                        flexDirection: "column",
+                        // alignItems: "center",
 
+                        gap: "2rem",
+                        paddingTop: "3rem",
+                      }}
+                    >
+                      <Button
+                        onClick={handleCloseModal}
+                        sx={{
+                          color: "black",
+                          position: "absolute" as "absolute",
+                          left: "0rem",
+                          top: "1rem",
+                        }}
+                      >
+                        <CloseIcon />
+                      </Button>
+
+                      <Typography
+                        variant="h6"
+                        textAlign={"center"}
+                        fontWeight={600}
+                      >
+                        Your Cart
+                      </Typography>
+                      {shopsItem.map((items) => (
+                        <>
                           <Box
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
-                              gap: "0.7rem",
+                              // justifyContent: "center",
+                              gap: "1rem",
                             }}
                           >
-                            {" "}
-                            <Typography sx={{ fontWeight: "600" }}>
-                              {items.name.split(" ").slice(0, 2).join(" ")}
-                            </Typography>
-                            <Typography>Size : {items.size}</Typography>
-                            <Typography>Color : {items.color}</Typography>
+                            <Box sx={{ position: "relative" }}>
+                              <Image
+                                src={items.image}
+                                width={142}
+                                height={142}
+                                alt="image selected"
+                                style={{
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <Box
+                                sx={{
+                                  background: "white",
+                                  position: "absolute",
+                                  top: "0.4rem",
+                                  right: "0.4rem",
+                                  padding: "0.3rem 1rem",
+                                }}
+                              >
+                                1
+                              </Box>
+                            </Box>
+
                             <Box
                               sx={{
                                 display: "flex",
+                                flexDirection: "column",
+                                gap: "0.7rem",
                               }}
                             >
-                              <Typography> - 1 + </Typography>
-                              <Typography
+                              {" "}
+                              <Typography sx={{ fontWeight: "600" }}>
+                                {items.name.split(" ").slice(0, 2).join(" ")}
+                              </Typography>
+                              <Typography>Size : {items.size}</Typography>
+                              <Typography>Color : {items.color}</Typography>
+                              <Box
                                 sx={{
-                                  fontWeight: "600",
-                                  position: "absolute" as "absolute",
-                                  right: "3rem",
+                                  display: "flex",
                                 }}
                               >
-                                ${items.price}
-                              </Typography>
+                                <Typography> - 1 + </Typography>
+                                <Typography
+                                  sx={{
+                                    fontWeight: "600",
+                                    position: "absolute" as "absolute",
+                                    right: "3rem",
+                                  }}
+                                >
+                                  ${items.price}
+                                </Typography>
+                              </Box>
+                              <Button
+                                onClick={() => handleRemove(items.id)}
+                                sx={{
+                                  color: "black",
+                                  position: "absolute" as "absolute",
+                                  // right: "0rem",
+                                  right: "0rem",
+                                  // top: "0",
+                                }}
+                              >
+                                <CloseIcon />
+                              </Button>
                             </Box>
-                            <Button
-                              sx={{
-                                color: "black",
-                                position: "absolute" as "absolute",
-                                // right: "0rem",
-                                right: "0rem",
-                                // top: "0",
-                              }}
-                            >
-                              <CloseIcon />
-                            </Button>
                           </Box>
-                        </Box>
 
-                        {/* item - 1 + ==> quantity */}
-                        {/* item chanta selected  */}
-                      </>
-                    ))}
-                    <Button
-                      sx={{
-                        background: "#5A6D57",
-                        color: "white",
-                        borderRadius: 0,
-                        padding: "0.5rem 3rem",
-                        textTransform: "capitalize",
-                      }}
-                    >
-                      Check Out
-                    </Button>
-                  </Box>
+                          {/* item - 1 + ==> quantity */}
+                          {/* item chanta selected  */}
+                        </>
+                      ))}
+                      <Button
+                        sx={{
+                          background: "#5A6D57",
+                          color: "white",
+                          borderRadius: 0,
+                          padding: "0.5rem 3rem",
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        Check Out
+                      </Button>
+                    </Box>
+                  )}
                 </Modal>
                 {/* <Modal open={openModal}>
                   <Box
