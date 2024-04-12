@@ -29,6 +29,7 @@ import ModalCart from "../layout/ModalCart";
 import Image from "next/image";
 import useProductColorHook from "@/src/hooks/useProductColorHook";
 import { ColorData } from "@/src/types/productTypes";
+import { addCart, RemoveItem } from "@/src/featuers/cart/cartSlice";
 
 function IconHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -70,6 +71,10 @@ function IconHeader() {
   const dispatch = useDispatch<AppDispatch>();
   const items = useSelector((store: RootState) => store.product.items);
 
+  const handleRemove = (id: any) => {
+    dispatch(RemoveItem(id));
+  };
+
   // const colorItem1 : ColorData = items.map((item1) => item1.product_color.map((item) => item));
 
   // const {
@@ -84,7 +89,6 @@ function IconHeader() {
   //   setItemS,
   //   CurrentColor,
   // } = useProductColorHook(colorItem1);
-  
 
   return (
     <>

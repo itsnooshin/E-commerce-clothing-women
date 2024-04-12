@@ -1,24 +1,21 @@
 "use client";
 import BannerHeader from "@/src/components/headers/BannerHeader";
 import NavBar from "@/src/components/layout/NavBar";
-import { getSingleproduct } from "@/src/helper";
 import { Product } from "@/src/types/productTypes";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  Grid,
-  MenuItem,
-  Modal,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { Button } from "@mui/material";
+import { Container } from "@mui/material";
+import { FormControl } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { Grid } from "@mui/material";
+import { Modal } from "@mui/material";
+import { Select } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import SizeGuidModal from "./SizeGuidModal";
 import Breadcrumb from "../headers/Breadcrumb";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -29,10 +26,8 @@ import RecommondProduct from "./RecommondProduct";
 import useProductColorHook from "@/src/hooks/useProductColorHook";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
-
 import { addCart, RemoveItem } from "@/src/featuers/cart/cartSlice";
-import { LoadingButton } from "@mui/lab";
-import ModalCart from "./ModalCart";
+import ProductImageGallery from "./ProductImageGallery";
 
 interface ProductValue {
   product: Product;
@@ -40,12 +35,7 @@ interface ProductValue {
 
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const { product } = props;
-
-  // const item = useSelector((store: RootState) => store.cart);
   const [size, setSize] = useState("Size");
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -69,7 +59,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     product_size,
     product_category,
   } = product;
-  // console.log(product);
 
   const {
     colors,
@@ -88,6 +77,8 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   } = useProductColorHook(product_color);
 
   const dispatch = useDispatch<AppDispatch>();
+  const shops = useSelector((store: RootState) => store.cart.items);
+  const shopsItem = useSelector((store: RootState) => store.cart.items);
   const itemToAdd = {
     id: id,
     name: product_name,
@@ -98,20 +89,20 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     size: size,
   };
 
-  const shops = useSelector((store: RootState) => store.cart.items);
-  console.log(shops);
   const handle = () => {
     if (size === "Size") return;
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
-    // setIsLoading(false);
   };
-  const shopsItem = useSelector((store: RootState) => store.cart.items);
-
-  // const [itemFilterRemove, setItemFilterRemove] = useState(shopsItem);
 
   const handleRemove = (id: any) => {
     dispatch(RemoveItem(id));
+  };
+
+  const handleImageSelect = (image: string, index: any) => {
+    setIsHovered(true);
+    setIsSelected(image);
+    setItemS(itemS === index.toString() ? null : index.toString());
   };
 
   return (
@@ -129,31 +120,11 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   height: "500px",
                 }}
               >
-                {product_img.map((image, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => {
-                      setIsSelected(image);
-                      setIsHovered(true);
-                      setItemS(
-                        itemS === index.toString() ? null : index.toString()
-                      );
-                    }}
-                  >
-                    <Image
-                      key={image}
-                      src={image}
-                      width={120}
-                      height={120}
-                      style={{
-                        objectFit: "cover",
-                        border:
-                          itemS === index.toString() ? "2px solid #ADADAD" : "",
-                      }}
-                      alt="image for detail product"
-                    />
-                  </Button>
-                ))}
+                <ProductImageGallery
+                  images={product_img}
+                  itemS={itemS}
+                  onSelect={handleImageSelect}
+                />
               </Box>
               <Box
                 sx={{
@@ -634,9 +605,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
           </Grid>
           <Box
             sx={{
-              // width: "100%",
-              // height: "400px",
-
               marginBottom: "5rem",
             }}
           >
