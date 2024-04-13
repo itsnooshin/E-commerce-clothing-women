@@ -3,6 +3,7 @@ import {
   AccordionActions,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
 } from "@mui/material";
 
@@ -47,7 +48,14 @@ export default function AccordionProduct() {
   ];
 
   return (
-    <div>
+    <Box
+      sx={{
+        bgcolor: "#F0F2EF",
+        marginTop: "3rem",
+        width: "560px",
+        marginBottom: "10rem",
+      }}
+    >
       {items && items.length > 0 ? (
         items.map((item, index) => (
           <div key={index}>
@@ -65,7 +73,9 @@ export default function AccordionProduct() {
               }}
             >
               <AccordionSummary
-                expandIcon={ selectedItem === item.id ? <MinimizeIcon /> : <AddIcon />}
+                expandIcon={
+                  selectedItem === item.id ? <MinimizeIcon /> : <AddIcon />
+                }
                 id={`panel${item.id}-header`}
                 sx={{
                   fontWeight: "bold",
@@ -81,6 +91,6 @@ export default function AccordionProduct() {
       ) : (
         <div>No items to display</div>
       )}
-    </div>
+    </Box>
   );
 }

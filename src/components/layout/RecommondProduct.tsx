@@ -22,7 +22,7 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
 
   if (loading) return;
   return (
-    <>
+    <Box sx={{ marginBottom: "5rem" }}>
       {items && (
         <Box>
           <Typography
@@ -34,7 +34,7 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
             You May Also Like
           </Typography>
           <Grid container spacing={2}>
-            {filterProduct.map((item , index) => (
+            {filterProduct.map((item, index) => (
               <Grid item xs={12} md={4} key={index}>
                 <Products
                   item={item}
@@ -45,6 +45,6 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
           </Grid>
         </Box>
       )}
-    </>
+    </Box>
   );
 }
