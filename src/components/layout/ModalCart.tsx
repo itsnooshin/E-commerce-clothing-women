@@ -20,7 +20,7 @@ export default function ModalCart(props: PropsWithChildren<Types>) {
         <EmptyCart handleCloseModal={handleCloseModal} />
       ) : (
         <DisplayProductCart
-          shopsItems={shopsItems}
+          shopsItem={shopsItems}
           handleCloseModal={handleCloseModal}
           handleRemove={handleRemove}
         />
