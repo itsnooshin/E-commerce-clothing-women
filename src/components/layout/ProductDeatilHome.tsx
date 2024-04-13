@@ -181,12 +181,12 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                   width: "550px",
                 }}
               >
-                <Button onClick={handleOpen} sx={{ color: "#868686" }}>
+                {/* <Button onClick={handleOpen} sx={{ color: "#868686" }}>
                   Size Guide
                 </Button>
                 {open && (
                   <SizeGuidModal open={open} handleClose={handleClose} />
-                )}
+                )} */}
               </Box>
               <FormControl sx={{ m: 1, width: "550px", marginLeft: 0 }}>
                 <Select
