@@ -5,8 +5,10 @@ import {
   Drawer,
   Typography,
   IconButton,
+  Button,
 } from "@mui/material";
 import LogoWebsite from "./LogoWebsite";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DesktopMenu from "./DesktopMenu";
 import LogoMobileWebsite from "./LogoMobileWebsite";
 import IconHeader from "@/src/components/headers/IconHeader";
@@ -18,18 +20,8 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import BannerHeader from "../headers/BannerHeader";
 import CloseIcon from "@mui/icons-material/Close";
 import MobileMenu from "./MobileMenu";
-
-interface Option {
-  name?: string;
-  category?: string[];
-  featured?: string[];
-  More?: string[];
-  nameCat?: string;
-  nameFeat?: string;
-  nameMore?: string;
-  imageData?: string[];
-  imageDescription?: string[];
-}
+import { Option } from "@/src/types/MenuTypes";
+import SearchField from "../headers/SearchField";
 
 interface MainNavBar {
   options: Option[];
@@ -48,6 +40,10 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const handleOpenSearch = () => setIsOpenSearch(true);
+  const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
     <AppBar
@@ -68,7 +64,6 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         }}
       >
         <LogoWebsite />
-
         <Box
           sx={{
             display: { xs: "flex", md: "none" },
@@ -79,24 +74,62 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           <IconButton onClick={handleDrawerOpen}>
             <MenuOutlinedIcon sx={{ cursor: "pointer" }} />
           </IconButton>
-
-          <SearchIcon sx={{ cursor: "pointer" }} />
+          {/* search Icon */}
+          {/* <SearchIcon sx={{ cursor: "pointer" }} mobile /> */}
         </Box>
-
         <DesktopMenu
           options={options}
           setIsHovered={setIsHovered}
           setIsOpen={setIsOpen}
         />
+        <Box
+          sx={{
+            gap: { xs: 1, md: 2 },
+            display: { xs: "none", md: "flex" },
+            alignItems: "center",
+          }}
+        >
+         
+          {isOpenSearch ? (
+            <>
+              <Button
+                sx={{
+                  color: "inherit",
+                  padding: "0px",
+                  margin: "0px",
+                  display: "block",
+                  minWidth: "0px",
+                }}
+                onClick={handleCloseSearch}
+              >
+                <CloseIcon />
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={handleOpenSearch}
+              sx={{
+                color: "inherit",
+                padding: "0px",
+                margin: "0px",
+                display: "block",
+                minWidth: "0px",
+              }}
+            >
+              {" "}
+              <SearchOutlinedIcon />
+            </Button>
+          )}
+
+          <IconHeader />
+        </Box>
         <Box>
           <LogoMobileWebsite />
-          <IconHeader />
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" }, gap: "9px" }}>
           <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
           <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
         </Box>
-
         {open && (
           <Drawer
             sx={{
@@ -146,6 +179,7 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           </Drawer>
         )}
       </Toolbar>
+      {isOpenSearch && <SearchField />}
     </AppBar>
   );
 }

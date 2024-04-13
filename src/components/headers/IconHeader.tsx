@@ -13,7 +13,7 @@ import {
   Badge,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useAuth } from "@/src/context/authContext";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -22,7 +22,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Person4Icon from "@mui/icons-material/Person4";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { relative } from "path";
-import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/app/store";
 import ModalCart from "../layout/ModalCart";
@@ -30,30 +29,29 @@ import Image from "next/image";
 import useProductColorHook from "@/src/hooks/useProductColorHook";
 import { ColorData } from "@/src/types/productTypes";
 import { addCart, RemoveItem } from "@/src/featuers/cart/cartSlice";
+import ProductSearch from "./ProductSearch";
+import BannerHeader from "./BannerHeader";
+import CloseIcon from "@mui/icons-material/Close";
+import NavBar from "../layout/NavBar";
+import { Option } from "@/src/types/MenuTypes";
+import LogoWebsite from "../layout/LogoWebsite";
+import DesktopMenu from "../layout/DesktopMenu";
+import SearchIcon from "./SearchField";
 
-function IconHeader() {
+interface Types {
+
+}
+
+function IconHeader(props: PropsWithChildren<Types>) {
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // const itemToAdd = {
-  //   id: id,
-  //   name: product_name,
-  //   image: product_img[0],
-  //   quantity: 1,
-  //   price: 9.99,
-  //   color: "red",
-  // };
   const shopsItem = useSelector((store: RootState) => store.cart.items);
-  // shopRemobe array
-
   const badgetItem = shopsItem.length;
-  // const handle = () => {
-  //   dispatch(addCart(itemToAdd));
-  // };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -75,20 +73,9 @@ function IconHeader() {
     dispatch(RemoveItem(id));
   };
 
-  // const colorItem1 : ColorData = items.map((item1) => item1.product_color.map((item) => item));
-
-  // const {
-  //   colors,
-  //   currentColor,
-  //   setCurrentColor,
-  //   isSelected,
-  //   setIsSelected,
-  //   isHovered,
-  //   setIsHovered,
-  //   itemS,
-  //   setItemS,
-  //   CurrentColor,
-  // } = useProductColorHook(colorItem1);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const handleOpenSearch = () => setIsOpenSearch(true);
+  const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
     <>
@@ -100,10 +87,10 @@ function IconHeader() {
           alignItems: "center",
         }}
       >
-        <Link href="/search" color="inherit" underline="none">
-          {" "}
-          <SearchOutlinedIcon />
-        </Link>
+       
+ 
+        {/* <SearchIcon /> */}
+        {/* {isOpenSearch ? <p>hhh</p> : ""} */}
 
         {isLoggedIn ? (
           <>
@@ -148,12 +135,10 @@ function IconHeader() {
             <Person4Icon />
           </Link>
         )}
-
         <Link href="/wishlist" color="inherit" underline="none">
           {" "}
           <FavoriteBorderOutlinedIcon />
         </Link>
-
         {/* cart shopping */}
         <Badge
           badgeContent={badgetItem.toString()}
@@ -173,35 +158,10 @@ function IconHeader() {
             <ShoppingBagOutlinedIcon />
           </Link>
         </Badge>
-        <Box sx={{}}></Box>
+       
       </Box>
 
-      {/* <Modal open={openModal}>
-        <Box
-          sx={{
-            background: "white",
-            width: "500px",
-            height: "700px",
-            position: "absolute" as "absolute",
-            top: "0px",
-            right: "0rem",
-            padding: "2rem",
-          }}
-        >
-          this is modal
-          <Button
-            onClick={handleCloseModal}
-            sx={{
-              color: "black",
-              position: "absolute" as "absolute",
-              right: "0rem",
-              top: "1rem",
-            }}
-          >
-            <CloseIcon />
-          </Button>
-        </Box>
-      </Modal> */}
+    
 
       <Modal open={openModal}>
         {/* <Box
@@ -500,6 +460,7 @@ function IconHeader() {
           </Box>
         )}
       </Modal>
+
     </>
   );
 }
