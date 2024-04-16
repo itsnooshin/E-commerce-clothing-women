@@ -44,11 +44,11 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   };
 
   const [isOpenSearch, setIsOpenSearch] = useState(false);
- const handleOpenSearch = () => {
-   if (!isOpenSearch) {
-     setIsOpenSearch(true);
-   }
- };
+  const handleOpenSearch = () => {
+    if (!isOpenSearch) {
+      setIsOpenSearch(true);
+    }
+  };
   const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
@@ -185,7 +185,6 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         )}
       </Toolbar>
       {isOpenSearch && <SearchField />}
-     
     </AppBar>
   );
 }

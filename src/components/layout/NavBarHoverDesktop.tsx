@@ -33,7 +33,7 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
             position: "absolute",
             zIndex: "1000",
             width: "100%",
-            // height : '500px',
+            height: "450px",
             backgroundColor: "#fff",
             display: { xs: "none", md: "flex" },
           }}
@@ -155,8 +155,7 @@ function HoverMenuDesktop(props: PropsWithChildren<HoverMenuDesktop>) {
                           src={imageUrl}
                           style={{
                             objectFit: "cover",
-                            width: "100%",
-                            height: "auto",
+                            width: "auto",
                           }}
                           alt="images for banner when user hover on links"
                           width={400}
