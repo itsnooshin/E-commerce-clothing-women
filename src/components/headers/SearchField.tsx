@@ -11,22 +11,24 @@ import {
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-export default function SearchField() {
+
+export default function SearchField({ initialQuery }: any) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>('');
+  const queryEl = searchParams.get("q") || ""; 
   const hanldeChangeSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newQuery = new URLSearchParams(searchParams);
-    newQuery.set("query", query);
-    router.push(`/search?&${newQuery.toString()}`);
+    router.push(`/search?q=${query}`);
   };
 
   return (
     <>
       <Container>
+        
         <form onSubmit={hanldeChangeSearch} style={{ paddingBottom: "3rem" }}>
           <TextField
+            defaultValue={initialQuery}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
             sx={{

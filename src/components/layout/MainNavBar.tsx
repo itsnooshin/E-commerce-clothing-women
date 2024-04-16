@@ -6,6 +6,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Modal,
 } from "@mui/material";
 import LogoWebsite from "./LogoWebsite";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -22,6 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MobileMenu from "./MobileMenu";
 import { Option } from "@/src/types/MenuTypes";
 import SearchField from "../headers/SearchField";
+import NavBar from "./NavBar";
 
 interface MainNavBar {
   options: Option[];
@@ -42,7 +44,11 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   };
 
   const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const handleOpenSearch = () => setIsOpenSearch(true);
+ const handleOpenSearch = () => {
+   if (!isOpenSearch) {
+     setIsOpenSearch(true);
+   }
+ };
   const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
@@ -89,7 +95,6 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
             alignItems: "center",
           }}
         >
-         
           {isOpenSearch ? (
             <>
               <Button
@@ -180,6 +185,7 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         )}
       </Toolbar>
       {isOpenSearch && <SearchField />}
+     
     </AppBar>
   );
 }
