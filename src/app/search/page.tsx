@@ -22,7 +22,6 @@ import { useState } from "react";
 import Link from "next/link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-
 export default function page() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") as string;
@@ -131,7 +130,7 @@ export default function page() {
                     <SkeletonProductCollection displayCount={displayCount} />
                   </Grid>
                 ) : (
-                  queryItems.slice(0, displayCount).map((item) => (
+                 queryItems.map((item) => (
                     <Grid
                       item
                       xs={12}
@@ -151,16 +150,13 @@ export default function page() {
                           transition: "all 1s ease-in-out",
                         }}
                       >
+                   
                         <Image
-                          src={
-                            isSelected === item.id
-                              ? item.product_img[1]
-                              : item.product_img[0]
-                          }
-                          style={{ objectFit: "cover" }}
-                          alt="image for product"
+                          src={item.product_img[0]}
+                          alt="kkkk"
                           width={400}
                           height={400}
+                          style={{ objectFit: "cover" }}
                         />
                         <Box
                           sx={{

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
     domains: [
       "www.thisisaday.com",
@@ -12,6 +13,7 @@ const nextConfig = {
       "i.ibb.co",
       "static.zara.net",
       "img.thedailybeast.com",
+      "vbvdajzlbaysznoviuwa.supabase.co",
     ],
   },
 };

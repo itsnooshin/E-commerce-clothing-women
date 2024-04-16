@@ -52,4 +52,4 @@ export default function SearchField({ initialQuery }: any) {
     </>
   );
 }
-// override the any
+
