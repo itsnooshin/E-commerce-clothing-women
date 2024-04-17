@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import React, { PropsWithChildren } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Product } from "@/src/types/productTypes";
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { PropsWithChildren } from 'react';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Product } from '@/src/types/productTypes';
 
 interface PropsType {
   item: Product;
@@ -12,17 +12,18 @@ interface PropsType {
 
 export default function Products(props: PropsWithChildren<PropsType>) {
   const { item, link } = props;
+  console.log(item);
   return (
     <Link
       href={{
         pathname: link,
         query: { name: `${item.product_name}` },
       }}
-      style={{ color: "inherit" }}
+      style={{ color: 'inherit' }}
     >
       <Image
         src={item.product_img[0]}
-        style={{ objectFit: "cover", width: "100%" }}
+        style={{ objectFit: 'cover', width: '100%' }}
         alt="image for product"
         width={400}
         height={400}
@@ -30,63 +31,63 @@ export default function Products(props: PropsWithChildren<PropsType>) {
 
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          position: "absolute",
-          top: "2rem",
-          marginLeft: "1rem",
+          display: 'flex',
+          justifyContent: 'space-between',
+          position: 'absolute',
+          top: '2rem',
+          marginLeft: '1rem',
         }}
       >
         {item.product_new && (
           <Typography
             sx={{
-              bgcolor: "white",
-              padding: "0.5rem 1.5rem",
-              marginRight: "17rem",
+              bgcolor: 'white',
+              padding: '0.5rem 1.5rem',
+              marginRight: '17rem',
             }}
           >
-            New{" "}
+            New{' '}
           </Typography>
         )}
-        <Box sx={{ position: "absolute", left: "20rem" }}>
-          {" "}
+        <Box sx={{ position: 'absolute', left: '20rem' }}>
+          {' '}
           <FavoriteBorderIcon />
         </Box>
       </Box>
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          p: "6px",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          p: '6px',
         }}
       >
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "3px",
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '3px',
           }}
         >
-          <Typography sx={{ fontWeight: "700" }}>
-            {item.product_name.split(" ").slice(0, 2).join(" ")}
+          <Typography sx={{ fontWeight: '700' }}>
+            {item.product_name.split(' ').slice(0, 2).join(' ')}
           </Typography>
           <Typography>
-            {item.product_name.split(" ").slice(2).join(" ")}
+            {item.product_name.split(' ').slice(2).join(' ')}
           </Typography>
 
-          <Box sx={{ display: "flex", gap: "6px", mt: 1 }}>
+          <Box sx={{ display: 'flex', gap: '6px', mt: 1 }}>
             {item.product_color.map((items, index) => (
               <Typography
                 key={index}
                 sx={{
                   bgcolor: `${items?.hex}`,
-                  width: "24px",
-                  height: "24px",
-                  borderRadius: "50%",
-                  display: "inline-block",
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  display: 'inline-block',
                   border: `${
-                    items?.hex === "#FFFFFF" ? "1px solid #dad7cd" : null
+                    items?.hex === '#FFFFFF' ? '1px solid #dad7cd' : null
                   }`,
                 }}
               ></Typography>
@@ -97,8 +98,8 @@ export default function Products(props: PropsWithChildren<PropsType>) {
         <Box>
           <Typography
             sx={{
-              fontWeight: "700",
-              marginRight: "1rem",
+              fontWeight: '700',
+              marginRight: '1rem',
             }}
           >
             ${item.procuct_price}

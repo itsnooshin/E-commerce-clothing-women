@@ -28,7 +28,7 @@ const BestSellers = () => {
       <Grid container spacing={{ lg: 2, md: 2 }}>
         {loading ? (
           <Grid container spacing={{ xs: 2 }} item>
-            {Array.from({ length: SkeletonCount }, (_, index) => (
+            {Array.from({ length: 2 }, (_, index) => (
               <Grid item md={4} xs={6} key={index}>
                 <SkeletonData />
               </Grid>
@@ -38,7 +38,7 @@ const BestSellers = () => {
           <Swiper
             style={{ paddingBottom: "4rem" }}
             modules={[Pagination, Autoplay]}
-            autoplay={{ delay: 2700, disableOnInteraction: false }}
+            // autoplay={{ delay: 2700, disableOnInteraction: false }}
             spaceBetween={20}
             loop={true}
             slidesPerView={2}

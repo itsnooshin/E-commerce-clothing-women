@@ -1,11 +1,8 @@
-
-
 # E-commerce-clothing-women
 
 <p align="center">
 <img alt="EverShop Logo" src="./public/icon.png"/>
 </p>
-
 
 <h4 align="center">
     <a>
@@ -16,16 +13,12 @@
 <img alt="EverShop" width="950" src="./public/file-cover.png"/>
 </p>
 
-
-
 ## built with
 
 - Redux & Redux ToolKit
 - Tailwind CSS
 - React & Javascript
 - Nextjs
-
-
 
 ## Usage
 
@@ -44,15 +37,6 @@ npm run dev
 yarn dev
 ```
 
-
 ## License
 
-
 This project is open source and available under [the MIT License](https://opensource.org/licenses/MIT)
-
-
-
-
-
-
-
