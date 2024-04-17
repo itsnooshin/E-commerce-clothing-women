@@ -10,7 +10,7 @@ interface Types {
   handleData: (hover: number) => void;
 }
 
-const LoadingButton = (props: PropsWithChildren<Types>) => {
+const LoadingButtonItems = (props: PropsWithChildren<Types>) => {
   const { items, loading, count, handleData } = props;
   const onClickHandler = () => handleData(count);
   return (
@@ -43,4 +43,4 @@ const LoadingButton = (props: PropsWithChildren<Types>) => {
     </>
   );
 };
-export default LoadingButton;
+export default LoadingButtonItems;

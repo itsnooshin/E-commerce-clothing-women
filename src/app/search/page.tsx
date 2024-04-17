@@ -13,17 +13,16 @@ import {
   Grid,
 } from "@mui/material";
 import Image from "next/image";
-import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import ImageNotFound from "@/public/Match not found.png";
 import Footer from "@/src/components/layout/Footer";
 import ProductMain from "@/src/components/layout/ProductMain";
 import SkeletonProductCollection from "@/src/components/utility/SkeletonProductCollection";
 import { Suspense, useState } from "react";
-import Link from "next/link";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SpinnerLoader from "@/src/components/layout/SpinnerLoader";
 
 export default function page() {
-  const searchParams :ReadonlyURLSearchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const query = searchParams.get("q") as string;
   const { items, loading, error } = UseProductsReturn();
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -34,10 +33,9 @@ export default function page() {
         )
       : [];
 
-  const [isSelected, setIsSelected] = useState(null);
-  const handleChange = (id: any) => {
-    setIsSelected(isSelected === id ? null : id);
-  };
+  
+
+  if (loading) return <SpinnerLoader />;
 
   return (
     <>
@@ -54,25 +52,17 @@ export default function page() {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h6" fontWeight={600} fontFamily={"inherit"}>
-              Search Result
-            </Typography>
-            {/* {loading ? (
-            <Skeleton variant="text" width="190px" />
-          ) : queryItems?.length === 0 ? (
-            <Typography variant="h6" fontWeight={600} fontFamily={"inherit"}>
-              No result Found for "{query}"
-            </Typography>
-          ) : (
-            <Typography>{queryItems.length} items</Typography>
-          )} */}
+            {loading ? (
+              <Skeleton variant="text" width="100px" />
+            ) : (
+              <Typography variant="h6" fontWeight={600} fontFamily={"inherit"}>
+                Search Result
+              </Typography>
+            )}
           </Box>
 
           <SearchField initialQuery={query} />
-          {/* <Typography>
-          No results found for “hhhh”. Check the spelling or use a different
-          word or phrase.
-        </Typography> */}
+
           <Box
             sx={{
               display: "flex",
@@ -93,27 +83,25 @@ export default function page() {
               </Typography>
             )}
           </Box>
-
           {queryItems.length === 0 && (
-            <>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mb: 12,
-                }}
-              >
-                <Image
-                  src={ImageNotFound}
-                  alt="image for not found"
-                  width={390}
-                  height={345}
-                  style={{ objectFit: "cover", width: "auto" }}
-                />
-              </Box>
-            </>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: 12,
+              }}
+            >
+              <Image
+                src={ImageNotFound}
+                alt="image for not found"
+                width={390}
+                height={345}
+                style={{ objectFit: "cover", width: "auto" }}
+              />
+            </Box>
           )}
+
           {queryItems.length > 0 && (
             <Grid container spacing={3}>
               <Grid item xs={3}>
@@ -131,69 +119,13 @@ export default function page() {
                       <SkeletonProductCollection displayCount={displayCount} />
                     </Grid>
                   ) : (
-                    queryItems.map((item) => (
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        key={item.id}
-                        sx={{ marginBottom: "1rem", position: "relative" }}
-                      >
-                        <Link
-                          href={{
-                            pathname: `/collection/all/products/${item.id}`,
-                            query: { name: `${item.product_name}` },
-                          }}
-                          onMouseOver={() => handleChange(item.id)}
-                          onMouseLeave={() => handleChange(item.id)}
-                          style={{
-                            color: "inherit",
-                            transition: "all 1s ease-in-out",
-                          }}
-                        >
-                          <Image
-                            src={item.product_img[0]}
-                            alt="kkkk"
-                            width={400}
-                            height={400}
-                            style={{ objectFit: "cover" }}
-                          />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              position: "absolute",
-                              top: "2rem",
-                              marginLeft: "1rem",
-                            }}
-                          >
-                            {" "}
-                            {item.product_new && (
-                              <Typography
-                                sx={{
-                                  bgcolor: "white",
-                                  padding: "0.5rem 1.5rem",
-                                  marginRight: "17rem",
-                                }}
-                              >
-                                New{" "}
-                              </Typography>
-                            )}
-                            <Box sx={{ position: "absolute", left: "20rem" }}>
-                              {" "}
-                              <FavoriteBorderIcon />
-                            </Box>
-                          </Box>
-                        </Link>
-                      </Grid>
-                    ))
+                    <ProductMain items={queryItems} count={displayCount} />
                   )}
                 </Grid>
               </Grid>
             </Grid>
           )}
         </Container>
-
         <Footer />
       </Suspense>
     </>

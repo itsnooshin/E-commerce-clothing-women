@@ -20,7 +20,7 @@ import SkeletonProductCollection from "@/src/components/utility/SkeletonProductC
 import ProductMain from "@/src/components/layout/ProductMain";
 import FilterCollection from "@/src/components/layout/FilterCollection";
 import Footer from "@/src/components/layout/Footer";
-import LoadingButton from "@/src/components/layout/LoadingButton";
+import LoadingButton from "@/src/components/layout/LoadingButtonItems";
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);

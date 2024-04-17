@@ -9,21 +9,15 @@ import { useEffect, useState } from "react";
 import FilterCollection from "@/src/components/layout/FilterCollection";
 import ProductMain from "@/src/components/layout/ProductMain";
 import SkeletonProductCollection from "@/src/components/utility/SkeletonProductCollection";
-import LoadingButton from "@/src/components/layout/LoadingButton";
+import LoadingButton from "@/src/components/layout/LoadingButtonItems";
 import CollectionHeader from "@/src/components/headers/CollectionHeader";
 import CollectionImageBanner from "@/src/components/layout/CollectionImage";
 import Footer from "@/src/components/layout/Footer";
+import UseProductsReturn from "@/src/hooks/UseProductsReturn";
 
 function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
-  const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector(
-    (store: RootState) => store.product
-  );
-
-  useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+  const { items, loading, error } = UseProductsReturn();
 
   function handleMoreData() {
     setDisplayCount((prev) => prev + 6);

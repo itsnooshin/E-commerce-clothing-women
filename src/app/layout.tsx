@@ -3,6 +3,7 @@ import ThemeRegistry from "@/src/theme/ThemRegistery";
 import AuthProvider from "../context/authContext";
 import { Providers } from "./providers";
 
+
 export const metadata = {
   title: "E-commrece Women Clothing",
   description: "A E-commerece clothing for Women",

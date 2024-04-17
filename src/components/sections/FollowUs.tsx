@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
@@ -7,6 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 import { ImageData } from "@/src/lib/utilits/FollowUSDataImage";
 import Image from "next/image";
+import { useState } from "react";
 
 function FollowUs() {
   const theme = useTheme();
@@ -38,14 +39,19 @@ function FollowUs() {
       ) : (
         <Masonry columns={{ xs: 2, md: 3 }}>
           {ImageData.map((item) => (
-            <Image
-              key={item.id}
-              src={item.image}
-              alt="Image galerrey"
-              width={500}
-              height={item.height}
-              style={{ objectFit: "cover" }}
-            />
+            <>
+              <Image
+                key={item.id}
+                src={item.image}
+                alt="Image galerrey"
+                width={500}
+                height={item.height}
+                style={{
+                  objectFit: "cover",
+                  cursor: "pointer",
+                }}
+              />
+            </>
           ))}
         </Masonry>
       )}
