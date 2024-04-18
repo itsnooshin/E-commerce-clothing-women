@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 export default function FilterCollection() {
   return (
     <>
-    <Box >
+    <Box>
 
       <Typography mb={2} variant="h5" fontWeight={"bold"} fontFamily={"inherit"}>
         Filters

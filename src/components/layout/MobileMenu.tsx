@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { NAV_DATA } from "../../lib/navData";
+import Link from 'next/link';
+import { NAV_DATA } from '../../lib/navData';
 import {
   Box,
   Button,
@@ -8,10 +8,12 @@ import {
   ListItem,
   ListItemText,
   Typography,
-} from "@mui/material";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useState } from "react";
+} from '@mui/material';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useState } from 'react';
+import { useAuth } from '@/src/context/authContext';
+import AccountCircleOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 const options = NAV_DATA;
 
@@ -22,9 +24,9 @@ interface NavID {
 function MobileMenu() {
   const [open, setOpen] = useState(false);
   const [itemSelected, setItemSelected] = useState<NavID | null>(null);
-
+  const { isLoggedIn } = useAuth();
   const hrefLink = options.map((option) =>
-    option.name?.toLowerCase().replace(/\s+/g, "-")
+    option.name?.toLowerCase().replace(/\s+/g, '-'),
   );
 
   const ToggleMenu = (itemID: number) => {
@@ -44,19 +46,19 @@ function MobileMenu() {
           <Box key={items.id}>
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 p: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
+                alignItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
               <Link href={`/${hrefLink[index]}`}>
                 <ListItem>
-                  <ListItemText primary={items.name}  />
+                  <ListItemText primary={items.name} />
                 </ListItem>
               </Link>
               <IconButton
-                sx={{ color: "#000000" }}
+                sx={{ color: '#000000' }}
                 onClick={() => ToggleMenu(items.id)}
               >
                 {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -69,7 +71,7 @@ function MobileMenu() {
                   {items.category?.map((item, index) => (
                     <ListItem key={index}>
                       <Typography
-                        sx={{ display: "flex", flexDirection: "column" }}
+                        sx={{ display: 'flex', flexDirection: 'column' }}
                       >
                         {item}
                       </Typography>
@@ -80,35 +82,51 @@ function MobileMenu() {
             )}
           </Box>
         ))}
-
-        <Box sx={{ margin: "0px 10px" }}>
-          <Button
-            href="/login"
-            sx={{
-              display: "block",
-              width: "100%",
-              color: "inherit",
-              border: "1px solid #5A6D57",
-              textAlign: "center",
-              textTransform: "capitalize",
-            }}
-          >
-            Log In
-          </Button>
-          <Button
-            href="/register"
-            sx={{
-              display: "block",
-              width: "100%",
-              backgroundColor: "#5A6D57",
-              color: "#ffff",
-              mt: "7px",
-              textAlign: "center",
-              textTransform: "capitalize",
-            }}
-          >
-            Register
-          </Button>
+        <Box sx={{ margin: '4px 20px' }}>
+          {isLoggedIn ? (
+            <Button
+              href="/profile"
+              sx={{
+                width: '100%',
+                color: '#ffff',
+                background: '#5A6D57',
+                textAlign: 'center',
+                textTransform: 'capitalize',
+              }}
+            >
+              <AccountCircleOutlinedIcon sx={{ color: '#ffff' }} /> My Account
+            </Button>
+          ) : (
+            <Box sx={{ margin: '0px 10px' }}>
+              <Button
+                href="/login"
+                sx={{
+                  display: 'block',
+                  width: '100%',
+                  color: 'inherit',
+                  border: '1px solid #5A6D57',
+                  textAlign: 'center',
+                  textTransform: 'capitalize',
+                }}
+              >
+                Log In
+              </Button>
+              <Button
+                href="/register"
+                sx={{
+                  display: 'block',
+                  width: '100%',
+                  backgroundColor: '#5A6D57',
+                  color: '#ffff',
+                  mt: '7px',
+                  textAlign: 'center',
+                  textTransform: 'capitalize',
+                }}
+              >
+                Register
+              </Button>
+            </Box>
+          )}
         </Box>
       </List>
     </Box>

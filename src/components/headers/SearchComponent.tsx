@@ -1,4 +1,13 @@
-import { Container, Box, Skeleton, Typography, Grid } from '@mui/material';
+import {
+  Container,
+  Box,
+  Skeleton,
+  Typography,
+  Grid,
+  Button,
+  Drawer,
+  IconButton,
+} from '@mui/material';
 import React from 'react';
 import FilterCollection from '../layout/FilterCollection';
 import Footer from '../layout/Footer';
@@ -13,12 +22,18 @@ import { useSearchParams } from 'next/navigation';
 import ImageNotFound from '@/public/Match not found.png';
 import { Suspense, useState } from 'react';
 import SpinnerLoader from '@/src/components/layout/SpinnerLoader';
+import TuneIcon from '@mui/icons-material/Tune';
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import FilterOptionMobile from './FilterOptionMobile';
+import GridItemsSearch from '../layout/GridItemsSearch';
 
 export default function SearchComponent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') as string;
   const { items, loading, error } = UseProductsReturn();
   const [displayCount, setDisplayCount] = useState<number>(6);
+  const [openDrawerMobile, setOpenDrawerMobile] = useState(false);
   const queryItems =
     query?.length > 0
       ? items?.filter((item) =>
@@ -92,27 +107,56 @@ export default function SearchComponent() {
         )}
 
         {queryItems.length > 0 && (
-          <Grid container spacing={3}>
-            <Grid item xs={3}>
-              <FilterCollection />
-            </Grid>
-            <Grid item xs={9}>
-              <Grid container spacing={2} sx={{ marginBottom: '3rem' }}>
-                {loading ? (
-                  <Grid
-                    container
-                    spacing={{ xs: 2 }}
-                    item
-                    sx={{ marginBottom: '5rem' }}
-                  >
-                    <SkeletonProductCollection displayCount={displayCount} />
-                  </Grid>
-                ) : (
-                  <ProductMain items={queryItems} count={displayCount} />
-                )}
+          <>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <Button
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: '#000000',
+                  textTransform: 'capitalize',
+                  gap: '1rem',
+                  width: '100%',
+                  justifyContent: 'center',
+                }}
+                onClick={() => setOpenDrawerMobile(true)}
+              >
+                <Typography>
+                  <TuneIcon />
+                </Typography>
+                Filter
+              </Button>
+              <FilterOptionMobile  onOpen = {openDrawerMobile} onState = {setOpenDrawerMobile} />
+              <GridItemsSearch />
+
+
+            </Box>
+            <Grid
+              container
+              spacing={3}
+              sx={{ display: { xs: 'none', md: 'flex' } }}
+            >
+              <Grid item xs={3}>
+                <FilterCollection />
+              </Grid>
+              <Grid item xs={9}>
+                <Grid container spacing={2} sx={{ marginBottom: '3rem' }}>
+                  {loading ? (
+                    <Grid
+                      container
+                      spacing={{ xs: 2 }}
+                      item
+                      sx={{ marginBottom: '5rem' }}
+                    >
+                      <SkeletonProductCollection displayCount={displayCount} />
+                    </Grid>
+                  ) : (
+                    <ProductMain items={queryItems} count={displayCount} />
+                  )}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          </>
         )}
       </Container>
       <Footer />

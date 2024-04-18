@@ -7,23 +7,23 @@ import {
   IconButton,
   Button,
   Modal,
-} from "@mui/material";
-import LogoWebsite from "./LogoWebsite";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import DesktopMenu from "./DesktopMenu";
-import LogoMobileWebsite from "./LogoMobileWebsite";
-import IconHeader from "@/src/components/headers/IconHeader";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import { PropsWithChildren, useState } from "react";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import BannerHeader from "../headers/BannerHeader";
-import CloseIcon from "@mui/icons-material/Close";
-import MobileMenu from "./MobileMenu";
-import { Option } from "@/src/types/MenuTypes";
-import SearchField from "../headers/SearchField";
-import NavBar from "./NavBar";
+} from '@mui/material';
+import LogoWebsite from './LogoWebsite';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import DesktopMenu from './DesktopMenu';
+import LogoMobileWebsite from './LogoMobileWebsite';
+import IconHeader from '@/src/components/headers/IconHeader';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import SearchIcon from '@mui/icons-material/Search';
+import { PropsWithChildren, useState } from 'react';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import BannerHeader from '../headers/BannerHeader';
+import CloseIcon from '@mui/icons-material/Close';
+import MobileMenu from './MobileMenu';
+import { Option } from '@/src/types/MenuTypes';
+import SearchField from '../headers/SearchField';
+import NavBar from './NavBar';
 
 interface MainNavBar {
   options: Option[];
@@ -55,55 +55,40 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "#ffff",
-        boxShadow: "none",
-        color: "#404040",
-        width: "100%",
+        backgroundColor: '#ffff',
+        boxShadow: 'none',
+        color: '#404040',
+        width: '100%',
       }}
     >
       <Toolbar
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: { xs: "space-between", md: "space-around" },
-          p: "10px 10px",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: { xs: 'space-between', md: 'space-around' },
+          p: { xs: '0px 20px', md: '0' },
         }}
       >
         <LogoWebsite />
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
-            // gap: "9px",
-            alignItems: "center",
+            display: { xs: 'flex', md: 'none' },
+
+            alignItems: 'center',
           }}
         >
           <IconButton onClick={handleDrawerOpen}>
-            <MenuOutlinedIcon sx={{ cursor: "pointer" }} />
+            <MenuOutlinedIcon sx={{ cursor: 'pointer', color: '#000000' }} />
           </IconButton>
-          {/* search Icon */}
-          {/* <SearchIcon sx={{ cursor: "pointer" }} mobile /> */}
-        </Box>
-        <DesktopMenu
-          options={options}
-          setIsHovered={setIsHovered}
-          setIsOpen={setIsOpen}
-        />
-        <Box
-          sx={{
-            gap: { xs: 1, md: 2 },
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-          }}
-        >
+          {/* search Icon mobile nav */}
           {isOpenSearch ? (
             <>
+              {' '}
               <Button
                 sx={{
-                  color: "inherit",
-                  padding: "0px",
-                  margin: "0px",
-                  display: "block",
-                  minWidth: "0px",
+                  color: 'inherit',
+                 
+                  minWidth: '0px',
                 }}
                 onClick={handleCloseSearch}
               >
@@ -114,14 +99,55 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
             <Button
               onClick={handleOpenSearch}
               sx={{
-                color: "inherit",
-                padding: "0px",
-                margin: "0px",
-                display: "block",
-                minWidth: "0px",
+                color: 'inherit',
+                
               }}
             >
-              {" "}
+              {' '}
+              <SearchOutlinedIcon />
+            </Button>
+          )}
+         
+        </Box>
+        <DesktopMenu
+          options={options}
+          setIsHovered={setIsHovered}
+          setIsOpen={setIsOpen}
+        />
+        <Box
+          sx={{
+            gap: { xs: 1, md: 2 },
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+          }}
+        >
+          {isOpenSearch ? (
+            <>
+              <Button
+                sx={{
+                  color: 'inherit',
+                  padding: '0px',
+                  margin: '0px',
+                  display: 'block',
+                  minWidth: '0px',
+                }}
+                onClick={handleCloseSearch}
+              >
+                <CloseIcon />
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={handleOpenSearch}
+              sx={{
+                color: 'inherit',
+                padding: '0px',
+                margin: '0px',
+                display: 'block',
+                minWidth: '0px',
+              }}
+            >
+              {' '}
               <SearchOutlinedIcon />
             </Button>
           )}
@@ -131,19 +157,20 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         <Box>
           <LogoMobileWebsite />
         </Box>
-        <Box sx={{ display: { xs: "flex", md: "none" }, gap: "9px" }}>
-          <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
-          <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
+          <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer' }} />
+          <ShoppingBagOutlinedIcon sx={{ cursor: 'pointer' }} />
         </Box>
+        {/* menu mobile */}
         {open && (
           <Drawer
             sx={{
               zIndex: 9999,
-              display: { xs: "block", md: "none" },
+              display: { xs: 'block', md: 'none' },
 
-              "& .MuiDrawer-paper": {
-                width: "100%",
-                backgroundColor: "white",
+              '& .MuiDrawer-paper': {
+                width: '100%',
+                backgroundColor: 'white',
               },
             }}
             variant="persistent"
@@ -153,31 +180,32 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
             <BannerHeader />
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.2rem 1rem',
               }}
             >
               <Box
                 sx={{
-                  display: { xs: "flex", md: "none" },
-                  alignItems: "center",
-                  cursor: "pointer",
-                  padding: "7px 10px",
+                  display: { xs: 'flex', md: 'none' },
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  padding: '7px 10px',
                 }}
               >
                 <IconButton
                   onClick={handleDrawerClose}
-                  sx={{ cursor: "pointer" }}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  <CloseIcon sx={{ color: "#000000" }} />
+                  <CloseIcon sx={{ color: '#000000' }} />
                 </IconButton>
                 <SearchIcon />
               </Box>
               <LogoMobileWebsite />
-              <Box sx={{ display: { xs: "flex", md: "none" }, gap: "9px" }}>
-                <FavoriteBorderOutlinedIcon sx={{ cursor: "pointer" }} />
-                <ShoppingBagOutlinedIcon sx={{ cursor: "pointer" }} />
+              <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
+                <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer' }} />
+                <ShoppingBagOutlinedIcon sx={{ cursor: 'pointer' }} />
               </Box>
             </Box>
             <MobileMenu />

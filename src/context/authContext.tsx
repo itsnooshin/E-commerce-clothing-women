@@ -62,11 +62,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         router.push("/");
       }
       if (res.status === 401) {
-        console.log("Registration is faild");
         setErrorMessage("Password or email is incorrect. Please try again.");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
       setErrorMessage("An error occurred. Please try again later.");
     }
   }
