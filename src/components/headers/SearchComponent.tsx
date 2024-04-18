@@ -126,11 +126,12 @@ export default function SearchComponent() {
                 </Typography>
                 Filter
               </Button>
-              <FilterOptionMobile  onOpen = {openDrawerMobile} onState = {setOpenDrawerMobile} />
-              <GridItemsSearch />
-
-
+              <FilterOptionMobile
+                onOpen={openDrawerMobile}
+                onState={setOpenDrawerMobile}
+              />
             </Box>
+             <GridItemsSearch loading = {loading} count = {displayCount} items = {queryItems} />
             <Grid
               container
               spacing={3}

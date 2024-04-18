@@ -12,7 +12,6 @@ interface PropsType {
 
 export default function Products(props: PropsWithChildren<PropsType>) {
   const { item, link } = props;
-  console.log(item);
   return (
     <Link
       href={{
