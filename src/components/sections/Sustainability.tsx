@@ -8,12 +8,13 @@ function Sustainability() {
       <Image
         alt="this is a header"
         src={Header}
-        width={640}
-        height={500}
+        width={500}
+        height={600}
         style={{
           objectFit: 'cover',
           width: '100%',
         }}
+        sizes="100vw"
       />
 
       <Box

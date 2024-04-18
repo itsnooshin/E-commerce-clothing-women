@@ -43,10 +43,11 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+            left :'0.5rem'
           }}
         >
-          <p style={{ marginLeft: '1rem' }}>New</p>
-          <span style={{ position: 'absolute', left: '37vw' }}>
+          <p style={{padding : "0.2rem 0.7rem"}}>New</p>
+          <span style={{ position: 'absolute', left: '33vw' }}>
             <HeartIcon />
           </span>
         </div>
