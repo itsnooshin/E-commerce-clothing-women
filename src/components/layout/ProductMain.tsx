@@ -4,6 +4,7 @@ import { PropsWithChildren, useState } from "react";
 import { Product } from "@/src/types/productTypes";
 import Link from "next/link";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import HeartIcon from "./heartIcon";
 
 interface ProductValue {
   items: Product[];
@@ -69,9 +70,9 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
                   New{" "}
                 </Typography>
               )}
-              <Box sx={{ position: "absolute", left: "20rem" }}>
+              <Box sx={{ position: "absolute", left: "25vw" }}>
                 {" "}
-                <FavoriteBorderIcon />
+                <HeartIcon />
               </Box>
             </Box>
             <Box
