@@ -53,11 +53,12 @@ function MobileMenu() {
               }}
             >
               <Link
-                href={
+                href={`/${
                   hrefLink[index] === 'collection'
                     ? 'collection/all'
                     : hrefLink[index]
-                }
+                }`}
+                key={index}
               >
                 <ListItem>
                   <ListItemText primary={items.name} />

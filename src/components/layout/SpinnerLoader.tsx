@@ -4,7 +4,7 @@ import ClipLoader from "react-spinners/BeatLoader";
 const override: CSSProperties = {
   display: "block",
   margin: "0 auto",
-  borderColor: "red",
+ 
 };
 
 function App() {

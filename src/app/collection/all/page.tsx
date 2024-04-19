@@ -47,7 +47,7 @@ function page() {
             <Skeleton variant="rectangular" width={95} />{' '}
           </Container>
         ) : (
-          <CollectionHeader />
+          <CollectionHeader item = {"Shop All"} />
         )}
 
         <Box sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}>
@@ -62,7 +62,7 @@ function page() {
           <Box
             sx={{
               mt: 4,
-              display: { xs: 'flex', md: 'none', background: 'red' },
+              display: { xs: 'flex', md: 'none' },
             }}
           >
             <CollectionImageBannerMobile />

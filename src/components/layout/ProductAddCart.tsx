@@ -15,7 +15,7 @@ export default function ProductAddCart(props: PropsWithChildren<Types>) {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#5A6D57",
-        width: "550px",
+        width: {xs : "100%" , md :"550px"},
       }}
     >
       <Button

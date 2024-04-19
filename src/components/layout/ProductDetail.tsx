@@ -1,38 +1,42 @@
-"use client";
-import BannerHeader from "@/src/components/headers/BannerHeader";
-import NavBar from "@/src/components/layout/NavBar";
-import { Product } from "@/src/types/productTypes";
-import { Box } from "@mui/material";
-import { Container } from "@mui/material";
-import { Grid } from "@mui/material";
-import { SelectChangeEvent } from "@mui/material";
-import React, { PropsWithChildren, useState } from "react";
-import SizeGuidModal from "./SizeGuidModal";
-import Breadcrumb from "../headers/Breadcrumb";
-import AccordionProduct from "./AccordionProduct";
-import Footer from "./Footer";
-import RecommondProduct from "./RecommondProduct";
-import useProductColorHook from "@/src/hooks/useProductColorHook";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/src/app/store";
-import { addCart, RemoveItem } from "@/src/featuers/cart/cartSlice";
-import ProductImageGallery from "./ProductImageGallery";
-import ProductImage from "./ProductImage";
-import ProductInformation from "./ProductInformation";
-import ProductColorChanger from "./ProductColorChanger";
-import ProductUtilityIcons from "./ProductUtilityIcons";
-import ProductMaterialDescription from "./ProductMaterialDescription";
-import SizeSelector from "./SizeSelector";
-import ProductAddCart from "./ProductAddCart";
-import ModalAddToCart from "./ModalAddToCart";
-
+'use client';
+import BannerHeader from '@/src/components/headers/BannerHeader';
+import NavBar from '@/src/components/layout/NavBar';
+import { Product } from '@/src/types/productTypes';
+import { Box } from '@mui/material';
+import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
+import React, { PropsWithChildren, useState } from 'react';
+import SizeGuidModal from './SizeGuidModal';
+import Breadcrumb from '../headers/Breadcrumb';
+import AccordionProduct from './AccordionProduct';
+import Footer from './Footer';
+import RecommondProduct from './RecommondProduct';
+import useProductColorHook from '@/src/hooks/useProductColorHook';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
+import { addCart, RemoveItem } from '@/src/featuers/cart/cartSlice';
+import ProductImageGallery from './ProductImageGallery';
+import ProductImage from './ProductImage';
+import ProductInformation from './ProductInformation';
+import ProductColorChanger from './ProductColorChanger';
+import ProductUtilityIcons from './ProductUtilityIcons';
+import ProductMaterialDescription from './ProductMaterialDescription';
+import SizeSelector from './SizeSelector';
+import ProductAddCart from './ProductAddCart';
+import ModalAddToCart from './ModalAddToCart';
+import 'swiper/css/pagination';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image';
 interface ProductValue {
   product: Product;
 }
 
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const { product } = props;
-  const [size, setSize] = useState("Size");
+  const [size, setSize] = useState('Size');
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -87,7 +91,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   };
 
   const handle = () => {
-    if (size === "Size") return;
+    if (size === 'Size') return;
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
   };
@@ -107,9 +111,15 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
       <BannerHeader />
       <NavBar />
       <Box sx={{ pt: 3 }}>
-        <Container sx={{ paddingLeft: 0 }}>
+        <Container
+          sx={{ paddingLeft: '0', paddingRight: { xs: '0', md: '16px' } }}
+        >
           <Breadcrumb name={product_name} />
-          <Grid container spacing={3} sx={{ mt: 4 }}>
+          <Grid
+            container
+            spacing={3}
+            sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}
+          >
             <Grid item xs={2}>
               <ProductImageGallery
                 SelectItem={itemS}
@@ -142,9 +152,9 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
               <Box
                 sx={{
                   mt: 7,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
                 }}
               >
                 <SizeGuidModal
@@ -171,6 +181,75 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
               <ProductMaterialDescription />
             </Grid>
           </Grid>
+          <Box sx={{ mt: 4, display: { xs: 'flex', md: 'none' } }}>
+            <Swiper
+              style={{ paddingBottom: '4rem' }}
+              modules={[Pagination, Autoplay]}
+              // autoplay={{ delay: 2700, disableOnInteraction: false }}
+              // spaceBetween={20}
+              loop={true}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+            >
+              {product_img.map((item) => (
+                <SwiperSlide key={item}>
+                  <Image
+                    src={item}
+                    width={500}
+                    height={500}
+                    style={{ objectFit: 'cover', width: '100%' }}
+                    alt="images"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            {/* <ProductInformation
+              name={product_name}
+              description={product_description}
+            /> */}
+          </Box>
+          <Container sx={{ display: { xs: 'block', md: 'none' } }}>
+            <ProductInformation
+              name={product_name}
+              description={product_description}
+            />
+            <ProductColorChanger
+              value={CurrentColor}
+              options={colors}
+              onSelect={setCurrentColor}
+              colorSelect={currentColor}
+            />
+            <Box
+              sx={{
+                mt: 7,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+              }}
+            >
+              <SizeGuidModal
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                open={open}
+              />
+              <SizeSelector
+                handleChange={handleChange}
+                size={size}
+                productSize={product_size}
+              />
+
+              <ProductAddCart handle={handle} price={procuct_price} />
+              <ModalAddToCart
+                shopsItem={shopsItem}
+                openModal={openModal}
+                handleCloseModal={handleCloseModal}
+                handleRemove={handleRemove}
+              />
+            </Box>
+            <ProductUtilityIcons />
+            <ProductMaterialDescription />
+            <AccordionProduct />
+          </Container>
           <RecommondProduct category={product_category} />
         </Container>
         <Footer />

@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from "react";
-import { FormControl, SelectChangeEvent } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { Select } from "@mui/material";
-import { Typography } from "@mui/material";
+import React, { PropsWithChildren } from 'react';
+import { FormControl, SelectChangeEvent } from '@mui/material';
+import { MenuItem } from '@mui/material';
+import { Select } from '@mui/material';
+import { Typography } from '@mui/material';
 
 interface Types {
   handleChange: (event: SelectChangeEvent) => void;
@@ -14,13 +14,13 @@ export default function SizeSelector(props: PropsWithChildren<Types>) {
   const { productSize, size, handleChange } = props;
 
   return (
-
-    
-    <FormControl sx={{ m: 1, width: "550px", marginLeft: 0 }}>
+    <FormControl
+      sx={{ m: 1, width: { xs: '100%', md: '550px' }, marginLeft: 0 }}
+    >
       <Select
         sx={{
           marginBottom: 0,
-          width: 550,
+          width: { xs: '100%', md: '550px' },
           height: 50,
         }}
         onChange={handleChange}
@@ -32,7 +32,7 @@ export default function SizeSelector(props: PropsWithChildren<Types>) {
         renderValue={(selectedSize) => {
           if (selectedSize.length === 0) {
             return (
-              <Typography sx={{ fontWeight: "800 !important" }}>
+              <Typography sx={{ fontWeight: '800 !important' }}>
                 {size}
               </Typography>
             );

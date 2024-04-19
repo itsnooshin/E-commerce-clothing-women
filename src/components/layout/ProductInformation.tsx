@@ -13,7 +13,7 @@ export default function ProductInformation(props: PropsWithChildren<Types>) {
       <Typography variant="h6" fontWeight={"bold"} fontFamily={"inherit"}>
         {name.split(" ").slice(0, 2).join(" ")}
       </Typography>
-      <Typography sx={{ width: "580px" }}>{description}</Typography>
+      <Typography sx={{ width: {xs : '100%' , md : '580px'} }}>{description}</Typography>
     </Box>
   );
 }

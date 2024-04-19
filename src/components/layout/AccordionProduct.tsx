@@ -52,7 +52,7 @@ export default function AccordionProduct() {
       sx={{
         bgcolor: "#F0F2EF",
         marginTop: "3rem",
-        width: "560px",
+        width: { xs : '100%' , md: "560px"},
         marginBottom: "10rem",
       }}
     >

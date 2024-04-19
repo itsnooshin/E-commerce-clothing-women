@@ -41,7 +41,7 @@ export default function SizeGuidModal(props: PropsWithChildren<PropsSize>) {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        width: '550px',
+        width: {  xs: '100%' , md :'550px'},
       }}
     >
       <Button onClick={handleOpen} sx={{ color: '#868686' }}>
@@ -58,7 +58,7 @@ export default function SizeGuidModal(props: PropsWithChildren<PropsSize>) {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '800px',
+              width: { xs : '100%'  , md :   '800px'},
               bgcolor: 'background.paper',
               borderRadius: '12px',
               boxShadow: 24,
