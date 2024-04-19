@@ -110,6 +110,7 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
               fontWeight: '700',
               marginRight: '1rem',
               fontSize: '0.9rem',
+              color: 'red',
             }}
           >
             ${item.procuct_price}
