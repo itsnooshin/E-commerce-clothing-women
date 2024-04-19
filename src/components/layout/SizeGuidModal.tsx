@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from 'react';
 
 import {
   Button,
@@ -9,11 +9,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Table } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+} from '@mui/material';
+import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Table } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface PropsSize {
   open: boolean;
@@ -26,51 +26,50 @@ function createData(name: string, waist: string, hips: string, chest: string) {
 }
 
 const rows = [
-  createData("XS", "159", "6.0", "24"),
-  createData("S", "237", "9.0", " 37"),
-  createData("M", "262", "16.0", "24"),
-  createData("L", "305", "3.7", "67"),
-  createData("XL", "356", "16.0", "49"),
+  createData('XS', '159', '6.0', '24'),
+  createData('S', '237', '9.0', ' 37'),
+  createData('M', '262', '16.0', '24'),
+  createData('L', '305', '3.7', '67'),
+  createData('XL', '356', '16.0', '49'),
 ];
 
 export default function SizeGuidModal(props: PropsWithChildren<PropsSize>) {
-  const { open, handleClose , handleOpen } = props;
+  const { open, handleClose, handleOpen } = props;
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        width: "550px",
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        width: '550px',
       }}
     >
-      <Button onClick={handleOpen} sx={{ color: "#868686" }}>
+      <Button onClick={handleOpen} sx={{ color: '#868686' }}>
         Size Guide
       </Button>
       {open && (
         <Modal
           open={open}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          style={{ backdropFilter: 'blur(5px)', border: 'none' }}
         >
           <Box
             sx={{
-              position: "absolute" as "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "800px",
-              bgcolor: "background.paper",
-              borderRadius: "12px",
+              position: 'absolute' as 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '800px',
+              bgcolor: 'background.paper',
+              borderRadius: '12px',
               boxShadow: 24,
               p: 4,
             }}
           >
             <Typography
               variant="h5"
-              fontFamily={"inherit"}
-              fontWeight={"bold"}
-              textAlign={"center"}
+              fontFamily={'inherit'}
+              fontWeight={'bold'}
+              textAlign={'center'}
               mb={4}
             >
               Women Clothing's Chart
@@ -78,7 +77,7 @@ export default function SizeGuidModal(props: PropsWithChildren<PropsSize>) {
             <IconButton
               onClick={handleClose}
               sx={{
-                position: "absolute",
+                position: 'absolute',
                 right: 8,
                 top: 10,
               }}

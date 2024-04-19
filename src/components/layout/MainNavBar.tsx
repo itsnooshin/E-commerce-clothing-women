@@ -1,29 +1,28 @@
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  Drawer,
-  Typography,
-  IconButton,
-  Button,
-  Modal,
-} from '@mui/material';
+import { AppBar, Drawer } from '@mui/material';
+import { Toolbar } from '@mui/material';
+import { Box } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { Button } from '@mui/material';
+import { Modal } from '@mui/material';
 import LogoWebsite from './LogoWebsite';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DesktopMenu from './DesktopMenu';
 import LogoMobileWebsite from './LogoMobileWebsite';
 import IconHeader from '@/src/components/headers/IconHeader';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 import { PropsWithChildren, useState } from 'react';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import BannerHeader from '../headers/BannerHeader';
-import CloseIcon from '@mui/icons-material/Close';
-import MobileMenu from './MobileMenu';
 import { Option } from '@/src/types/MenuTypes';
 import SearchField from '../headers/SearchField';
-import NavBar from './NavBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
+import EmptyCart from './EmptyCart';
+import DisplayProductCart from './DisplayProductCart';
+import { RemoveItem } from '@/src/featuers/cart/cartSlice';
+import NavigationDropMenuMobile from '../headers/NavigationDropMenuMobile';
+import BadgeNumberShopping from '../headers/BadgeNumberShopping';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import EmptyCartMobile from '../headers/EmptyCartMobile';
 
 interface MainNavBar {
   options: Option[];
@@ -33,23 +32,28 @@ interface MainNavBar {
 
 function MainNavBar(props: PropsWithChildren<MainNavBar>) {
   const { options, setIsHovered, setIsOpen } = props;
+
+  const shopsItem = useSelector((store: RootState) => store.cart.items);
+  const badgetItem = shopsItem.length;
+
+  const [openDrawerMobile, setOpenDrawerMobile] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+  const [openModal, setOpenModal] = useState(false);
   const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleRemove = (id: any) => dispatch(RemoveItem(id));
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
+  const handleCloseSearch = () => setIsOpenSearch(false);
+
   const handleOpenSearch = () => {
     if (!isOpenSearch) {
       setIsOpenSearch(true);
     }
   };
-  const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
     <AppBar
@@ -70,10 +74,10 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         }}
       >
         <LogoWebsite />
+        {/* left side mobile */}
         <Box
           sx={{
             display: { xs: 'flex', md: 'none' },
-
             alignItems: 'center',
           }}
         >
@@ -83,11 +87,10 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           {/* search Icon mobile nav */}
           {isOpenSearch ? (
             <>
-              {' '}
               <Button
                 sx={{
                   color: 'inherit',
-                 
+                  padding: 0,
                   minWidth: '0px',
                 }}
                 onClick={handleCloseSearch}
@@ -100,14 +103,14 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
               onClick={handleOpenSearch}
               sx={{
                 color: 'inherit',
-                
+                padding: 0,
+                minWidth: '0px',
               }}
             >
               {' '}
               <SearchOutlinedIcon />
             </Button>
           )}
-         
         </Box>
         <DesktopMenu
           options={options}
@@ -151,7 +154,6 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
               <SearchOutlinedIcon />
             </Button>
           )}
-
           <IconHeader />
         </Box>
         <Box>
@@ -159,58 +161,40 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
         </Box>
         <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
           <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer' }} />
-          <ShoppingBagOutlinedIcon sx={{ cursor: 'pointer' }} />
+          <BadgeNumberShopping
+            badgetItem={badgetItem.toString()}
+            handleOpenModal={handleOpenModal}
+          />
         </Box>
-        {/* menu mobile */}
-        {open && (
-          <Drawer
-            sx={{
-              zIndex: 9999,
-              display: { xs: 'block', md: 'none' },
+        <Drawer
+          open={openModal}
+          sx={{
+            display: { xs: 'flex', md: 'none' },
+            '& .MuiDrawer-paper': {
+              width: '100%',
+              backgroundColor: 'white',
+            },
+          }}
+        >
+          {/* <EmptyCart handleCloseModal={handleCloseModal}  /> */}
+          <EmptyCartMobile handleCloseModal={handleCloseModal} />
+        </Drawer>
+        {/* <Modal open={openModal} sx={{ display: 'flex', border: 'none' }}>
+          {badgetItem === 0 ? (
+            <EmptyCart handleCloseModal={handleCloseModal} />
+          ) : (
+            <DisplayProductCart
+              shopsItem={shopsItem}
+              handleCloseModal={handleCloseModal}
+              handleRemove={handleRemove}
+            />
+          )}
+        </Modal> */}
 
-              '& .MuiDrawer-paper': {
-                width: '100%',
-                backgroundColor: 'white',
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-          >
-            <BannerHeader />
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.2rem 1rem',
-              }}
-            >
-              <Box
-                sx={{
-                  display: { xs: 'flex', md: 'none' },
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  padding: '7px 10px',
-                }}
-              >
-                <IconButton
-                  onClick={handleDrawerClose}
-                  sx={{ cursor: 'pointer' }}
-                >
-                  <CloseIcon sx={{ color: '#000000' }} />
-                </IconButton>
-                <SearchIcon />
-              </Box>
-              <LogoMobileWebsite />
-              <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: '9px' }}>
-                <FavoriteBorderOutlinedIcon sx={{ cursor: 'pointer' }} />
-                <ShoppingBagOutlinedIcon sx={{ cursor: 'pointer' }} />
-              </Box>
-            </Box>
-            <MobileMenu />
-          </Drawer>
-        )}
+        <NavigationDropMenuMobile
+          open={open}
+          handleDrawerClose={handleDrawerClose}
+        />
       </Toolbar>
       {isOpenSearch && <SearchField />}
     </AppBar>

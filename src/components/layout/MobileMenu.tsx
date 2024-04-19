@@ -52,7 +52,13 @@ function MobileMenu() {
                 justifyContent: 'space-between',
               }}
             >
-              <Link href={`/${hrefLink[index]}`}>
+              <Link
+                href={
+                  hrefLink[index] === 'collection'
+                    ? 'collection/all'
+                    : hrefLink[index]
+                }
+              >
                 <ListItem>
                   <ListItemText primary={items.name} />
                 </ListItem>

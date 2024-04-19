@@ -1,27 +1,22 @@
-import React, { PropsWithChildren } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import React, { PropsWithChildren } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface Types {
   handleCloseModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function EmptyCart(props: PropsWithChildren<Types>) {
+export default function EmptyCartMobile(props: PropsWithChildren<Types>) {
   const { handleCloseModal } = props;
   return (
     <Box
       sx={{
-        background: 'white',
-        width: '500px',
-        height: '700px',
-        position: 'absolute' as 'absolute',
         top: '0px',
         right: '0rem',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-
         gap: '2rem',
         paddingTop: '6rem',
       }}
