@@ -52,6 +52,7 @@ function IconHeader(props: PropsWithChildren<Types>) {
 
   const shopsItem = useSelector((store: RootState) => store.cart.items);
   const badgetItem = shopsItem.length;
+  console.log(shopsItem);
   const handleClose = () => {
     setAnchorEl(null);
   };

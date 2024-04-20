@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "next/link";
-import Typography from "@mui/material/Typography";
+import React, { PropsWithChildren } from 'react';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from 'next/link';
+import { Typography, Box } from '@mui/material';
 
 interface PropsType {
   name: string;
@@ -10,16 +10,46 @@ interface PropsType {
 function MyBreadcrumbs(props: PropsWithChildren<PropsType>) {
   const { name } = props;
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ color: "#606060" }}>
-      <Link href="/" style={{ color: "#748C70" }}>
-        Home
-      </Link>
-      <Link href="/collection/all" style={{ color: "#748C70" }}>
-        Shop All
-      </Link>
+    <>
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ color: '#606060' }}>
+          <Link href="/" style={{ color: '#748C70' }}>
+            Home
+          </Link>
+          <Link href="/collection/all" style={{ color: '#748C70' }}>
+            Shop All
+          </Link>
 
-      <Typography color="text.primary">{name}</Typography>
-    </Breadcrumbs>
+          <Typography color="text.primary">
+            {name.split(' ').slice(0, 2).join(' ')}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+
+      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          sx={{ color: '#606060', fontSize: '1rem' }}
+        >
+          <Link
+            href="/"
+            style={{ color: '#748C70', fontSize: '1rem', paddingLeft: '15px' }}
+          >
+            Home
+          </Link>
+          <Link
+            href="/collection/all"
+            style={{ color: '#748C70', fontSize: '1rem' }}
+          >
+            Shop All
+          </Link>
+
+          <Typography color="text.primary">
+            {name.split(' ').slice(0, 2).join(' ')}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+    </>
   );
 }
 

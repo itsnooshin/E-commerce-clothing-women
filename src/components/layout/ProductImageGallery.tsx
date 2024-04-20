@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from "react";
-import { Box, Button } from "@mui/material";
-import Image from "next/image";
-import AccordionProduct from "./AccordionProduct";
+import React, { PropsWithChildren } from 'react';
+import { Avatar, Box, Button, Chip } from '@mui/material';
+import Image from 'next/image';
+import AccordionProduct from './AccordionProduct';
 
 interface Types {
   options: string[];
@@ -15,12 +15,13 @@ export default function ProductImageGallery(props: PropsWithChildren<Types>) {
     <>
       <Box
         sx={{
-          overflowY: "scroll",
-          height: "500px",
+          overflowY: 'scroll',
+          height: '500px',
         }}
       >
         {options.map((image, index) => (
           <Button
+            sx={{}}
             key={index}
             onClick={() => {
               onSelect(image, index);
@@ -32,9 +33,9 @@ export default function ProductImageGallery(props: PropsWithChildren<Types>) {
               width={120}
               height={120}
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
                 border:
-                  SelectItem === index.toString() ? "2px solid #ADADAD" : "",
+                  SelectItem === index.toString() ? '3px solid #5A6D57' : '',
               }}
               alt="image for detail product"
             />

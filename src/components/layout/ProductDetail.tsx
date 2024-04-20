@@ -256,12 +256,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   handleRemove={handleRemove}
                 />
               </Drawer>
-              {/* <ModalAddToCart
-                shopsItem={shopsItem}
-                openModal={openModal}
-                handleCloseModal={handleCloseModal}
-                handleRemove={handleRemove}
-              /> */}
+              
             </Box>
             <ProductUtilityIcons />
             <ProductMaterialDescription />
