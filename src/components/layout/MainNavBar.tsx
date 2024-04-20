@@ -23,6 +23,7 @@ import BadgeNumberShopping from '../headers/BadgeNumberShopping';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import EmptyCartMobile from '../headers/EmptyCartMobile';
+import DisplayCartMobile from './DisplayCartMobile';
 
 interface MainNavBar {
   options: Option[];
@@ -177,7 +178,15 @@ function MainNavBar(props: PropsWithChildren<MainNavBar>) {
           }}
         >
           {/* <EmptyCart handleCloseModal={handleCloseModal}  /> */}
-          <EmptyCartMobile handleCloseModal={handleCloseModal} />
+          {badgetItem === 0 ? (
+            <EmptyCartMobile handleCloseModal={handleCloseModal} />
+          ) : (
+            <DisplayCartMobile
+              shopsItem={shopsItem}
+              handleCloseModal={handleCloseModal}
+              handleRemove={handleRemove}
+            />
+          )}
         </Drawer>
         {/* <Modal open={openModal} sx={{ display: 'flex', border: 'none' }}>
           {badgetItem === 0 ? (

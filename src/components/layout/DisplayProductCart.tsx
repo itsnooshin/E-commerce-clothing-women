@@ -25,7 +25,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
         top: "0px",
         right: "0rem",
         padding: " 3rem 1.5rem",
-        display: "flex",
+        display: {xs : 'none' ,md : 'flex'},
         // justifyContent: "center",
         flexDirection: "column",
         // alignItems: "center",

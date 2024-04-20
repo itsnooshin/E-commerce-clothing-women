@@ -2,7 +2,7 @@
 import BannerHeader from '@/src/components/headers/BannerHeader';
 import NavBar from '@/src/components/layout/NavBar';
 import { Product } from '@/src/types/productTypes';
-import { Box } from '@mui/material';
+import { Box, Drawer } from '@mui/material';
 import { Container } from '@mui/material';
 import { Grid } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
@@ -30,6 +30,7 @@ import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
+import DisplayCartMobile from './DisplayCartMobile';
 interface ProductValue {
   product: Product;
 }
@@ -239,12 +240,28 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
               />
 
               <ProductAddCart handle={handle} price={procuct_price} />
-              <ModalAddToCart
+              <Drawer
+                open={openModal}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                  '& .MuiDrawer-paper': {
+                    width: '100%',
+                    backgroundColor: 'white',
+                  },
+                }}
+              >
+                <DisplayCartMobile
+                  shopsItem={shopsItem}
+                  handleCloseModal={handleCloseModal}
+                  handleRemove={handleRemove}
+                />
+              </Drawer>
+              {/* <ModalAddToCart
                 shopsItem={shopsItem}
                 openModal={openModal}
                 handleCloseModal={handleCloseModal}
                 handleRemove={handleRemove}
-              />
+              /> */}
             </Box>
             <ProductUtilityIcons />
             <ProductMaterialDescription />
