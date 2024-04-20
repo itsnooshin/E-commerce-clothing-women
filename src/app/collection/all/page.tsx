@@ -47,7 +47,7 @@ function page() {
             <Skeleton variant="rectangular" width={95} />{' '}
           </Container>
         ) : (
-          <CollectionHeader item = {"Shop All"} />
+          <CollectionHeader item={'Shop All'} />
         )}
 
         <Box sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}>
@@ -337,14 +337,14 @@ function page() {
                       </>
                     </Grid>
                   ))}
+              <LoadingButton
+                items={items}
+                loading={loading}
+                count={displayCount}
+                handleData={handleMoreData}
+              />
             </Grid>
           </Container>
-          <LoadingButton
-            items={items}
-            loading={loading}
-            count={displayCount}
-            handleData={handleMoreData}
-          />
         </Container>
         <Footer />
       </Box>
