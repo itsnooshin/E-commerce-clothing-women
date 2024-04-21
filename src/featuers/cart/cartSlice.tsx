@@ -33,7 +33,12 @@ export const cartSlice = createSlice({
     },
     RemoveItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      // localStorage.removeItem('cartItem');
+      localStorage.setItem(
+        'cartItem',
+        JSON.stringify(
+          state.items.filter((item) => item.id !== action.payload),
+        ),
+      );
     },
   },
 });

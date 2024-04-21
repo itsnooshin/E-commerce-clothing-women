@@ -81,7 +81,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   const dispatch = useDispatch<AppDispatch>();
 
   const shopsItem = useSelector((store: RootState) => store.cart.items);
-  // console.log(shopsItem);
   const itemToAdd = {
     id: id,
     name: product_name,
