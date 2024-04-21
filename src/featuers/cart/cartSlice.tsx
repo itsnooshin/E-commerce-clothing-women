@@ -28,7 +28,19 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addCart: (state, action: PayloadAction<CartItem>) => {
-      state.items.push({ ...action.payload });
+      const index = state.items.findIndex(
+        (item) =>
+          item.id === action.payload.id &&
+          item.color === action.payload.color &&
+          item.size === action.payload.size,
+      );
+      if (index !== -1) {
+        state.items[index].quantity =
+          state.items[index].quantity + action.payload.quantity;
+      } else {
+        state.items.push(action.payload);
+      }
+
       localStorage.setItem('cartItem', JSON.stringify(state.items));
     },
     RemoveItem: (state, action: PayloadAction<string>) => {

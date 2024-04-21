@@ -1,42 +1,17 @@
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Link from '@mui/material/Link';
-import {
-  Box,
-  Menu,
-  Button,
-  IconButton,
-  Avatar,
-  Modal,
-  Badge,
-  Typography,
-} from '@mui/material';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { Box, Menu, Button, Modal } from '@mui/material';
+import { useState } from 'react';
 import { useAuth } from '@/src/context/authContext';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { Logout } from '@mui/icons-material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Person4Icon from '@mui/icons-material/Person4';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { relative } from 'path';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/src/app/store';
-import ModalCart from '../layout/ModalCart';
-import Image from 'next/image';
-import useProductColorHook from '@/src/hooks/useProductColorHook';
-import { ColorData } from '@/src/types/productTypes';
-import { addCart, RemoveItem } from '@/src/featuers/cart/cartSlice';
-import ProductSearch from './ProductSearch';
-import BannerHeader from './BannerHeader';
-import CloseIcon from '@mui/icons-material/Close';
-import NavBar from '../layout/NavBar';
-import { Option } from '@/src/types/MenuTypes';
-import LogoWebsite from '../layout/LogoWebsite';
-import DesktopMenu from '../layout/DesktopMenu';
-import SearchIcon from './SearchField';
+import {  RemoveItem } from '@/src/featuers/cart/cartSlice';
 import EmptyCart from '../layout/EmptyCart';
 import DisplayProductCart from '../layout/DisplayProductCart';
 import BadgeNumberShopping from './BadgeNumberShopping';
@@ -47,6 +22,7 @@ function IconHeader() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const dispatch = useDispatch<AppDispatch>();
 
   const shopsItem = useSelector((store: RootState) => store.cart.items);
   const badgetItem = shopsItem.length;
@@ -64,16 +40,9 @@ function IconHeader() {
     setOpenModal(false);
   };
 
-  const dispatch = useDispatch<AppDispatch>();
-  const items = useSelector((store: RootState) => store.product.items);
-
   const handleRemove = (id: any) => {
     dispatch(RemoveItem(id));
   };
-
-  const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const handleOpenSearch = () => setIsOpenSearch(true);
-  const handleCloseSearch = () => setIsOpenSearch(false);
 
   return (
     <>

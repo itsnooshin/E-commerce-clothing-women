@@ -51,7 +51,6 @@ export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
             <Box
               sx={{
                 display: 'flex',
-                // justifyContent: "center",
                 gap: '1rem',
               }}
             >
@@ -74,7 +73,7 @@ export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
                     padding: '0.3rem 1rem',
                   }}
                 >
-                  1
+                 {items.quantity}
                 </Box>
               </Box>
 
