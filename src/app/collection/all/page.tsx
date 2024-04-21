@@ -256,7 +256,7 @@ function page() {
                                   }}
                                 >
                                   {' '}
-                                  <HeartIcon />
+                                  <HeartIcon fill="white" stroke="black" />
                                 </Typography>
                               </div>
                             ) : (
@@ -267,7 +267,7 @@ function page() {
                                   top: '10px',
                                 }}
                               >
-                                <HeartIcon />
+                                <HeartIcon fill="white" stroke="black" />
                               </Typography>
                             )}
                           </Box>
