@@ -17,8 +17,9 @@ interface CartState {
 
 const Browser = typeof window !== 'undefined';
 const initialState: CartState = {
-  items:
-    Browser && JSON.parse(window.localStorage.getItem('cartItems') || '[]'),
+  items: Browser
+    ? JSON.parse(window.localStorage.getItem('cartItems') || '[]')
+    : [],
 };
 
 export const cartSlice = createSlice({
