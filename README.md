@@ -35,13 +35,14 @@
 - [x] using Redux Toolkit as State manager
 - [x] Using Supabase for manage DataBase
 - [x] Fully Responsive with Material UI
-- [x] Using Typescript for safety code
-- [x] Using Custom Hooks for reasiliby code and maintable them
-- [x] Using the lastest Nextjs framwork to improve on handle SSR and CSR and optimazion many featuers like images, font.
+- [x] Using TypeScript for code safety
+- [x] Using Custom Hooks for code reusability and maintainability
+- [x] Utilizing the latest Next.js framework to improve Server-Side Rendering (SSR), Client-Side Rendering (CSR), and optimization features like image and font handling
 - [x] Authentication and User Account with Express js
-- [] add WishList page for view what user liked
+- [x] add WishList page for view what user liked
 - [x] view cart and store on LocalStorage
-- [] Using starpi for Checkout page for successfull payment and error payment
+- [-] Using starpi for Checkout page for successfull payment and error handling
+
 
 ## Usage
 
