@@ -1,3 +1,4 @@
+import store from '@/src/app/store';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
@@ -18,7 +19,7 @@ interface CartState {
 const Browser = typeof window !== 'undefined';
 const initialState: CartState = {
   items: Browser
-    ? JSON.parse(window.localStorage.getItem('cartItems') || '[]')
+    ? JSON.parse(window.localStorage.getItem('cartItem') || '[]')
     : [],
 };
 
@@ -32,7 +33,7 @@ export const cartSlice = createSlice({
     },
     RemoveItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      localStorage.removeItem('cartItem');
+      // localStorage.removeItem('cartItem');
     },
   },
 });

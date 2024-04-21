@@ -41,8 +41,6 @@ import EmptyCart from '../layout/EmptyCart';
 import DisplayProductCart from '../layout/DisplayProductCart';
 import BadgeNumberShopping from './BadgeNumberShopping';
 
-
-
 function IconHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -130,7 +128,7 @@ function IconHeader() {
             <Person4Icon />
           </Link>
         )}
-        <Link href="/wishlist" color="inherit" underline="none">
+        <Link href="/" color="inherit" underline="none">
           {' '}
           <FavoriteBorderOutlinedIcon />
         </Link>

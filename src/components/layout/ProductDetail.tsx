@@ -92,13 +92,10 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     size: size,
   };
 
-
-
   const handle = () => {
     if (size === 'Size') return;
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
-    
   };
 
   const handleRemove = (id: any) => {
