@@ -49,7 +49,7 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
           <Typography
             sx={{ position: 'absolute', left: { xs: '33vw', sm: '39vw' } }}
           >
-            <HeartIcon />
+            <HeartIcon fill="white" stroke="black" />
           </Typography>
         </div>
       ) : (
@@ -60,7 +60,7 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
             top: '10px',
           }}
         >
-          <HeartIcon />
+          <HeartIcon fill="white" stroke="black" />
         </Typography>
       )}
 
@@ -110,7 +110,6 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
               fontWeight: '700',
               marginRight: '1rem',
               fontSize: '0.9rem',
-              
             }}
           >
             ${item.procuct_price}

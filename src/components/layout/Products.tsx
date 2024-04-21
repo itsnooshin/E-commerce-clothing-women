@@ -52,7 +52,7 @@ export default function Products(props: PropsWithChildren<PropsType>) {
           )}
           <Box sx={{ position: 'absolute', left: '24vw' }}>
             {' '}
-            <HeartIcon />
+            <HeartIcon fill="white" stroke="black" />
           </Box>
         </Box>
         <Box

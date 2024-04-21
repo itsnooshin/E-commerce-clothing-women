@@ -18,7 +18,7 @@ export default function GridItemsSearch(props: PropsWithChildren<Types>) {
   const { loading, count, items } = props;
 
   return (
-    <Container sx={{ mt: 6, display: { xs: 'flex', md: 'none' } , mb : 5}}>
+    <Container sx={{ mt: 6, display: { xs: 'flex', md: 'none' }, mb: 5 }}>
       <Grid container spacing={2}>
         {items.map((item) => (
           <Grid item xs={6}>
@@ -64,7 +64,7 @@ export default function GridItemsSearch(props: PropsWithChildren<Types>) {
                         }}
                       >
                         {' '}
-                        <HeartIcon />
+                        <HeartIcon fill="white" stroke="black" />
                       </Typography>
                     </div>
                   ) : (
@@ -75,7 +75,7 @@ export default function GridItemsSearch(props: PropsWithChildren<Types>) {
                         top: '10px',
                       }}
                     >
-                      <HeartIcon />
+                      <HeartIcon fill="white" stroke="black" />
                     </Typography>
                   )}
                 </Box>

@@ -51,7 +51,7 @@ export default function page() {
           <Skeleton variant="rectangular" width={95} />{' '}
         </Container>
       ) : (
-        <CollectionHeader item = {"Best Sellers"}  />
+        <CollectionHeader item={'Best Sellers'} />
       )}
 
       <Box sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}>
@@ -260,7 +260,7 @@ export default function page() {
                                 }}
                               >
                                 {' '}
-                                <HeartIcon />
+                                <HeartIcon fill="white" stroke="black" />
                               </Typography>
                             </div>
                           ) : (
@@ -271,7 +271,7 @@ export default function page() {
                                 top: '10px',
                               }}
                             >
-                              <HeartIcon />
+                              <HeartIcon fill="white" stroke="black" />
                             </Typography>
                           )}
                         </Box>
