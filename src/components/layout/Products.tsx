@@ -14,7 +14,6 @@ interface PropsType {
 export default function Products(props: PropsWithChildren<PropsType>) {
   const { item, link } = props;
   return (
-    <Grid item xs={12} md={4} sx={{ position: 'relative' }}>
       <Link
         href={{
           pathname: link,
@@ -108,6 +107,6 @@ export default function Products(props: PropsWithChildren<PropsType>) {
           </Box>
         </Box>
       </Link>
-    </Grid>
+    
   );
 }

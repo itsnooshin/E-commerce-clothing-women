@@ -15,9 +15,10 @@ interface CartState {
   items: CartItem[];
 }
 
-const LoadCartItems = JSON.parse(localStorage.getItem('cartItem') ?? '[]');
+const Browser = typeof window !== 'undefined';
 const initialState: CartState = {
-  items: LoadCartItems,
+  items:
+    Browser && JSON.parse(window.localStorage.getItem('cartItems') || '[]'),
 };
 
 export const cartSlice = createSlice({
@@ -30,6 +31,7 @@ export const cartSlice = createSlice({
     },
     RemoveItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
+      localStorage.removeItem('cartItem');
     },
   },
 });

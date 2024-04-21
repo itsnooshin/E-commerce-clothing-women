@@ -1,4 +1,4 @@
-import { Product } from "@/src/types/productTypes";
+import { Product } from '@/src/types/productTypes';
 import {
   Grid,
   Box,
@@ -8,17 +8,17 @@ import {
   Select,
   MenuItem,
   Container,
-} from "@mui/material";
-import React, { PropsWithChildren, useEffect, useState } from "react";
-import AccordionProduct from "./AccordionProduct";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SizeGuidModal from "./SizeGuidModal";
-import Image from "next/image";
-import Footer from "@/src/components/layout/Footer";
-import Products from "@/src/components/layout/Products";
-import UseProductsReturn from "@/src/hooks/UseProductsReturn";
-import useProductColorHook from "@/src/hooks/useProductColorHook";
+} from '@mui/material';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
+import AccordionProduct from './AccordionProduct';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import SizeGuidModal from './SizeGuidModal';
+import Image from 'next/image';
+import Footer from '@/src/components/layout/Footer';
+import Products from '@/src/components/layout/Products';
+import UseProductsReturn from '@/src/hooks/UseProductsReturn';
+import useProductColorHook from '@/src/hooks/useProductColorHook';
 
 interface Types {
   product: Product;
@@ -69,8 +69,8 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
           <Grid item xs={2}>
             <Box
               sx={{
-                overflowY: "scroll",
-                height: "500px",
+                overflowY: 'scroll',
+                height: '500px',
               }}
             >
               {product_img.map((image) => (
@@ -79,17 +79,17 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                   src={image}
                   width={120}
                   height={120}
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: 'cover' }}
                   alt="image for detail product"
                 />
               ))}
             </Box>
             <Box
               sx={{
-                bgcolor: "#F0F2EF",
-                marginTop: "3rem",
-                width: "560px",
-                marginBottom: "10rem",
+                bgcolor: '#F0F2EF',
+                marginTop: '3rem',
+                width: '560px',
+                marginBottom: '10rem',
               }}
             >
               <AccordionProduct />
@@ -102,62 +102,62 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 src={product_img[0]}
                 width={400}
                 height={500}
-                style={{ objectFit: "cover", width: "100%" }}
+                style={{ objectFit: 'cover', width: '100%' }}
                 alt="image for detail product"
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <Typography
                 variant="h6"
-                fontWeight={"bold"}
-                fontFamily={"inherit"}
+                fontWeight={'bold'}
+                fontFamily={'inherit'}
               >
-                {product_name.split(" ").slice(0, 2).join(" ")}
+                {product_name.split(' ').slice(0, 2).join(' ')}
               </Typography>
-              <Typography sx={{ width: "580px" }}>
+              <Typography sx={{ width: '580px' }}>
                 {product_description}
               </Typography>
             </Box>
             <Box
               sx={{
                 mt: 4,
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
               }}
             >
               <Typography>Color : {CurrentColor}</Typography>
 
-              <Box sx={{ display: "flex", gap: "6px" }}>
-                <Box sx={{ display: "flex", gap: "6px" }}>
+              <Box sx={{ display: 'flex', gap: '6px' }}>
+                <Box sx={{ display: 'flex', gap: '6px' }}>
                   {colors.map((color) => (
                     <Button
                       onClick={() => setCurrentColor(color)}
                       key={color}
                       sx={{
                         background: currentColor === color ? null : color,
-                        minWidth: "24px",
-                        minHeight: "24px",
-                        borderRadius: "50%",
-                        position: "relative",
+                        minWidth: '24px',
+                        minHeight: '24px',
+                        borderRadius: '50%',
+                        position: 'relative',
                         border:
                           currentColor === color
                             ? `2px solid ${currentColor}`
-                            : color === "#FFFFFF"
-                            ? "1px solid gray"
-                            : null,
+                            : color === '#FFFFFF'
+                              ? '1px solid gray'
+                              : null,
 
-                        "&::before": {
+                        '&::before': {
                           content: '""',
-                          position: "absolute",
-                          display: "block",
-                          width: currentColor === color ? "12px" : null,
-                          height: currentColor === color ? "12px" : null,
+                          position: 'absolute',
+                          display: 'block',
+                          width: currentColor === color ? '12px' : null,
+                          height: currentColor === color ? '12px' : null,
                           background:
                             currentColor === color ? currentColor : null,
-                          borderRadius: "50%",
+                          borderRadius: '50%',
                         },
                       }}
                     ></Button>
@@ -168,17 +168,17 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
             <Box
               sx={{
                 mt: 7,
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
               }}
             >
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  width: "550px",
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  width: '550px',
                 }}
               >
                 {/* <Button onClick={handleOpen} sx={{ color: "#868686" }}>
@@ -188,7 +188,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                   <SizeGuidModal open={open} handleClose={handleClose} />
                 )} */}
               </Box>
-              <FormControl sx={{ m: 1, width: "550px", marginLeft: 0 }}>
+              <FormControl sx={{ m: 1, width: '550px', marginLeft: 0 }}>
                 <Select
                   sx={{
                     marginBottom: 0,
@@ -196,7 +196,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                     height: 50,
                   }}
                   displayEmpty
-                  value={""}
+                  value={''}
                   MenuProps={{
                     disableScrollLock: true,
                     PaperProps: {},
@@ -204,7 +204,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                   renderValue={(selectedSize) => {
                     if (selectedSize.length === 0) {
                       return (
-                        <Typography sx={{ fontWeight: "bold" }}>
+                        <Typography sx={{ fontWeight: 'bold' }}>
                           Size
                         </Typography>
                       );
@@ -221,18 +221,18 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
               </FormControl>
               <Box
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#5A6D57",
-                  width: "550px",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#5A6D57',
+                  width: '550px',
                 }}
               >
                 <Button
                   sx={{
-                    color: "#fff",
-                    padding: "0.5rem",
-                    textAlign: "center",
+                    color: '#fff',
+                    padding: '0.5rem',
+                    textAlign: 'center',
                   }}
                 >
                   Add to cart ${procuct_price}
@@ -240,59 +240,59 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
               </Box>
             </Box>
             <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              width={"550px"}
-              color={"#868686"}
-              marginTop={"2rem"}
+              display={'flex'}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              width={'550px'}
+              color={'#868686'}
+              marginTop={'2rem'}
             >
-              <Box display={"flex"} alignItems={"center"} gap={"4px"}>
+              <Box display={'flex'} alignItems={'center'} gap={'4px'}>
                 <LocalShippingOutlinedIcon />
                 <Typography>Easy Return</Typography>
               </Box>
-              <Box display={"flex"} alignItems={"center"} gap={"4px"}>
-                <FavoriteBorderOutlinedIcon sx={{ color: "#000000" }} />
+              <Box display={'flex'} alignItems={'center'} gap={'4px'}>
+                <FavoriteBorderOutlinedIcon sx={{ color: '#000000' }} />
                 <Typography>Add to Wish List</Typography>
               </Box>
             </Box>
             {/* background item */}
             <Box
-              bgcolor={"#F0F2EF"}
-              width={"550px"}
-              marginTop={"2rem"}
+              bgcolor={'#F0F2EF'}
+              width={'550px'}
+              marginTop={'2rem'}
               // height={"500px"}
-              padding={"2rem 1rem"}
+              padding={'2rem 1rem'}
             >
               <Typography
                 variant="h6"
                 sx={{
-                  borderBottom: "1px solid #ADADAD",
-                  paddingBottom: "1rem",
+                  borderBottom: '1px solid #ADADAD',
+                  paddingBottom: '1rem',
                 }}
               >
                 Cuproluxe
               </Typography>
-              <Typography sx={{ paddingTop: "1rem" }}>
+              <Typography sx={{ paddingTop: '1rem' }}>
                 Our CuproLuxe is a regenerated cellulose fabric made from cotton
                 waste. This fabric is made in a zero-waste closed loop process,
                 and is 100% biodegradable. Cupro is breathable, quick drying and
-                durable. This OEKO-TEX®, FSC, and GRS certified material is made
-                in Turkey.
+                durable. This OEKO-TEX®, FSC, and GRS certified material is
+                made in Turkey.
               </Typography>
-              <Box sx={{ display: "flex", gap: "12px", marginTop: "1rem" }}>
+              <Box sx={{ display: 'flex', gap: '12px', marginTop: '1rem' }}>
                 <Box>
-                  <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
                     Quick Dry
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
                     breathable
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography sx={{ background: "#ffff", padding: "0.7rem" }}>
+                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
                     machine washable
                   </Typography>
                 </Box>
@@ -303,7 +303,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
 
         <Box
           sx={{
-            marginBottom: "5rem",
+            marginBottom: '5rem',
           }}
         >
           {items && (
@@ -311,14 +311,14 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
               <Typography
                 mb={7}
                 variant="h5"
-                fontFamily={"inherit"}
+                fontFamily={'inherit'}
                 fontWeight={600}
               >
                 You May Also Like
               </Typography>
               <Grid container spacing={2}>
                 {filterProduct.map((item) => (
-                  <Grid item xs={12} md={4}>
+                  <Grid key={item.id} item xs={12} md={4}>
                     <Products item={item} link={`/product/${item.id}`} />
                   </Grid>
                 ))}

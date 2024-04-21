@@ -41,9 +41,9 @@ import EmptyCart from '../layout/EmptyCart';
 import DisplayProductCart from '../layout/DisplayProductCart';
 import BadgeNumberShopping from './BadgeNumberShopping';
 
-interface Types {}
 
-function IconHeader(props: PropsWithChildren<Types>) {
+
+function IconHeader() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,7 +52,6 @@ function IconHeader(props: PropsWithChildren<Types>) {
 
   const shopsItem = useSelector((store: RootState) => store.cart.items);
   const badgetItem = shopsItem.length;
-  console.log(shopsItem);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -145,20 +144,21 @@ function IconHeader(props: PropsWithChildren<Types>) {
       <Modal
         open={openModal}
         sx={{
-          backdropFilter: 'blur(5px)',
           display: { xs: ' none', md: 'flex' },
           border: 'none',
         }}
       >
-        {badgetItem === 0 ? (
-          <EmptyCart handleCloseModal={handleCloseModal} />
-        ) : (
-          <DisplayProductCart
-            shopsItem={shopsItem}
-            handleCloseModal={handleCloseModal}
-            handleRemove={handleRemove}
-          />
-        )}
+        <Box>
+          {badgetItem === 0 ? (
+            <EmptyCart handleCloseModal={handleCloseModal} />
+          ) : (
+            <DisplayProductCart
+              shopsItem={shopsItem}
+              handleCloseModal={handleCloseModal}
+              handleRemove={handleRemove}
+            />
+          )}
+        </Box>
       </Modal>
     </>
   );

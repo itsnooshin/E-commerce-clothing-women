@@ -6,7 +6,7 @@ import { Box, Drawer } from '@mui/material';
 import { Container } from '@mui/material';
 import { Grid } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import SizeGuidModal from './SizeGuidModal';
 import Breadcrumb from '../headers/Breadcrumb';
 import AccordionProduct from './AccordionProduct';
@@ -79,8 +79,9 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
   } = useProductColorHook(product_color);
 
   const dispatch = useDispatch<AppDispatch>();
-  const shops = useSelector((store: RootState) => store.cart.items);
+
   const shopsItem = useSelector((store: RootState) => store.cart.items);
+  // console.log(shopsItem);
   const itemToAdd = {
     id: id,
     name: product_name,
@@ -91,10 +92,13 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     size: size,
   };
 
+
+
   const handle = () => {
     if (size === 'Size') return;
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
+    
   };
 
   const handleRemove = (id: any) => {
@@ -256,7 +260,6 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   handleRemove={handleRemove}
                 />
               </Drawer>
-              
             </Box>
             <ProductUtilityIcons />
             <ProductMaterialDescription />
