@@ -7,7 +7,7 @@ const override: CSSProperties = {
  
 };
 
-function App() {
+function SpinnerLoader() {
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#5A6D57");
 
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default SpinnerLoader;

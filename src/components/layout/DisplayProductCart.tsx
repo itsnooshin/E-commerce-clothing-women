@@ -1,9 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { PropsWithChildren } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
-import { CartItem } from "@/src/types/CartItemTypes";
-import ProductAddMinus from "./ProductAddMinus";
+import { Box, Button, Typography } from '@mui/material';
+import React, { PropsWithChildren, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import Image from 'next/image';
+import { CartItem } from '@/src/types/CartItemTypes';
+import ProductAddMinus from './ProductAddMinus';
 
 interface Types {
   handleCloseModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -13,6 +13,18 @@ interface Types {
 
 export default function DisplayProductCart(props: PropsWithChildren<Types>) {
   const { handleCloseModal, shopsItem, handleRemove } = props;
+
+  const [value, setValue] = useState<number>(1);
+
+  function handleAdd() {
+    setValue((count) => count + 1);
+  }
+  function handleMinus() {
+    if (value === 0) return;
+    else {
+      setValue((count) => count - 1);
+    }
+  }
   return (
     <Box
       sx={{
@@ -100,7 +112,43 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
                   display: 'flex',
                 }}
               >
-                <ProductAddMinus />
+                {/* <ProductAddMinus /> */}
+                <Box
+                  sx={{
+                    background: '#D1D9CF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0rem 0.9rem',
+                    gap: '20px',
+                  }}
+                >
+                  <Button
+                    sx={{
+                      minWidth: '0',
+                      color: '#404E3E',
+                      fontSize: '1.4rem',
+                      padding: '0',
+                      fontWeight: '600',
+                    }}
+                    onClick={handleMinus}
+                  >
+                    -
+                  </Button>
+
+                  <Typography> {items.quantity}</Typography>
+                  <Button
+                    sx={{
+                      minWidth: '0',
+                      color: '#404E3E',
+                      fontSize: '1.4rem',
+                      padding: '0',
+                      fontWeight: '600',
+                    }}
+                    onClick={handleAdd}
+                  >
+                    +
+                  </Button>
+                </Box>
                 <Typography
                   sx={{
                     fontWeight: '600',
@@ -131,6 +179,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
         </>
       ))}
       <Button
+        href="/cart"
         sx={{
           background: '#5A6D57',
           color: 'white',
@@ -142,7 +191,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
           },
         }}
       >
-        Check Out
+        View Cart
       </Button>
     </Box>
   );

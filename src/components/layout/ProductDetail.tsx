@@ -86,7 +86,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
     name: product_name,
     image: product_img[0],
     quantity: 1,
-    price: procuct_price,
+    price: procuct_price.toString(),
     color: CurrentColor,
     size: size,
   };

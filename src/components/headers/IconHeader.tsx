@@ -25,10 +25,8 @@ function IconHeader() {
     setAnchorEl(event.currentTarget);
   };
   const dispatch = useDispatch<AppDispatch>();
-
   const shopsItem = useSelector((store: RootState) => store.cart.items);
-  console.log(shopsItem);
-
+// local storage
   useEffect(() => {
     const getItemCard = localStorage.getItem('cartItem');
     if (getItemCard) {
