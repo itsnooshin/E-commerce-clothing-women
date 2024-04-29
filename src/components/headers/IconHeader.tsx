@@ -2,7 +2,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Link from '@mui/material/Link';
 import { Box, Menu, Button, Modal } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '@/src/context/authContext';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -11,7 +11,9 @@ import Person4Icon from '@mui/icons-material/Person4';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/src/app/store';
-import {  RemoveItem } from '@/src/featuers/cart/cartSlice';
+import { RemoveItem } from '@/src/featuers/cart/cartSlice';
+import { addCart } from '@/src/featuers/cart/cartSlice';
+import { setCartItems } from '@/src/featuers/cart/cartSlice';
 import EmptyCart from '../layout/EmptyCart';
 import DisplayProductCart from '../layout/DisplayProductCart';
 import BadgeNumberShopping from './BadgeNumberShopping';
@@ -25,6 +27,15 @@ function IconHeader() {
   const dispatch = useDispatch<AppDispatch>();
 
   const shopsItem = useSelector((store: RootState) => store.cart.items);
+  console.log(shopsItem);
+
+  useEffect(() => {
+    const getItemCard = localStorage.getItem('cartItem');
+    if (getItemCard) {
+      dispatch(setCartItems(JSON.parse(getItemCard)));
+    }
+  }, [dispatch]);
+
   const badgetItem = shopsItem.length;
   const handleClose = () => {
     setAnchorEl(null);
