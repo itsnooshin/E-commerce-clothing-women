@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from '@mui/material';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import Image from 'next/image';
 import { CartItem } from '@/src/types/CartItemTypes';
 import CloseIcon from '@mui/icons-material/Close';
@@ -8,18 +8,34 @@ import Link from 'next/link';
 import LogoMobile from '@/public/Logo-mobile.png';
 
 interface Props {
-  orderTotal: number;
-  shopsItem: CartItem[];
-  Tax: number;
-  totalPrice: number;
+  counts: number[];
+  handleChangeHandleMinus: (index: any) => void;
+  handleChangeHandle: (index: any) => void;
   handleRemove: (id: any) => void;
+  itemsEl: number[];
+  shopsItem: CartItem[];
+  total: number;
+  order: number;
+  Tax: number;
 }
 
 export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
-  const { orderTotal, shopsItem, Tax, totalPrice, handleRemove } = props;
+  const {
+    Tax,
+    counts,
+    order,
+    total,
+    shopsItem,
+    itemsEl,
+    handleChangeHandleMinus,
+    handleChangeHandle,
+    handleRemove,
+  } = props;
+
   const router = useRouter();
+
   return (
-    <Box sx={{display : {md :'none'}}}>
+    <Box sx={{ display: { md: 'none' } }}>
       <Box sx={{ mt: 3 }}>
         <Link href="/">
           <Image priority src={LogoMobile} alt="Logo for page" />
@@ -51,7 +67,7 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
 
       <Typography>Order Summary</Typography>
       <Box sx={{ padding: ' 3rem 0rem' }}>
-        {shopsItem.map((items) => (
+        {shopsItem.map((items, index) => (
           <>
             <Box
               sx={{
@@ -125,10 +141,15 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
                           padding: '0',
                           fontWeight: '600',
                         }}
+                        onClick={() => {
+                          counts[index] === 0
+                            ? handleRemove(items.id)
+                            : handleChangeHandleMinus(index);
+                        }}
                       >
                         -
                       </Button>
-                      <Typography>1</Typography>
+                      <Typography>{itemsEl[index]}</Typography>
                       <Button
                         sx={{
                           minWidth: '0',
@@ -137,6 +158,7 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
                           padding: '0',
                           fontWeight: '600',
                         }}
+                        onClick={() => handleChangeHandle(index)}
                       >
                         +
                       </Button>
@@ -155,17 +177,13 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
                 </Button>
               </Box>
             </Box>
-
-            {/* item - 1 + ==> quantity */}
-            {/* item chanta selected  */}
           </>
         ))}
         <Box sx={{ mt: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography>Subtotal({shopsItem.length})</Typography>
             <Typography>
-              $
-              {totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              ${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
@@ -181,8 +199,7 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
             <Typography fontWeight={'700'}>Order Total : </Typography>
             <Typography fontWeight={'700'}>
-              $
-              {orderTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              ${order.toLocaleString('en-US', { minimumFractionDigits: 2 })}
             </Typography>
           </Box>
           <Typography sx={{ mt: 2, fontWeight: '700', fontSize: '0.9rem' }}>

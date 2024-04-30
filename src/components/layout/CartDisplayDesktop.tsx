@@ -1,5 +1,5 @@
 import { CartItem } from '@/src/types/CartItemTypes';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import { Box, Typography, Button, Container, Grid } from '@mui/material';
 import Image from 'next/image';
 import CloseIcon from '@mui/icons-material/Close';
@@ -10,15 +10,29 @@ import Link from 'next/link';
 import GridItemsSearch from './GridItemsSearch';
 
 interface Props {
-  orderTotal: number;
-  shopsItem: CartItem[];
-  Tax: number;
-  totalPrice: number;
+  counts: number[];
+  handleChangeHandleMinus: (index: any) => void;
+  handleChangeHandle: (index: any) => void;
   handleRemove: (id: any) => void;
+  itemsEl: number[];
+  shopsItem: CartItem[];
+  total: number;
+  order: number;
+  Tax: number;
 }
 
 export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
-  const { orderTotal,  shopsItem, Tax, totalPrice, handleRemove } = props;
+  const {
+    Tax,
+    counts,
+    order,
+    total,
+    shopsItem,
+    itemsEl,
+    handleChangeHandleMinus,
+    handleChangeHandle,
+    handleRemove,
+  } = props;
 
   return (
     <Box sx={{ display: { md: 'block', xs: 'none' } }}>
@@ -29,22 +43,7 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
         <HeaderCart />
         <Link href={'/collection/all'}>Continue Shopping</Link>
       </Box>
-      {/* title */}
-      {/* <Box
-        sx={{
-          paddingBottom: '1.5rem',
-          display: 'flex',
-          
-        }}
-      >
-        <Typography>Order Summary</Typography>
-        <Box sx={{ display: 'flex', gap: '5rem' }}>
-          <Typography>Price</Typography>
-          <Typography>Quantity</Typography>
-          <Typography>Total</Typography>
-        </Box>
-       
-      </Box> */}
+
       <Grid container spacing={2} sx={{ paddingBottom: '1rem' }}>
         <Grid item xs={6} md={6}>
           <Box sx={{}}>Order summary</Box>
@@ -148,7 +147,48 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
                 <Grid item xs={4} md={4}>
                   {shopsItem.map((item, index) => (
                     <Grid item key={index}>
-                      <Box sx={{ mb: 6 }}>{item.quantity}</Box>
+                      <Box sx={{ mb: 6 }}>
+                        <Box
+                          sx={{
+                            background: '#D1D9CF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            p: 0,
+                            width: '50%',
+                          }}
+                        >
+                          <Button
+                            sx={{
+                              p: 0,
+                              minWidth: 0,
+                              color: '#404E3E',
+                              fontSize: '1rem',
+                            }}
+                            onClick={() => {
+                              counts[index] === 0
+                                ? handleRemove(item.id)
+                                : handleChangeHandleMinus(index);
+                            }}
+                          >
+                            -
+                          </Button>
+                          <Typography sx={{ px: '1rem' }}>
+                            {itemsEl[index]}
+                          </Typography>
+                          <Button
+                            sx={{
+                              p: 0,
+                              minWidth: 0,
+                              color: '#404E3E',
+                              fontSize: '1rem',
+                            }}
+                            onClick={() => handleChangeHandle(index)}
+                          >
+                            +
+                          </Button>
+                        </Box>
+                      </Box>
                     </Grid>
                   ))}
                 </Grid>
@@ -157,13 +197,13 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
             <Grid item xs={4} sx={{ mt: 3 }}>
               <Grid container direction="column" spacing={1}>
                 <Grid item xs={4}>
-                  {shopsItem.map((item) => (
+                  {shopsItem.map((item, index) => (
                     <Box sx={{ mb: 6 }}>
                       ${' '}
-                      {(Number(item.price) * item.quantity).toLocaleString(
-                        'en-US',
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {(
+                        Number(item.price) *
+                        (item.quantity + counts[index])
+                      ).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </Box>
                   ))}
                 </Grid>
@@ -183,7 +223,7 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
               <Typography>Subtotal({shopsItem.length})</Typography>
               <Typography>
                 $
-                {totalPrice.toLocaleString('en-US', {
+                {total.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
                 })}
               </Typography>
@@ -208,7 +248,7 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
               <Typography fontWeight={'700'}>Order Total : </Typography>
               <Typography fontWeight={'700'}>
                 $
-                {orderTotal.toLocaleString('en-US', {
+                {order.toLocaleString('en-US', {
                   minimumFractionDigits: 2,
                 })}
               </Typography>
