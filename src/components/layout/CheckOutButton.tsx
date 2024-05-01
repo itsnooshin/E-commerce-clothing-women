@@ -4,6 +4,7 @@ import React from 'react';
 export default function CheckOutButton() {
   return (
     <Button
+      href="/cart"
       sx={{
         background: '#5A6D57',
         color: 'white',
@@ -13,7 +14,7 @@ export default function CheckOutButton() {
         margin: '0rem 3rem',
         '&:hover': {
           background: '#5A6D57',
-        }, 
+        },
       }}
     >
       Check Out
