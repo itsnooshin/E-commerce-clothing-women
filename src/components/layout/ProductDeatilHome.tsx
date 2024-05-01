@@ -1,24 +1,37 @@
+'use client';
+import BannerHeader from '@/src/components/headers/BannerHeader';
+import NavBar from '@/src/components/layout/NavBar';
 import { Product } from '@/src/types/productTypes';
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  FormControl,
-  Select,
-  MenuItem,
-  Container,
-} from '@mui/material';
+import { Box, Drawer } from '@mui/material';
+import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import AccordionProduct from './AccordionProduct';
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import SizeGuidModal from './SizeGuidModal';
-import Image from 'next/image';
-import Footer from '@/src/components/layout/Footer';
-import Products from '@/src/components/layout/Products';
-import UseProductsReturn from '@/src/hooks/UseProductsReturn';
+import Breadcrumb from '../headers/Breadcrumb';
+import AccordionProduct from './AccordionProduct';
+import Footer from './Footer';
+import RecommondProduct from './RecommondProduct';
 import useProductColorHook from '@/src/hooks/useProductColorHook';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
+import { addCart, RemoveItem } from '@/src/featuers/cart/cartSlice';
+import ProductImageGallery from './ProductImageGallery';
+import ProductImage from './ProductImage';
+import ProductInformation from './ProductInformation';
+import ProductColorChanger from './ProductColorChanger';
+import ProductUtilityIcons from './ProductUtilityIcons';
+import ProductMaterialDescription from './ProductMaterialDescription';
+import SizeSelector from './SizeSelector';
+import ProductAddCart from './ProductAddCart';
+import ModalAddToCart from './ModalAddToCart';
+import 'swiper/css/pagination';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image';
+import DisplayCartMobile from './DisplayCartMobile';
+import UseProductsReturn from '@/src/hooks/UseProductsReturn';
 
 interface Types {
   product: Product;
@@ -26,20 +39,33 @@ interface Types {
 
 export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const { product } = props;
+  const [size, setSize] = useState('Size');
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSize(event.target.value as string);
+  };
 
   const {
-    procuct_price,
-    product_category,
+    id,
     product_color,
-    product_description,
-    product_img,
-    product_size,
+    procuct_price,
     product_name,
+    product_img,
+    product_description,
+    product_size,
+    product_category,
   } = product;
 
   const {
     colors,
-    setColors,
     currentColor,
     setCurrentColor,
     open,
@@ -54,117 +80,145 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
     CurrentColor,
   } = useProductColorHook(product_color);
 
-  const { items, loading } = UseProductsReturn();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const filterProduct = items
-    .filter((items) => items.product_category === product_category)
-    .slice(0, 3);
+  const shopsItem = useSelector((store: RootState) => store.cart.items);
+  const itemToAdd = {
+    id: id,
+    name: product_name,
+    image: product_img[0],
+    quantity: 1,
+    price: procuct_price.toString(),
+    color: CurrentColor,
+    size: size,
+  };
 
-  if (loading) return;
+  const handle = () => {
+    if (size === 'Size') return;
+    setOpenModal(true);
+    dispatch(addCart(itemToAdd));
+  };
+
+  const handleRemove = (id: any) => {
+    dispatch(RemoveItem(id));
+  };
+
+  const handleImageSelect = (image: string, index: any) => {
+    setIsHovered(true);
+    setIsSelected(image);
+    setItemS(itemS === index.toString() ? null : index.toString());
+  };
 
   return (
     <>
-      <Container>
-        <Grid container spacing={3} sx={{ mt: 4 }}>
-          <Grid item xs={2}>
-            <Box
-              sx={{
-                overflowY: 'scroll',
-                height: '500px',
-              }}
-            >
-              {product_img.map((image) => (
-                <Image
-                  key={image}
-                  src={image}
-                  width={120}
-                  height={120}
-                  style={{ objectFit: 'cover' }}
-                  alt="image for detail product"
-                />
-              ))}
-            </Box>
-            <Box
-              sx={{
-                bgcolor: '#F0F2EF',
-                marginTop: '3rem',
-                width: '560px',
-                marginBottom: '10rem',
-              }}
-            >
-              <AccordionProduct />
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={4}>
-            <Box>
-              <Image
-                src={product_img[0]}
-                width={400}
-                height={500}
-                style={{ objectFit: 'cover', width: '100%' }}
-                alt="image for detail product"
+      <Box sx={{ pt: 3 }}>
+        <Container
+          sx={{ paddingLeft: '0', paddingRight: { xs: '0', md: '16px' } }}
+        >
+          <Grid
+            container
+            spacing={3}
+            sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}
+          >
+            <Grid item xs={2}>
+              <ProductImageGallery
+                SelectItem={itemS}
+                options={product_img}
+                onSelect={handleImageSelect}
               />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <Typography
-                variant="h6"
-                fontWeight={'bold'}
-                fontFamily={'inherit'}
+
+              <AccordionProduct />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={4}>
+              <ProductImage
+                Images={product_img[0]}
+                isHovered={isHovered}
+                isSelected={isSelected}
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <ProductInformation
+                name={product_name}
+                description={product_description}
+              />
+
+              <ProductColorChanger
+                value={CurrentColor}
+                options={colors}
+                onSelect={setCurrentColor}
+                colorSelect={currentColor}
+              />
+              <Box
+                sx={{
+                  mt: 7,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
               >
-                {product_name.split(' ').slice(0, 2).join(' ')}
-              </Typography>
-              <Typography sx={{ width: '580px' }}>
-                {product_description}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-              }}
-            >
-              <Typography>Color : {CurrentColor}</Typography>
+                <SizeGuidModal
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open}
+                />
+                <SizeSelector
+                  handleChange={handleChange}
+                  size={size}
+                  productSize={product_size}
+                />
 
-              <Box sx={{ display: 'flex', gap: '6px' }}>
-                <Box sx={{ display: 'flex', gap: '6px' }}>
-                  {colors.map((color) => (
-                    <Button
-                      onClick={() => setCurrentColor(color)}
-                      key={color}
-                      sx={{
-                        background: currentColor === color ? null : color,
-                        minWidth: '24px',
-                        minHeight: '24px',
-                        borderRadius: '50%',
-                        position: 'relative',
-                        border:
-                          currentColor === color
-                            ? `2px solid ${currentColor}`
-                            : color === '#FFFFFF'
-                              ? '1px solid gray'
-                              : null,
-
-                        '&::before': {
-                          content: '""',
-                          position: 'absolute',
-                          display: 'block',
-                          width: currentColor === color ? '12px' : null,
-                          height: currentColor === color ? '12px' : null,
-                          background:
-                            currentColor === color ? currentColor : null,
-                          borderRadius: '50%',
-                        },
-                      }}
-                    ></Button>
-                  ))}
-                </Box>
+                <ProductAddCart handle={handle} price={procuct_price} />
+                <ModalAddToCart
+                  shopsItem={shopsItem}
+                  openModal={openModal}
+                  handleCloseModal={handleCloseModal}
+                  handleRemove={handleRemove}
+                />
               </Box>
-            </Box>
+              <ProductUtilityIcons />
+              {/* background item */}
+              <ProductMaterialDescription />
+            </Grid>
+          </Grid>
+          <Box sx={{ mt: 4, display: { xs: 'flex', md: 'none' } }}>
+            <Swiper
+              style={{ paddingBottom: '4rem' }}
+              modules={[Pagination, Autoplay]}
+              // autoplay={{ delay: 2700, disableOnInteraction: false }}
+              // spaceBetween={20}
+              loop={true}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+            >
+              {product_img.map((item) => (
+                <SwiperSlide key={item}>
+                  <Image
+                    src={item}
+                    width={500}
+                    height={500}
+                    style={{ objectFit: 'cover', width: '100%' }}
+                    alt="images"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            {/* <ProductInformation
+              name={product_name}
+              description={product_description}
+            /> */}
+          </Box>
+          <Container sx={{ display: { xs: 'block', md: 'none' } }}>
+            <ProductInformation
+              name={product_name}
+              description={product_description}
+            />
+            <ProductColorChanger
+              value={CurrentColor}
+              options={colors}
+              onSelect={setCurrentColor}
+              colorSelect={currentColor}
+            />
             <Box
               sx={{
                 mt: 7,
@@ -173,161 +227,43 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 gap: '10px',
               }}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                  width: '550px',
-                }}
-              >
-                {/* <Button onClick={handleOpen} sx={{ color: "#868686" }}>
-                  Size Guide
-                </Button>
-                {open && (
-                  <SizeGuidModal open={open} handleClose={handleClose} />
-                )} */}
-              </Box>
-              <FormControl sx={{ m: 1, width: '550px', marginLeft: 0 }}>
-                <Select
-                  sx={{
-                    marginBottom: 0,
-                    width: 550,
-                    height: 50,
-                  }}
-                  displayEmpty
-                  value={''}
-                  MenuProps={{
-                    disableScrollLock: true,
-                    PaperProps: {},
-                  }}
-                  renderValue={(selectedSize) => {
-                    if (selectedSize.length === 0) {
-                      return (
-                        <Typography sx={{ fontWeight: 'bold' }}>
-                          Size
-                        </Typography>
-                      );
-                    }
-                    return selectedSize;
-                  }}
-                >
-                  {product_size.map((size) => (
-                    <MenuItem key={size} value={size}>
-                      {size}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#5A6D57',
-                  width: '550px',
-                }}
-              >
-                <Button
-                  sx={{
-                    color: '#fff',
-                    padding: '0.5rem',
-                    textAlign: 'center',
-                  }}
-                >
-                  Add to cart ${procuct_price}
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              display={'flex'}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-              width={'550px'}
-              color={'#868686'}
-              marginTop={'2rem'}
-            >
-              <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-                <LocalShippingOutlinedIcon />
-                <Typography>Easy Return</Typography>
-              </Box>
-              <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-                <FavoriteBorderOutlinedIcon sx={{ color: '#000000' }} />
-                <Typography>Add to Wish List</Typography>
-              </Box>
-            </Box>
-            {/* background item */}
-            <Box
-              bgcolor={'#F0F2EF'}
-              width={'550px'}
-              marginTop={'2rem'}
-              // height={"500px"}
-              padding={'2rem 1rem'}
-            >
-              <Typography
-                variant="h6"
-                sx={{
-                  borderBottom: '1px solid #ADADAD',
-                  paddingBottom: '1rem',
-                }}
-              >
-                Cuproluxe
-              </Typography>
-              <Typography sx={{ paddingTop: '1rem' }}>
-                Our CuproLuxe is a regenerated cellulose fabric made from cotton
-                waste. This fabric is made in a zero-waste closed loop process,
-                and is 100% biodegradable. Cupro is breathable, quick drying and
-                durable. This OEKO-TEX®, FSC, and GRS certified material is
-                made in Turkey.
-              </Typography>
-              <Box sx={{ display: 'flex', gap: '12px', marginTop: '1rem' }}>
-                <Box>
-                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
-                    Quick Dry
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
-                    breathable
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography sx={{ background: '#ffff', padding: '0.7rem' }}>
-                    machine washable
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+              <SizeGuidModal
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                open={open}
+              />
+              <SizeSelector
+                handleChange={handleChange}
+                size={size}
+                productSize={product_size}
+              />
 
-        <Box
-          sx={{
-            marginBottom: '5rem',
-          }}
-        >
-          {items && (
-            <Box>
-              <Typography
-                mb={7}
-                variant="h5"
-                fontFamily={'inherit'}
-                fontWeight={600}
+              <ProductAddCart handle={handle} price={procuct_price} />
+              <Drawer
+                open={openModal}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                  '& .MuiDrawer-paper': {
+                    width: '100%',
+                    backgroundColor: 'white',
+                  },
+                }}
               >
-                You May Also Like
-              </Typography>
-              <Grid container spacing={2}>
-                {filterProduct.map((item) => (
-                  <Grid key={item.id} item xs={12} md={4}>
-                    <Products item={item} link={`/product/${item.id}`} />
-                  </Grid>
-                ))}
-              </Grid>
+                <DisplayCartMobile
+                  shopsItem={shopsItem}
+                  handleCloseModal={handleCloseModal}
+                  handleRemove={handleRemove}
+                />
+              </Drawer>
             </Box>
-          )}
-        </Box>
-      </Container>
-      <Footer />
+            <ProductUtilityIcons />
+            <ProductMaterialDescription />
+            <AccordionProduct />
+          </Container>
+          <RecommondProduct category={product_category} />
+        </Container>
+        <Footer />
+      </Box>
     </>
   );
 }

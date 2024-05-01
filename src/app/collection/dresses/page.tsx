@@ -21,6 +21,8 @@ import ProductMain from "@/src/components/layout/ProductMain";
 import FilterCollection from "@/src/components/layout/FilterCollection";
 import Footer from "@/src/components/layout/Footer";
 import LoadingButton from "@/src/components/layout/LoadingButtonItems";
+import ProductCollectionPants from "@/src/components/layout/ProductCollectionPants";
+import ProductCollectionDress from "@/src/components/layout/ProductCollectionDress";
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -50,7 +52,7 @@ export default function page() {
             <Link href={"/"} style={{ color: "#748C70" }}>
               Home
             </Link>
-            <Typography>Pants</Typography>
+            <Typography>Dresses</Typography>
           </Breadcrumbs>
         </Box>
 
@@ -91,7 +93,7 @@ export default function page() {
                   <SkeletonProductCollection displayCount={displayCount} />
                 </Grid>
               ) : (
-                <ProductMain items={ProductFilter} count={displayCount} />
+                <ProductCollectionDress items={ProductFilter} count={displayCount} />
               )}
             </Grid>
             <LoadingButton

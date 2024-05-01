@@ -28,11 +28,11 @@ const BestSellers = () => {
       <Grid container spacing={{ lg: 2, md: 2 }}>
         {loading ? (
           <Grid container spacing={{ xs: 2 }} item>
-            {/* {Array.from({ length: 3 }, (_, index) => (
+            {Array.from({ length: 3 }, (_, index) => (
               <Grid item md={4} xs={6} key={index}>
                 <SkeletonData />
               </Grid>
-            ))} */}
+            ))}
           </Grid>
         ) : isMobile ? (
           <Swiper
@@ -70,6 +70,7 @@ const BestSellers = () => {
               </Grid>
             ))
         )}
+        
       </Grid>
     </Container>
   );

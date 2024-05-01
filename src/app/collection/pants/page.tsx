@@ -23,6 +23,7 @@ import ProductMain from "@/src/components/layout/ProductMain";
 import FilterCollection from "@/src/components/layout/FilterCollection";
 import Footer from "@/src/components/layout/Footer";
 import LoadingButton from "@/src/components/layout/LoadingButtonItems";
+import ProductCollectionPants from "@/src/components/layout/ProductCollectionPants";
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -95,7 +96,7 @@ export default function page() {
                   <SkeletonProductCollection displayCount={displayCount} />
                 </Grid>
               ) : (
-                <ProductMain items={ProductFilter} count={displayCount} />
+                <ProductCollectionPants items={ProductFilter} count={displayCount} />
               )}
             </Grid>
             <LoadingButton

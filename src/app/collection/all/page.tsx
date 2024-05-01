@@ -50,7 +50,9 @@ function page() {
           <CollectionHeader item={'Shop All'} />
         )}
 
-        <Box sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}>
+        <Box
+          sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}
+        >
           <CollectionImageBanner />
         </Box>
         {loading ? (

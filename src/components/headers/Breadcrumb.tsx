@@ -5,10 +5,12 @@ import { Typography, Box } from '@mui/material';
 
 interface PropsType {
   name: string;
+  collection: string;
+  link: string;
 }
 
 function MyBreadcrumbs(props: PropsWithChildren<PropsType>) {
-  const { name } = props;
+  const { name, collection, link } = props;
   return (
     <>
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -16,8 +18,8 @@ function MyBreadcrumbs(props: PropsWithChildren<PropsType>) {
           <Link href="/" style={{ color: '#748C70' }}>
             Home
           </Link>
-          <Link href="/collection/all" style={{ color: '#748C70' }}>
-            Shop All
+          <Link href={`/collection/${link}`} style={{ color: '#748C70' }}>
+            {collection}
           </Link>
 
           <Typography color="text.primary">

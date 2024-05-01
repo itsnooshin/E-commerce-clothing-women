@@ -23,6 +23,9 @@ import ProductMain from "@/src/components/layout/ProductMain";
 import FilterCollection from "@/src/components/layout/FilterCollection";
 import Footer from "@/src/components/layout/Footer";
 import LoadingButton from "@/src/components/layout/LoadingButtonItems";
+import ProductMainCollection from "@/src/components/layout/ProductMainCollectionBlouses";
+import ProductMainCollectionBlouses from "@/src/components/layout/ProductMainCollectionBlouses";
+import ProductCollectionDress from "@/src/components/layout/ProductCollectionDress";
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -38,6 +41,8 @@ export default function page() {
     (item) => item.product_category === "outwear"
   );
 
+  if (loading) return <SpinnerLoader />;
+
   function handleMoreData() {
     setDisplayCount((prev) => prev + 6);
   }
@@ -48,11 +53,11 @@ export default function page() {
       <NavBar />
       <Container>
         <Box sx={{ mt: 2 }}>
-          <Breadcrumbs sx={{ color: "inherit" }}>
-            <Link href={"/"} style={{ color: "#748C70" }}>
+          <Breadcrumbs sx={{ color: 'inherit' }}>
+            <Link href={'/'} style={{ color: '#748C70' }}>
               Home
             </Link>
-            <Typography>Pants</Typography>
+            <Typography>OutWear</Typography>
           </Breadcrumbs>
         </Box>
 
@@ -62,13 +67,13 @@ export default function page() {
         <CollectionImageBanner />
       </Box>
 
-      <Container sx={{ marginTop: "2rem" }}>
+      <Container sx={{ marginTop: '2rem' }}>
         <Box
           sx={{
             mb: 3,
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
           }}
         >
           {loading ? (
@@ -82,18 +87,21 @@ export default function page() {
             <FilterCollection />
           </Grid>
           <Grid item xs={9}>
-            <Grid container spacing={2} sx={{ marginBottom: "3rem" }}>
+            <Grid container spacing={2} sx={{ marginBottom: '3rem' }}>
               {loading ? (
                 <Grid
                   container
                   spacing={{ xs: 2 }}
                   item
-                  sx={{ marginBottom: "5rem" }}
+                  sx={{ marginBottom: '5rem' }}
                 >
                   <SkeletonProductCollection displayCount={displayCount} />
                 </Grid>
               ) : (
-                <ProductMain items={ProductFilter} count={displayCount} />
+                <ProductCollectionDress
+                  items={ProductFilter}
+                  count={displayCount}
+                />
               )}
             </Grid>
             <LoadingButton

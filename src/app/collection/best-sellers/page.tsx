@@ -26,6 +26,7 @@ import LoadingButton from '@/src/components/layout/LoadingButtonItems';
 import HeartIcon from '@/src/components/layout/heartIcon';
 import FilterOptionMobile from '@/src/components/headers/FilterOptionMobile';
 import TuneIcon from '@mui/icons-material/Tune';
+import ProductCollectionBest from '@/src/components/layout/ProductCollectionBest';
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -108,7 +109,7 @@ export default function page() {
                   <SkeletonProductCollection displayCount={displayCount} />
                 </Grid>
               ) : (
-                <ProductMain items={items} count={displayCount} />
+                <ProductCollectionBest items={items} count={displayCount} />
               )}
             </Grid>
             <LoadingButton
@@ -223,7 +224,7 @@ export default function page() {
                       <Link
                         style={{ color: 'inherit' }}
                         href={{
-                          pathname: `/collection/all/products/${item.id}`,
+                          pathname: `/collection/best-sellers/products/${item.id}`,
                           query: { name: `${item.product_name}` },
                         }}
                       >

@@ -1,9 +1,9 @@
-"use client";
-import BannerHeader from "@/src/components/headers/BannerHeader";
-import NavBar from "@/src/components/layout/NavBar";
-import ProductDetail from "@/src/components/layout/ProductDetail";
-import { getSingleproduct } from "@/src/helper";
-import { Product } from "@/src/types/productTypes";
+'use client';
+import BannerHeader from '@/src/components/headers/BannerHeader';
+import NavBar from '@/src/components/layout/NavBar';
+import ProductDetail from '@/src/components/layout/ProductDetail';
+import { getSingleproduct } from '@/src/helper';
+import { Product } from '@/src/types/productTypes';
 import {
   Box,
   Button,
@@ -14,16 +14,16 @@ import {
   Select,
   Typography,
   colors,
-} from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import SpinnerLoader from "@/src/components/layout/SpinnerLoader";
-import AccordionProduct from "@/src/components/layout/AccordionProduct";
-import SizeGuidModal from "@/src/components/layout/SizeGuidModal";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ProductDeatilHome from "@/src/components/layout/ProductDeatilHome";
+} from '@mui/material';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import SpinnerLoader from '@/src/components/layout/SpinnerLoader';
+import AccordionProduct from '@/src/components/layout/AccordionProduct';
+import SizeGuidModal from '@/src/components/layout/SizeGuidModal';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ProductDeatilHome from '@/src/components/layout/ProductDeatilHome';
 
 export default function page({ params }: any) {
   const [singleProduct, setSingleProduct] = useState<Product | null>(null);
@@ -48,13 +48,13 @@ export default function page({ params }: any) {
       <Container sx={{ paddingLeft: 0 }}>
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
           }}
         >
           <Link href="/">
-            <Typography sx={{ color: "#748C70" }}> Home</Typography>
+            <Typography sx={{ color: '#748C70' }}> Home</Typography>
           </Link>
           <span>/</span>
           <Link href="">

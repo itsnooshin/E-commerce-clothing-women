@@ -33,10 +33,11 @@ import Image from 'next/image';
 import DisplayCartMobile from './DisplayCartMobile';
 interface ProductValue {
   product: Product;
+  link: string;
 }
 
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
-  const { product } = props;
+  const { product, link } = props;
   const [size, setSize] = useState('Size');
   const [openModal, setOpenModal] = useState(false);
 
@@ -115,7 +116,7 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
         <Container
           sx={{ paddingLeft: '0', paddingRight: { xs: '0', md: '16px' } }}
         >
-          <Breadcrumb name={product_name} />
+          <Breadcrumb name={product_name} collection={link} link={link} />
           <Grid
             container
             spacing={3}
