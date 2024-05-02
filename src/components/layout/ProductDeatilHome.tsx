@@ -95,6 +95,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
 
   const handle = () => {
     if (size === 'Size') return;
+    
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
   };

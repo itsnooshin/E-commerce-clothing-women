@@ -1,7 +1,7 @@
-import { Product } from "@/src/types/productTypes";
-import { PropsWithChildren } from "react";
-import { Box } from "@mui/material";
-import { Button } from "@mui/material";
+import { Product } from '@/src/types/productTypes';
+import { PropsWithChildren } from 'react';
+import { Box } from '@mui/material';
+import { Button } from '@mui/material';
 
 interface Types {
   items: Product[];
@@ -18,22 +18,23 @@ const LoadingButtonItems = (props: PropsWithChildren<Types>) => {
       {!loading && count < items?.length && (
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             mt: 1,
+            width: { xs: '100%' },
           }}
         >
           <Button
             onClick={onClickHandler}
             sx={{
-              color: "#5A6D57",
-              border: "1px solid #5A6D57",
-              padding: "0.6rem 3rem",
+              color: '#5A6D57',
+              border: '1px solid #5A6D57',
+              padding: '0.6rem 3rem',
               borderRadius: 0,
-              textTransform: "capitalize",
-              marginBottom: "4rem",
-              marginTop: "2rem",
+              textTransform: 'capitalize',
+              marginBottom: '4rem',
+              marginTop: '2rem',
             }}
           >
             Load more
