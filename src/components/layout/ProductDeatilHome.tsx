@@ -43,7 +43,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const { product } = props;
   const [size, setSize] = useState('Size');
   const [openModal, setOpenModal] = useState(false);
-
+  const [openToaster, setOpenToaster] = useState(false);
   const { isLoggedIn } = useAuth();
 
   const handleOpenModal = () => {
@@ -99,8 +99,15 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
 
   const handle = () => {
     if (size === 'Size') return;
-    setOpenModal(true);
-    dispatch(addCart(itemToAdd));
+
+    if (!isLoggedIn) {
+      setOpenToaster(true);
+      setOpenModal(false);
+    }
+    if (isLoggedIn) {
+      setOpenModal(true);
+      dispatch(addCart(itemToAdd));
+    }
   };
 
   const handleRemove = (id: any) => {
@@ -174,7 +181,12 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                   productSize={product_size}
                 />
 
-                <ProductAddCart handle={handle} price={procuct_price} />
+                <ProductAddCart
+                  openToaster={openToaster}
+                  handle={handle}
+                  price={procuct_price}
+                  close={setOpenToaster}
+                />
                 <ModalAddToCart
                   shopsItem={shopsItem}
                   openModal={openModal}
@@ -244,7 +256,12 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 productSize={product_size}
               />
               <Toaster />
-              <ProductAddCart handle={handle} price={procuct_price} />
+              <ProductAddCart
+                openToaster={openToaster}
+                handle={handle}
+                price={procuct_price}
+                close={setOpenToaster}
+              />
 
               <Drawer
                 open={openModal}
