@@ -238,7 +238,7 @@ export default function page() {
                         <Link
                           style={{ color: 'inherit' }}
                           href={{
-                            pathname: `/collection/all/products/${item.id}`,
+                            pathname: `/collection/outwear/products/${item.id}`,
                             query: { name: `${item.product_name}` },
                           }}
                         >

@@ -39,7 +39,7 @@ export default function ProductCollectionPants(
         >
           <Link
             href={{
-              pathname: `/collection/outwear/products/${item.id}`,
+              pathname: `/collection/pants/products/${item.id}`,
               query: { name: `${item.product_name}` },
             }}
             passHref
