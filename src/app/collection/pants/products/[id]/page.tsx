@@ -25,5 +25,11 @@ export default function page({ params }: any) {
 
   if (!singleProduct) return <SpinnerLoader />;
 
-  return <ProductDetail product={singleProduct} link={'pants'} />;
+  return (
+    <ProductDetail
+      product={singleProduct}
+      ItemMiddle={'Pants'}
+      ItemLink={'pants'}
+    />
+  );
 }

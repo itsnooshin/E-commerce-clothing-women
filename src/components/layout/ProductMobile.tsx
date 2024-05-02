@@ -86,6 +86,18 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
             {item.product_name.split(' ').slice(2).join(' ')}
           </Typography>
 
+          <Box>
+            <Typography
+              sx={{
+                fontWeight: '700',
+                marginRight: '1rem',
+                fontSize: '0.9rem',
+              }}
+            >
+              ${item.procuct_price}
+            </Typography>
+          </Box>
+
           <Box sx={{ display: 'flex', gap: '6px', mt: 1 }}>
             {item.product_color.map((items) => (
               <Typography
@@ -102,18 +114,6 @@ export default function ProductMobile(props: PropsWithChildren<Types>) {
               ></Typography>
             ))}
           </Box>
-        </Box>
-
-        <Box>
-          <Typography
-            sx={{
-              fontWeight: '700',
-              marginRight: '1rem',
-              fontSize: '0.9rem',
-            }}
-          >
-            ${item.procuct_price}
-          </Typography>
         </Box>
       </Box>
     </Link>

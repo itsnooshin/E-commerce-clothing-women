@@ -33,6 +33,7 @@ import CollectionHeader from '@/src/components/headers/CollectionHeader';
 import CollectionImageBannerMobile from '@/src/components/headers/CollectionImageBannerMobile';
 import FilterOptionMobile from '@/src/components/headers/FilterOptionMobile';
 import HeartIcon from '@/src/components/layout/heartIcon';
+import ProductCollectionPants from '@/src/components/layout/ProductCollectionOutwear';
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
@@ -123,7 +124,7 @@ export default function page() {
                     <SkeletonProductCollection displayCount={displayCount} />
                   </Grid>
                 ) : (
-                  <ProductMain items={ProductFilter} count={displayCount} />
+                  <ProductCollectionPants items={ProductFilter} count={displayCount} />
                 )}
               </Grid>
               <LoadingButton
@@ -171,7 +172,7 @@ export default function page() {
 
             <FilterOptionMobile onOpen={openFilter} onState={setOpenFilter} />
           </Box>
-          <Container sx={{ mt: 6, display: { xs: 'flex', md: 'none' }, mb: 5 }}>
+          <Box sx={{ mt: 6, display: { xs: 'flex', md: 'none' }, mb: 5 }}>
             {/* gdfgfdgdg
             <FilterOptionMobile onOpen={openFilter} onState={setOpenFilter} /> */}
 
@@ -363,7 +364,7 @@ export default function page() {
                 handleData={handleMoreData}
               />
             </Grid>
-          </Container>
+          </Box>
         </Container>
         <Footer />
       </Box>

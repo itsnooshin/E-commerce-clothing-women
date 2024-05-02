@@ -2,7 +2,7 @@
 import BannerHeader from '@/src/components/headers/BannerHeader';
 import NavBar from '@/src/components/layout/NavBar';
 import { Product } from '@/src/types/productTypes';
-import { Box, Drawer } from '@mui/material';
+import { Box, Button, Drawer } from '@mui/material';
 import { Container } from '@mui/material';
 import { Grid } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
@@ -31,15 +31,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import DisplayCartMobile from './DisplayCartMobile';
+import { useAuth } from '@/src/context/authContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface ProductValue {
   product: Product;
-  link: string;
+  ItemMiddle: string;
+  ItemLink: string;
 }
 
 export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
-  const { product, link } = props;
+  const { product, ItemMiddle, ItemLink } = props;
   const [size, setSize] = useState('Size');
   const [openModal, setOpenModal] = useState(false);
+  const [openToaster, setOpenToaster] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -94,8 +100,15 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
 
   const handle = () => {
     if (size === 'Size') return;
-    setOpenModal(true);
-    dispatch(addCart(itemToAdd));
+
+    if (!isLoggedIn) {
+      setOpenToaster(true);
+      setOpenModal(false);
+    }
+    if (isLoggedIn) {
+      setOpenModal(true);
+      dispatch(addCart(itemToAdd));
+    }
   };
 
   const handleRemove = (id: any) => {
@@ -116,7 +129,11 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
         <Container
           sx={{ paddingLeft: '0', paddingRight: { xs: '0', md: '16px' } }}
         >
-          <Breadcrumb name={product_name} collection={link} link={link} />
+          <Breadcrumb
+            name={product_name}
+            ItemMiddle={ItemMiddle}
+            ItemLink={ItemLink}
+          />
           <Grid
             container
             spacing={3}
@@ -170,7 +187,12 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                   productSize={product_size}
                 />
 
-                <ProductAddCart handle={handle} price={procuct_price} />
+                <ProductAddCart
+                  openToaster={openToaster}
+                  handle={handle}
+                  price={procuct_price}
+                  close={setOpenToaster}
+                />
                 <ModalAddToCart
                   shopsItem={shopsItem}
                   openModal={openModal}
@@ -240,7 +262,12 @@ export default function ProductDetail(props: PropsWithChildren<ProductValue>) {
                 productSize={product_size}
               />
 
-              <ProductAddCart handle={handle} price={procuct_price} />
+              <ProductAddCart
+                openToaster={openToaster}
+                handle={handle}
+                price={procuct_price}
+                close={setOpenToaster}
+              />
               <Drawer
                 open={openModal}
                 sx={{

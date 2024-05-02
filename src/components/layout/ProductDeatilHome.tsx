@@ -32,6 +32,8 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import DisplayCartMobile from './DisplayCartMobile';
 import UseProductsReturn from '@/src/hooks/UseProductsReturn';
+import { useAuth } from '@/src/context/authContext';
+import { Toaster, toast } from 'sonner';
 
 interface Types {
   product: Product;
@@ -41,6 +43,8 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const { product } = props;
   const [size, setSize] = useState('Size');
   const [openModal, setOpenModal] = useState(false);
+
+  const { isLoggedIn } = useAuth();
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -95,7 +99,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
 
   const handle = () => {
     if (size === 'Size') return;
-    
     setOpenModal(true);
     dispatch(addCart(itemToAdd));
   };
@@ -103,6 +106,8 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const handleRemove = (id: any) => {
     dispatch(RemoveItem(id));
   };
+  
+ 
 
   const handleImageSelect = (image: string, index: any) => {
     setIsHovered(true);
@@ -238,8 +243,9 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 size={size}
                 productSize={product_size}
               />
-
+              <Toaster />
               <ProductAddCart handle={handle} price={procuct_price} />
+
               <Drawer
                 open={openModal}
                 sx={{

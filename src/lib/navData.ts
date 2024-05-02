@@ -4,7 +4,7 @@ export const NAV_DATA = [
     id: 1,
     category: [
       "Shop All",
-      "Blouses & Top",
+      "Boluses & Top",
       "Pants",
       "Dresses & Jumpsuits",
       "Outwear & Jackets",

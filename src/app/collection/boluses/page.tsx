@@ -66,7 +66,7 @@ export default function page() {
             <Skeleton variant="rectangular" width={95} />{' '}
           </Container>
         ) : (
-          <CollectionHeader item={'Blouses'} />
+          <CollectionHeader item={'Top & Boluses'} />
         )}
 
         <Box sx={{ mt: 4, display: { xs: 'none', md: 'flex' } }}>
@@ -123,7 +123,7 @@ export default function page() {
                     <SkeletonProductCollection displayCount={displayCount} />
                   </Grid>
                 ) : (
-                  <ProductMain items={ProductFilter} count={displayCount} />
+                  <ProductMainCollectionBlouses items={ProductFilter} count={displayCount} />
                 )}
               </Grid>
               <LoadingButton
@@ -171,11 +171,8 @@ export default function page() {
 
             <FilterOptionMobile onOpen={openFilter} onState={setOpenFilter} />
           </Box>
-          <Container sx={{ mt: 6, display: { xs: 'flex', md: 'none' }, mb: 5 }}>
-            {/* gdfgfdgdg
-            <FilterOptionMobile onOpen={openFilter} onState={setOpenFilter} /> */}
-
-            <Grid container spacing={2}>
+          <Box sx={{ mt: 6, display: { xs: 'flex', md: 'none' }, mb: 5 }}>
+            <Grid container spacing={2} >
               {loading
                 ? Array.from({ length: 6 }, (_, index) => (
                     <Grid item xs={6} key={index}>
@@ -363,7 +360,7 @@ export default function page() {
                 handleData={handleMoreData}
               />
             </Grid>
-          </Container>
+          </Box>
         </Container>
         <Footer />
       </Box>
