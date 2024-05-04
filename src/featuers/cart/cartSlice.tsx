@@ -41,14 +41,21 @@ export const cartSlice = createSlice({
 
       localStorage.setItem('cartItem', JSON.stringify(state.items));
     },
-    RemoveItem: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
-      localStorage.setItem(
-        'cartItem',
-        JSON.stringify(
-          state.items.filter((item) => item.id !== action.payload),
-        ),
+    RemoveItem: (
+      state,
+      action: PayloadAction<{ id: string; color: string; size: string }>,
+    ) => {
+      const RemoveItem = state.items.filter(
+        (item) =>
+          !(
+            item.id === action.payload.id &&
+            item.color === action.payload.color &&
+            item.size === action.payload.size
+          ),
       );
+      state.items = RemoveItem;
+
+      localStorage.setItem('cartItem', JSON.stringify(RemoveItem));
     },
     setCartItems: (state, action: PayloadAction<CartItem[]>) => {
       state.items = action.payload;

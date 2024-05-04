@@ -26,7 +26,7 @@ function IconHeader() {
   };
   const dispatch = useDispatch<AppDispatch>();
   const shopsItem = useSelector((store: RootState) => store.cart.items);
-// local storage
+  // local storage
   useEffect(() => {
     const getItemCard = localStorage.getItem('cartItem');
     if (getItemCard) {

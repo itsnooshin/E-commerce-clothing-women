@@ -30,7 +30,7 @@ import ProductCollectionBest from '@/src/components/layout/ProductCollectionBest
 
 export default function page() {
   const [displayCount, setDisplayCount] = useState<number>(6);
-  const { items, loading, error } = UseProductsReturn();
+  const { items, loading } = UseProductsReturn();
   const [openFilter, setOpenFilter] = useState(false);
   const filterBestSellers = items
     .filter((item) => item.product_bestsellere === true)

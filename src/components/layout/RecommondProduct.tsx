@@ -37,14 +37,20 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
               fontFamily={'inherit'}
               fontWeight={600}
             >
-              You May Also Like jjj
+              You May Also Like
             </Typography>
             <Grid container spacing={2}>
               {filterProduct.map((item, index) => (
-                <Products
-                  item={item}
-                  link={`/collection/all/products/${item.id}`}
-                />
+                <Grid
+                  item
+                  md={4}
+                  xs={6}
+                  key={index}
+                  sx={{ rowGap: '17rem', mb: { xs: '3rem' } }}
+                  position="relative"
+                >
+                  <Products item={item} link={`/product/${item.id}`} />
+                </Grid>
               ))}
             </Grid>
           </Box>
@@ -66,9 +72,7 @@ export default function RecommondProduct(props: PropsWithChildren<Types>) {
                 <Swiper
                   style={{ paddingBottom: '4rem' }}
                   modules={[Pagination, Autoplay]}
-                  // autoplay={{ delay: 2700, disableOnInteraction: false }}
                   spaceBetween={20}
-                  loop={true}
                   slidesPerView={2.15}
                   pagination={{ clickable: true }}
                 >

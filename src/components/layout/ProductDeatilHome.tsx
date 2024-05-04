@@ -41,7 +41,7 @@ interface Types {
 
 export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const { product } = props;
-  const [size, setSize] = useState('Size');
+  const [size, setSize] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [openToaster, setOpenToaster] = useState(false);
   const { isLoggedIn } = useAuth();
@@ -113,8 +113,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
   const handleRemove = (id: any) => {
     dispatch(RemoveItem(id));
   };
-  
- 
 
   const handleImageSelect = (image: string, index: any) => {
     setIsHovered(true);
@@ -195,7 +193,7 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 />
               </Box>
               <ProductUtilityIcons />
-              {/* background item */}
+
               <ProductMaterialDescription />
             </Grid>
           </Grid>
@@ -203,9 +201,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
             <Swiper
               style={{ paddingBottom: '4rem' }}
               modules={[Pagination, Autoplay]}
-              // autoplay={{ delay: 2700, disableOnInteraction: false }}
-              // spaceBetween={20}
-              loop={true}
               slidesPerView={1}
               pagination={{ clickable: true }}
             >
@@ -221,10 +216,6 @@ export default function ProductDeatilHome(props: PropsWithChildren<Types>) {
                 </SwiperSlide>
               ))}
             </Swiper>
-            {/* <ProductInformation
-              name={product_name}
-              description={product_description}
-            /> */}
           </Box>
           <Container sx={{ display: { xs: 'block', md: 'none' } }}>
             <ProductInformation

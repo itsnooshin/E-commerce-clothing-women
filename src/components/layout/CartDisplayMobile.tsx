@@ -166,7 +166,13 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
                   </Box>
                 </Box>
                 <Button
-                  onClick={() => handleRemove(items.id)}
+                  onClick={() =>
+                    handleRemove({
+                      id: items.id,
+                      color: items.color,
+                      size: items.size,
+                    })
+                  }
                   sx={{
                     color: 'black',
                     position: 'absolute' as 'absolute',
@@ -236,3 +242,4 @@ export default function CartDisplayMobile(props: PropsWithChildren<Props>) {
     </Box>
   );
 }
+

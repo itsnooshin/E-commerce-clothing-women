@@ -4,6 +4,7 @@ import { Box, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import CheckOutButton from './CheckOutButton';
+import useProductDetails from '@/src/hooks/useProductDetails';
 interface Types {
   handleCloseModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
   shopsItem: CartItem[];
@@ -13,13 +14,16 @@ interface Types {
 export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
   const { handleCloseModal, shopsItem, handleRemove } = props;
 
+  const { itemsEl, handleChangeHandleMinus, handleChangeHandle } =
+    useProductDetails();
+
   return (
     <>
       <Box
         sx={{
           // height: '100vh',
-          width :'100%',
-        //   overflow: 'auto',
+          width: '100%',
+          //   overflow: 'auto',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -46,7 +50,7 @@ export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
       </Box>
 
       <Box sx={{ padding: ' 3rem 1.5rem' }}>
-        {shopsItem.map((items) => (
+        {shopsItem.map((items, index) => (
           <>
             <Box
               sx={{
@@ -73,7 +77,7 @@ export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
                     padding: '0.3rem 1rem',
                   }}
                 >
-                 {items.quantity}
+                  {items.quantity}
                 </Box>
               </Box>
 
@@ -99,32 +103,62 @@ export default function DisplayCartMobile(props: PropsWithChildren<Types>) {
                     {' '}
                     $ {items.price}{' '}
                   </Typography>
-                  <Typography
+                  <Box
                     sx={{
+                      background: '#D1D9CF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0rem 0.9rem',
                       position: 'absolute' as 'absolute',
-                      right: '3rem',
+                      right: '2rem',
+                      gap: '20px',
                     }}
                   >
-                    - 1 +
-                  </Typography>
+                    <Button
+                      sx={{
+                        p: 0,
+                        minWidth: 0,
+                        color: '#404E3E',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => handleChangeHandleMinus(index)}
+                    >
+                      -
+                    </Button>
+                    <Typography>{itemsEl[index]}</Typography>
+
+                    <Button
+                      sx={{
+                        p: 0,
+                        minWidth: 0,
+                        color: '#404E3E',
+                        fontSize: '1rem',
+                      }}
+                      onClick={() => handleChangeHandle(index)}
+                    >
+                      +
+                    </Button>
+                  </Box>
                 </Box>
                 <Button
-                  onClick={() => handleRemove(items.id)}
+                  onClick={() =>
+                    handleRemove({
+                      id: items.id,
+                      color: items.color,
+                      size: items.size,
+                    })
+                  }
                   sx={{
                     color: 'black',
                     position: 'absolute' as 'absolute',
-                    // right: "0rem",
+
                     right: '0rem',
-                    // top: "0",
                   }}
                 >
                   <CloseIcon />
                 </Button>
               </Box>
             </Box>
-
-            {/* item - 1 + ==> quantity */}
-            {/* item chanta selected  */}
           </>
         ))}
       </Box>

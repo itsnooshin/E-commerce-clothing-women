@@ -12,12 +12,12 @@ interface Types {
 
 export default function SizeSelector(props: PropsWithChildren<Types>) {
   const { productSize, size, handleChange } = props;
-
   return (
     <FormControl
       sx={{ m: 1, width: { xs: '100%', md: '550px' }, marginLeft: 0 }}
     >
       <Select
+        defaultValue=""
         sx={{
           marginBottom: 0,
           width: { xs: '100%', md: '550px' },
@@ -30,10 +30,10 @@ export default function SizeSelector(props: PropsWithChildren<Types>) {
           PaperProps: {},
         }}
         renderValue={(selectedSize) => {
-          if (selectedSize.length === 0) {
+          if (!selectedSize) {
             return (
-              <Typography sx={{ fontWeight: '800 !important' }}>
-                {size}
+              <Typography sx={{ fontWeight: '600 !important' }}>
+                Size
               </Typography>
             );
           }

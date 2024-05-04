@@ -2,9 +2,6 @@ import { getImages } from "@/src/lib/utilits/apImages";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Product } from "@/src/types/productTypes";
 
-
-
-
 interface ProductState {
   items: Product[];
   loading: boolean;

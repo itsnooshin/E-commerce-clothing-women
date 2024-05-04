@@ -7,7 +7,6 @@ import LogoWebsite from './LogoWebsite';
 import { useRouter } from 'next/navigation';
 import HeaderCart from '../headers/HeaderCart';
 import Link from 'next/link';
-import GridItemsSearch from './GridItemsSearch';
 
 interface Props {
   counts: number[];
@@ -46,18 +45,18 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
 
       <Grid container spacing={2} sx={{ paddingBottom: '1rem' }}>
         <Grid item xs={6} md={6}>
-          <Box sx={{}}>Order summary</Box>
+          <Box>Order summary</Box>
         </Grid>
         <Grid item xs={6} md={6}>
           <Grid container spacing={1}>
             <Grid item xs={4}>
-              <Box sx={{}}>Price</Box>
+              <Box>Price</Box>
             </Grid>
             <Grid item xs={4}>
-              <Box sx={{}}>Quantity</Box>
+              <Box>Quantity</Box>
             </Grid>
             <Grid item xs={4}>
-              <Box sx={{}}>Total</Box>
+              <Box>Total</Box>
             </Grid>
           </Grid>
         </Grid>
@@ -111,7 +110,13 @@ export default function CartDisplayDesktop(props: PropsWithChildren<Props>) {
 
                 <Box sx={{}}>
                   <Button
-                    onClick={() => handleRemove(items.id)}
+                    onClick={() =>
+                      handleRemove({
+                        id: items.id,
+                        color: items.color,
+                        size: items.size,
+                      })
+                    }
                     sx={{
                       color: 'black',
                     }}

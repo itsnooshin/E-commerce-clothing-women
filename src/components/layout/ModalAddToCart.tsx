@@ -18,15 +18,17 @@ export default function ModalAddToCart(props: PropsWithChildren<Types>) {
 
   return (
     <Modal open={openModal} sx={{ display: { xs: 'none', md: 'flex' } }}>
-      {shopsItem.length === 0 ? (
-        <EmptyCart handleCloseModal={handleCloseModal} />
-      ) : (
-        <DisplayProductCart
-          shopsItem={shopsItem}
-          handleCloseModal={handleCloseModal}
-          handleRemove={handleRemove}
-        />
-      )}
+      <Box>
+        {shopsItem.length === 0 ? (
+          <EmptyCart handleCloseModal={handleCloseModal} />
+        ) : (
+          <DisplayProductCart
+            shopsItem={shopsItem}
+            handleCloseModal={handleCloseModal}
+            handleRemove={handleRemove}
+          />
+        )}
+      </Box>
     </Modal>
   );
 }

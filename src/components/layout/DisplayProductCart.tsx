@@ -4,6 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import { CartItem } from '@/src/types/CartItemTypes';
 import ProductAddMinus from './ProductAddMinus';
+import useProductDetails from '@/src/hooks/useProductDetails';
 
 interface Types {
   handleCloseModal: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -14,23 +15,14 @@ interface Types {
 export default function DisplayProductCart(props: PropsWithChildren<Types>) {
   const { handleCloseModal, shopsItem, handleRemove } = props;
 
-  const [value, setValue] = useState<number>(1);
+  const { itemsEl, handleChangeHandleMinus, handleChangeHandle } =
+    useProductDetails();
 
-  function handleAdd() {
-    setValue((count) => count + 1);
-  }
-  function handleMinus() {
-    if (value === 0) return;
-    else {
-      setValue((count) => count - 1);
-    }
-  }
   return (
     <Box
       sx={{
         background: 'white',
         width: '500px',
-        // height: "100vh",
         minHeight: 0,
         height: '100vh',
         overflow: 'auto',
@@ -39,10 +31,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
         right: '0rem',
         padding: ' 3rem 1.5rem',
         display: { xs: 'none', md: 'flex' },
-        // justifyContent: "center",
         flexDirection: 'column',
-        // alignItems: "center",
-
         gap: '2rem',
         paddingTop: '3rem',
       }}
@@ -62,7 +51,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
       <Typography variant="h6" textAlign={'center'} fontWeight={600}>
         Your Cart
       </Typography>
-      {shopsItem.map((items) => (
+      {shopsItem.map((items, index) => (
         <>
           <Box
             sx={{
@@ -90,7 +79,7 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
                   padding: '0.3rem 1rem',
                 }}
               >
-                {items.quantity}
+                {itemsEl[index]}
               </Box>
             </Box>
 
@@ -124,27 +113,25 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
                 >
                   <Button
                     sx={{
-                      minWidth: '0',
+                      p: 0,
+                      minWidth: 0,
                       color: '#404E3E',
-                      fontSize: '1.4rem',
-                      padding: '0',
-                      fontWeight: '600',
+                      fontSize: '1rem',
                     }}
-                    onClick={handleMinus}
+                    onClick={() => handleChangeHandleMinus(index)}
                   >
                     -
                   </Button>
+                  <Typography>{itemsEl[index]}</Typography>
 
-                  <Typography> {items.quantity}</Typography>
                   <Button
                     sx={{
-                      minWidth: '0',
+                      p: 0,
+                      minWidth: 0,
                       color: '#404E3E',
-                      fontSize: '1.4rem',
-                      padding: '0',
-                      fontWeight: '600',
+                      fontSize: '1rem',
                     }}
-                    onClick={handleAdd}
+                    onClick={() => handleChangeHandle(index)}
                   >
                     +
                   </Button>
@@ -160,7 +147,13 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
                 </Typography>
               </Box>
               <Button
-                onClick={() => handleRemove(items.id)}
+                onClick={() =>
+                  handleRemove({
+                    id: items.id,
+                    color: items.color,
+                    size: items.size,
+                  })
+                }
                 sx={{
                   color: 'black',
                   position: 'absolute' as 'absolute',
@@ -173,9 +166,6 @@ export default function DisplayProductCart(props: PropsWithChildren<Types>) {
               </Button>
             </Box>
           </Box>
-
-          {/* item - 1 + ==> quantity */}
-          {/* item chanta selected  */}
         </>
       ))}
       <Button
