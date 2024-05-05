@@ -106,7 +106,7 @@ function IconHeader() {
             <Person4Icon />
           </Link>
         )}
-        <Link href="/" color="inherit" underline="none">
+        <Link href="/wishlist" color="inherit" underline="none">
           {' '}
           <FavoriteBorderOutlinedIcon />
         </Link>

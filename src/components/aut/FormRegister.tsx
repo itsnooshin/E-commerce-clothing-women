@@ -1,21 +1,21 @@
-import Image from "next/image";
-import imageLogin from "@/public/image-login.jpg";
-import { Box } from "@mui/material";
-import { IconButton } from "@mui/material";
-import { Container } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Stack } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Button } from "@mui/material";
-import * as yup from "yup";
-import Link from "next/link";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import CloseIcon from "@mui/icons-material/Close";
-import FormFieldRegister from "../layout/FormFieldRegister";
-import { useRouter } from "next/navigation";
+import Image from 'next/image';
+import imageLogin from '@/public/image-login.jpg';
+import { Box } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { Container } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Button } from '@mui/material';
+import * as yup from 'yup';
+import Link from 'next/link';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import CloseIcon from '@mui/icons-material/Close';
+import FormFieldRegister from '../layout/FormFieldRegister';
+import { useRouter } from 'next/navigation';
 
 interface formValue {
   firstname: string;
@@ -28,30 +28,30 @@ const validationSchema = yup.object({
   firstname: yup
     .string()
     .trim()
-    .required("First name is required")
-    .min(2, "First name must be  at least 2 characters long"),
+    .required('First name is required')
+    .min(2, 'First name must be  at least 2 characters long'),
 
   lastname: yup
     .string()
     .trim()
-    .required("First name is required")
-    .min(2, "First name must be  at least 2 characters long"),
+    .required('First name is required')
+    .min(2, 'First name must be  at least 2 characters long'),
 
   email: yup
     .string()
-    .email("Email must be a valid email")
-    .required("Email adress is required")
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address format"),
+    .email('Email must be a valid email')
+    .required('Email adress is required')
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email address format'),
   password: yup
     .string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[a-zA-Z0-9]{8,}/, "Password is Invalid"),
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters long')
+    .matches(/[a-zA-Z0-9]{8,}/, 'Password is Invalid'),
 });
 
 function FormRegister() {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const router = useRouter();
   const {
     control,
@@ -59,10 +59,10 @@ function FormRegister() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
     },
     resolver: yupResolver(validationSchema),
   });
@@ -70,15 +70,17 @@ function FormRegister() {
   async function onSubmit(dataForm: formValue) {
     try {
       const { firstname, lastname, email, password } = dataForm;
-      const res = await fetch("http://localhost:4000/register", {
-        method: "POST",
+      const res = await fetch('http://localhost:4000/register', {
+        method: 'POST',
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username: email, password: password }),
       });
-      
+
       if (res.status === 201) {
+        console.log('yessss');
         setOpen(true);
         setEmail(dataForm.email);
         const userDetails = {
@@ -86,15 +88,15 @@ function FormRegister() {
           firstname: dataForm.firstname,
           lastname: dataForm.lastname,
         };
-        localStorage.setItem("userDetails", JSON.stringify(userDetails));
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
 
         router.push("/login");
       }
       if (res.status === 401) {
-        console.log("Registration is faild");
+        console.log('Registration is faild');
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error('Error during registration:', error);
     }
   }
 
@@ -105,7 +107,7 @@ function FormRegister() {
           sx={{
             mb: 10,
             mt: 5,
-            display: { xs: "none", sm: "none", md: "block" },
+            display: { xs: 'none', sm: 'none', md: 'block' },
           }}
         >
           <Grid container>
@@ -115,12 +117,12 @@ function FormRegister() {
                 height={600}
                 alt="this is a image for register"
                 src={imageLogin}
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: 'cover' }}
               />
             </Grid>
             <Grid item xs={6} md={6}>
               <Box>
-                <Stack alignItems={"center"} gap={5}>
+                <Stack alignItems={'center'} gap={5}>
                   <Typography
                     fontWeight="600"
                     variant="h5"
@@ -130,10 +132,10 @@ function FormRegister() {
                   </Typography>
                   <Box
                     sx={{
-                      display: "flex",
-                      gap: "20px",
-                      width: "80%",
-                      flexDirection: "column",
+                      display: 'flex',
+                      gap: '20px',
+                      width: '80%',
+                      flexDirection: 'column',
                     }}
                   >
                     <FormFieldRegister
@@ -144,13 +146,13 @@ function FormRegister() {
 
                     <Box
                       sx={{
-                        display: "flex",
-                        gap: "9px",
-                        justifyContent: "center",
+                        display: 'flex',
+                        gap: '9px',
+                        justifyContent: 'center',
                       }}
                     >
                       <Typography>Already have an account? </Typography>
-                      <Link href="/login" style={{ color: "#748C70" }}>
+                      <Link href="/login" style={{ color: '#748C70' }}>
                         Log In
                       </Link>
                     </Box>
@@ -159,25 +161,25 @@ function FormRegister() {
                   {/* social medias */}
                   <Typography
                     sx={{
-                      fontSize: "15px",
-                      textAlign: "center",
-                      width: "450px",
+                      fontSize: '15px',
+                      textAlign: 'center',
+                      width: '450px',
                     }}
                   >
-                    by clicking register now’’you agree to{" "}
+                    by clicking register now’’you agree to{' '}
                     <Link
                       href="/"
-                      style={{ color: "#748C70", textDecoration: "underline" }}
+                      style={{ color: '#748C70', textDecoration: 'underline' }}
                     >
-                      {" "}
+                      {' '}
                       Terms& Conditions
-                    </Link>{" "}
-                    And{" "}
+                    </Link>{' '}
+                    And{' '}
                     <Link
                       href="/"
-                      style={{ color: "#748C70", textDecoration: "underline" }}
+                      style={{ color: '#748C70', textDecoration: 'underline' }}
                     >
-                      Privacy Policy.{" "}
+                      Privacy Policy.{' '}
                     </Link>
                   </Typography>
                 </Stack>
@@ -186,24 +188,24 @@ function FormRegister() {
           </Grid>
 
           <Modal
-            sx={{ display: { xs: "none", md: "block" } }}
+            sx={{ display: { xs: 'none', md: 'block' } }}
             open={open}
-            style={{ backdropFilter: "blur(5px)", border: "none" }}
+            style={{ backdropFilter: 'blur(5px)', border: 'none' }}
           >
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
                 width: 700,
-                bgcolor: "white",
+                bgcolor: 'white',
                 boxShadow: 24,
                 p: 8,
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "column",
-                gap: "17px",
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '17px',
               }}
             >
               <Box>
@@ -212,7 +214,7 @@ function FormRegister() {
                 </Typography>
               </Box>
               <IconButton
-                sx={{ position: "absolute", top: "8px", left: "8px" }}
+                sx={{ position: 'absolute', top: '8px', left: '8px' }}
                 onClick={() => setOpen(false)}
               >
                 <CloseIcon />
@@ -237,7 +239,7 @@ function FormRegister() {
 
       <Box
         sx={{
-          display: { xs: "block", sm: "block", md: "none" },
+          display: { xs: 'block', sm: 'block', md: 'none' },
           pb: { xs: 3 },
         }}
       >
@@ -245,7 +247,7 @@ function FormRegister() {
           src={imageLogin}
           width={300}
           height={400}
-          style={{ objectFit: "cover", width: "100%" }}
+          style={{ objectFit: 'cover', width: '100%' }}
           alt="image for banner"
         />
         <Container>
@@ -260,10 +262,10 @@ function FormRegister() {
             </Typography>
             <Box
               sx={{
-                display: "flex",
-                gap: "20px",
+                display: 'flex',
+                gap: '20px',
 
-                flexDirection: "column",
+                flexDirection: 'column',
               }}
             >
               <FormFieldRegister
@@ -274,67 +276,67 @@ function FormRegister() {
 
               <Box
                 sx={{
-                  display: "flex",
-                  gap: "9px",
-                  justifyContent: "center",
+                  display: 'flex',
+                  gap: '9px',
+                  justifyContent: 'center',
                 }}
               >
                 <Typography>Already have an account? </Typography>
-                <Link href="/login" style={{ color: "#748C70" }}>
+                <Link href="/login" style={{ color: '#748C70' }}>
                   Log In
                 </Link>
               </Box>
             </Box>
-            <Typography textAlign={"center"}>Or</Typography>
+            <Typography textAlign={'center'}>Or</Typography>
             {/* social medias */}
 
             <Typography
               sx={{
-                fontSize: "15px",
-                textAlign: "center",
+                fontSize: '15px',
+                textAlign: 'center',
 
-                width: { md: "450x", xs: "400px" },
-                margin: { xs: "0 auto" },
+                width: { md: '450x', xs: '400px' },
+                margin: { xs: '0 auto' },
               }}
             >
-              by clicking register now’’you agree to{" "}
+              by clicking register now’’you agree to{' '}
               <Link
                 href="/"
-                style={{ color: "#748C70", textDecoration: "underline" }}
+                style={{ color: '#748C70', textDecoration: 'underline' }}
               >
-                {" "}
+                {' '}
                 Terms& Conditions
-              </Link>{" "}
-              And{" "}
+              </Link>{' '}
+              And{' '}
               <Link
                 href="/"
-                style={{ color: "#748C70", textDecoration: "underline" }}
+                style={{ color: '#748C70', textDecoration: 'underline' }}
               >
-                Privacy Policy.{" "}
+                Privacy Policy.{' '}
               </Link>
             </Typography>
           </Stack>
         </Container>
 
         <Modal
-          sx={{ display: { xs: "block", md: "none" } }}
+          sx={{ display: { xs: 'block', md: 'none' } }}
           open={open}
-          style={{ backdropFilter: "blur(5px)", border: "none" }}
+          style={{ backdropFilter: 'blur(5px)', border: 'none' }}
         >
           <Box
             sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "400px",
-              bgcolor: "white",
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '400px',
+              bgcolor: 'white',
               boxShadow: 24,
               p: 4,
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              gap: "17px",
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '17px',
             }}
           >
             <Box>
@@ -343,7 +345,7 @@ function FormRegister() {
               </Typography>
             </Box>
             <IconButton
-              sx={{ position: "absolute", top: "8px", left: "8px" }}
+              sx={{ position: 'absolute', top: '8px', left: '8px' }}
               onClick={() => setOpen(false)}
             >
               <CloseIcon />

@@ -1,9 +1,9 @@
 // index.js
-const express = require("express");
-const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 /**
  * @typedef {Object} User
@@ -11,11 +11,11 @@ const cookieParser = require("cookie-parser");
  * @property {string} password
  */
 
-const SECRET_KEY = "sdfjiosdjoio233o";
+const SECRET_KEY = 'sdfjiosdjoio233o';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
@@ -32,7 +32,7 @@ const db = {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-app.post("/register", (req, res) => {
+app.post('/register', (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -65,18 +65,18 @@ function verifyToken(req, res, next) {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-app.post("/login", (req, res) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const user = db.users.find(
-    (user) => user.username === username && user.password === password
+    (user) => user.username === username && user.password === password,
   );
 
   if (!user) {
     return res.sendStatus(401);
   }
 
-  const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "1h" });
-  res.cookie("jwt", token, { httpOnly: true, maxAge: 3600000 });
+  const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: '1h' });
+  res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
   // 1 hour expiration
   res.send(200);
 });
@@ -86,14 +86,18 @@ app.post("/login", (req, res) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-app.post("/logout", (req, res) => {
-  res.clearCookie("jwt", { path: "/", httpOnly: true });
+app.post('/logout', (req, res) => {
+  res.clearCookie('jwt', { path: '/', httpOnly: true });
 });
 
-app.get("/verify-token", verifyToken, (req, res) => {
+app.get('/verify-token', verifyToken, (req, res) => {
   res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+
+// Export the Express API
+module.exports = app;
