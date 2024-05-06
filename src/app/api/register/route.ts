@@ -1,7 +1,6 @@
-// pages/api/register.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
 
   const { firstname, lastname, email, password } = req.body;
   return Response.json({
@@ -10,5 +9,5 @@ async function POST(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
-export { POST };
+export default POST;
 
