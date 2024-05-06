@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { firstname, lastname, email, password } = req.body;
-  return Response.json({
+const POST = async function (req: NextRequest) {
+  const { firstname, lastname, email, password } = await req.json();
+  return NextResponse.json({
     message: 'User registered successfully',
     data: [{ firstname, lastname, email, password }],
   });
-}
+};
 
 export { POST };
