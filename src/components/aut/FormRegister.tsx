@@ -70,7 +70,7 @@ function FormRegister() {
   async function onSubmit(dataForm: formValue) {
     try {
       const { firstname, lastname, email, password } = dataForm;
-      const res = await fetch('http://localhost:4000/register', {
+      const res = await fetch('http://localhost:3000/register', {
         method: 'POST',
         credentials: 'include',
         headers: {
