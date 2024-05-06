@@ -16,6 +16,7 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import FormFieldRegister from '../layout/FormFieldRegister';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 interface formValue {
   firstname: string;
@@ -69,18 +70,21 @@ function FormRegister() {
 
   async function onSubmit(dataForm: formValue) {
     try {
-      const { firstname, lastname, email, password } = dataForm;
-      const res = await fetch('http://localhost:3000/register', {
+      const res = await fetch('/api/register', {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: email, password: password }),
+        body: JSON.stringify({
+          username: dataForm.email,
+          password: dataForm.password,
+        }),
       });
 
-      if (res.status === 201) {
-        console.log('yessss');
+      console.log(res);
+      // const data = await res.json();
+      if (res.status === 200) {
+        alert('trueeee')
         setOpen(true);
         setEmail(dataForm.email);
         const userDetails = {
@@ -89,16 +93,55 @@ function FormRegister() {
           lastname: dataForm.lastname,
         };
         localStorage.setItem('userDetails', JSON.stringify(userDetails));
+      }
 
-        router.push("/login");
-      }
-      if (res.status === 401) {
-        console.log('Registration is faild');
-      }
+      setEmail(dataForm.email);
+      const userDetails = {
+        email: dataForm.email,
+        firstname: dataForm.firstname,
+        lastname: dataForm.lastname,
+      };
+
+      localStorage.setItem('userDetails', JSON.stringify(userDetails));
     } catch (error) {
       console.error('Error during registration:', error);
     }
   }
+
+  //   try {
+  //     const { firstname, lastname, email, password } = dataForm;
+  //     const res = await fetch('http://localhost:3000/api/register', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         username: 'nooshin@gmail.com',
+  //         password: '1111148924',
+  //       }),
+  //     });
+  //     console.log(res);
+
+  //     if (res.status === 201) {
+  //       console.log('yessss');
+  //       setOpen(true);
+  //       setEmail(dataForm.email);
+  //       const userDetails = {
+  //         email: dataForm.email,
+  //         firstname: dataForm.firstname,
+  //         lastname: dataForm.lastname,
+  //       };
+  //       localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+  //       router.push('/login');
+  //     }
+  //     if (res.status === 401) {
+  //       console.log('Registration is faild');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during registration:', error);
+  //   }
+  // }
 
   return (
     <>
