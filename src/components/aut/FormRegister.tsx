@@ -84,7 +84,7 @@ function FormRegister() {
       console.log(res);
       // const data = await res.json();
       if (res.status === 200) {
-        alert('trueeee')
+        alert('trueeee');
         setOpen(true);
         setEmail(dataForm.email);
         const userDetails = {
@@ -93,6 +93,7 @@ function FormRegister() {
           lastname: dataForm.lastname,
         };
         localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        router.push('/login');
       }
 
       setEmail(dataForm.email);

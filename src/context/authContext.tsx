@@ -47,17 +47,18 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   async function login(dataForm: FormValues) {
     try {
-      const { email, password } = dataForm;
-      const res = await fetch("http://localhost:4000/login", {
-        method: "POST",
+      
+      const res = await fetch('/api/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: email, password: password }),
+        body: JSON.stringify({ username: dataForm.email, password: dataForm.password }),
       });
 
       if (res.status === 200) {
-        localStorage.setItem("username", email);
+        alert('login successfull');
+        localStorage.setItem('username', dataForm.email);
         setIsLoggedIn(true);
         router.push("/");
       }
