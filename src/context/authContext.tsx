@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import React, {
   useState,
   useContext,
   PropsWithChildren,
   useEffect,
-} from "react";
-import { useRouter } from "next/navigation";
-import { createContext } from "react";
+} from 'react';
+import { useRouter } from 'next/navigation';
+import { createContext } from 'react';
 interface FormValues {
   email: string;
   password: string;
@@ -27,52 +27,67 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [userInfoFirstName, setUserInfoFirstName] = useState("");
-  const [userInfoLastName, setUserInfoLastName] = useState("");
-  const [userInfoEmail, setUserInfoEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [userInfoFirstName, setUserInfoFirstName] = useState('');
+  const [userInfoLastName, setUserInfoLastName] = useState('');
+  const [userInfoEmail, setUserInfoEmail] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    const userDetail = localStorage.getItem("userDetails");
+    const username = localStorage.getItem('username');
+    const userDetail = localStorage.getItem('userDetails');
     if (username && userDetail) {
       setIsLoggedIn(true);
-      const Detail = JSON.parse(userDetail ?? "{}");
-      setUserInfoFirstName(Detail.firstname ?? "");
-      setUserInfoLastName(Detail.lastname ?? "");
-      setUserInfoEmail(Detail.email ?? "");
+      const Detail = JSON.parse(userDetail ?? '{}');
+      setUserInfoFirstName(Detail.firstname ?? '');
+      setUserInfoLastName(Detail.lastname ?? '');
+      setUserInfoEmail(Detail.email ?? '');
     }
   }, []);
 
   async function login(dataForm: FormValues) {
     try {
-      
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: dataForm.email, password: dataForm.password }),
+        body: JSON.stringify({
+          username: dataForm.email,
+          password: dataForm.password,
+        }),
       });
 
       if (res.status === 200) {
         alert('login successfull');
         localStorage.setItem('username', dataForm.email);
         setIsLoggedIn(true);
-        router.push("/");
+        router.push('/');
       }
       if (res.status === 401) {
-        setErrorMessage("Password or email is incorrect. Please try again.");
+        setErrorMessage('Password or email is incorrect. Please try again.');
       }
     } catch (error) {
-      setErrorMessage("An error occurred. Please try again later.");
+      setErrorMessage('An error occurred. Please try again later.');
     }
   }
 
-  function logout() {
-    setIsLoggedIn(false);
-    localStorage.removeItem("username");
+  async function logout() {
+    try {
+      const res = await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        setIsLoggedIn(false);
+        localStorage.removeItem('username');
+      } else {
+        console.log('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   }
 
   return (
@@ -86,7 +101,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         userInfoFirstName,
         userInfoLastName,
         userInfoEmail,
-        
       }}
     >
       {children}
@@ -98,7 +112,7 @@ export default AuthProvider;
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

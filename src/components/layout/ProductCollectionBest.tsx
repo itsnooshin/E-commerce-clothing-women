@@ -6,6 +6,8 @@ import { Product } from '@/src/types/productTypes';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartIcon from './heartIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
 
 interface ProductValue {
   items: Product[];
@@ -16,6 +18,12 @@ export default function ProductMainCollectionBlouses(
   props: PropsWithChildren<ProductValue>,
 ) {
   const { items, count } = props;
+
+const wishlistitems = useSelector((store: RootState) => store.cart.items);
+const dispatch = useDispatch<AppDispatch>();
+
+
+
 
   const [isSelected, setIsSelected] = useState(null);
   const handleChange = (id: any) => {

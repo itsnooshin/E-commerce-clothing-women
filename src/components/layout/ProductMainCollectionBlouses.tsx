@@ -6,6 +6,7 @@ import { Product } from '@/src/types/productTypes';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartIcon from './heartIcon';
+import { useDispatch } from 'react-redux';
 
 interface ProductValue {
   items: Product[];
@@ -134,6 +135,7 @@ export default function ProductMainCollectionBlouses(props: PropsWithChildren<Pr
             onClick={(event) => {
               event.stopPropagation();
               HandleChangeHeart(item.id);
+              useDispatch
             }}
             sx={{
               cursor: 'pointer',

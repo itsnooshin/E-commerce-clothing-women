@@ -106,7 +106,8 @@ function IconHeader() {
             <Person4Icon />
           </Link>
         )}
-        <Link href="/wishlist" color="inherit" underline="none">
+        
+        <Link href={isLoggedIn ? '/wishlist' : '/login'} color="inherit" underline="none">
           {' '}
           <FavoriteBorderOutlinedIcon />
         </Link>

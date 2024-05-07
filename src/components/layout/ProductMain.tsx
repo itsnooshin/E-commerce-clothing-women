@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { Product } from '@/src/types/productTypes';
 import Link from 'next/link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HeartIcon from './heartIcon';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/src/app/store';
+import { addToWishList } from '@/src/featuers/wishlist/wishlistSlice';
 
 interface ProductValue {
   items: Product[];
@@ -13,6 +17,22 @@ interface ProductValue {
 
 const ProductMain = (props: PropsWithChildren<ProductValue>) => {
   const { items, count } = props;
+
+  const wishlistitems = useSelector(
+    (store: RootState) => store.wishlist.wishListItem,
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  // console.log(wishlistitems);
+
+  function handleWishList(
+    event: React.MouseEvent<HTMLDivElement>,
+    item: Product,
+  ) {
+    event.stopPropagation();
+    HandleChangeHeart(item.id);
+    dispatch(addToWishList(item));
+  }
 
   const [isSelected, setIsSelected] = useState(null);
   const handleChange = (id: any) => {
@@ -24,6 +44,8 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
   const HandleChangeHeart = (id: any) => {
     setIsSelectedId(isSelectedId === id ? null : id);
   };
+
+  console.log(wishlistitems);
 
   return (
     <>
@@ -132,8 +154,7 @@ const ProductMain = (props: PropsWithChildren<ProductValue>) => {
           </Link>
           <Box
             onClick={(event) => {
-              event.stopPropagation();
-              HandleChangeHeart(item.id);
+              handleWishList(event, item);
             }}
             sx={{
               cursor: 'pointer',

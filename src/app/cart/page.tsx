@@ -10,15 +10,14 @@ export default function page() {
   const { loading } = UseProductsReturn();
   const { shopsItem, handleRemove } = useProductItems();
 
+  console.log(shopsItem);
+
   useLocalstorage();
 
   if (loading) return <SpinnerLoader />;
   return (
     <Container sx={{ pb: { md: 6 } }}>
-      <CartDisplayItems
-        shopsItem={shopsItem}
-        handleRemove={handleRemove}
-      />
+      <CartDisplayItems shopsItem={shopsItem} handleRemove={handleRemove} />
     </Container>
   );
 }
